@@ -10,3 +10,5 @@ Since I often have several job offers at once, I want to be able to post more th
 To administer my job offers, I want to get a list thereof, including the upload date, expiration date and state of their acceptance.
 
 Job offers should be able to be changed or deleted if requirements have changed or the position has been filled.
+
+## Job portal's administrative assistant
