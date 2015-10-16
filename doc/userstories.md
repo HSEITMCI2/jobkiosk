@@ -12,3 +12,4 @@ To administer my job offers, I want to get a list thereof, including the upload 
 Job offers should be able to be changed or deleted if requirements have changed or the position has been filled.
 
 ## Job portal's administrative assistant
+I as the assistant screen new job offers and accept or reject them. In case of rejection, I send an explanation to the recruiter.
