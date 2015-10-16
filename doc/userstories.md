@@ -1,9 +1,7 @@
 # User stories
 
 ## Recruiter
-To publish a job offer, I as a recruiter, want to post it to an online portal.
-To sign up for the job portal, the recruter enters a company profile.
+As a Recruiter, I want to post job offers to an online portal to acquire a new focus group. Having uploaded my company's profile makes it easy to
+show several offers to this new group.
 
-(To sign in / log in to the portal, the recruiter enters  email/password). 
-
-To post a job offer, the recruiter can upload a job description.
+Being able to upload a job profile makes it easy for me, to promote offers.
