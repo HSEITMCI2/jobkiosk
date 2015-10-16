@@ -12,4 +12,10 @@ To administer my job offers, I want to get a list thereof, including the upload 
 Job offers should be able to be changed or deleted if requirements have changed or the position has been filled.
 
 ## Job portal's administrative assistant
-I as the assistant screen new job offers and accept or reject them. In case of rejection, I send an explanation to the recruiter.
+I as the assistant screen new job offers and accept or reject them. In case of rejection, I send an explanation to the recruiter. I use text blocks for the rection explanations.
+
+## Students
+I as a student browse job offers and select interesting job offer for further information.
+
+## Faculty Members
+I as a faculty member want get a statistic on current job offers. I'm interested in topics of the offers, too.
