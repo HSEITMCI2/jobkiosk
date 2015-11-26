@@ -1,0 +1,83 @@
+html {
+    height: 100%;
+    overflow: hidden;
+    background: #fff;
+}
+
+body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 1em;
+}
+
+header, footer {
+    background: #aaa;
+    flex: 0 0 60px;
+    padding: 10px;
+}
+
+nav {
+    background: #aaa;
+    flex: 0 0 100px;
+}
+
+p.required:after {
+    content: " *";
+}
+
+
+/*  Desktop Mode    */
+label.field {
+    display: inline-block;
+    text-align: right;
+    width: 180px;
+    margin-right: 5px;
+}
+
+
+.button {
+	margin: 10px;
+	padding: 5px;
+	width: 80px;
+	height: 30px;
+	font-size: 1.0em;
+    background: #aaa;
+}
+
+.activebutton {
+    margin: 10px;
+    padding: 5px;
+    width: 80px;
+    height: 30px;
+    font-size: 1.0em;
+    background: #fff;
+}
+
+.centercontent {
+   display: flex;  
+   justify-content: center;
+}
+
+
+section {
+    display: flex;
+    background: #fff;
+    flex: 1 0 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    header, footer {
+        background: #bbb;
+        flex: 0 0 200px;
+        font-size: 3em;
+    }
+}
+

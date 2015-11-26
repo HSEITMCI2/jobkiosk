@@ -1,0 +1,24 @@
+  // The main layout
+extends layout
+
+// The local content
+block content
+	div.column
+		p  #{message} 
+		article
+			form(action='/fileupload', method='POST', role='form', enctype="multipart/form-data" )
+				div
+					label(class='field')
+					span Upload file
+				div
+					p.required
+						label(class='field' for='filename') Your file:
+						input(type="hidden", name="MAX_FILE_SIZE", value="100000")
+						input(type="file" name="filename" id="filename" size="40" maxlength="100000")
+				div
+					label(class='field')
+					button(type='submit', value='Log In') Submit 
+block scripts			
+	script(src='default.js')
+
+	

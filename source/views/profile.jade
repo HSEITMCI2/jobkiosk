@@ -1,0 +1,14 @@
+// The main layout
+extends layout
+
+// The local content
+block content
+	div.column
+		article
+			if (user.email)
+					p= user.email
+
+block scripts			
+	script(src='js/profile.js')
+
+		
