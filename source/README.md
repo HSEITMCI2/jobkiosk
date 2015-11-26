@@ -10,3 +10,13 @@ Includes
 - views with [Jade](http://jade-lang.com/) template engine
 - a user DB with [MongooseJs](http://mongoosejs.com/) and [MongoDB](https://www.mongodb.org/)
 - authentification with [Passport](http://passportjs.org/)
+
+## Pre-Requisites
+- Node.js
+- MongoDB
+- ImageMagick (to convert PDF to PNG)
+
+## Environment Variables
+- CHROME - path to chrome-browser executable for auto-(re-)start
+- IMGMAG - path to convert 
+
