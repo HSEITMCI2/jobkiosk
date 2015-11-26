@@ -20,3 +20,9 @@ Includes
 - CHROME - path to chrome-browser executable for auto-(re-)start
 - IMGMAG - path to convert 
 
+## Start
+
+npm install
+
+gulp
+

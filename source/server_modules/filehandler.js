@@ -1,4 +1,5 @@
-// load the things we need
+/* global process, require, GLOBAL, __dirname, module */
+
 
 "use strict";
 var path = require('path');

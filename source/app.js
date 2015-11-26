@@ -1,3 +1,6 @@
+/* global process, require, GLOBAL, __dirname, module */
+
+
 /**
  * Simple App using the express framework
  *
@@ -15,7 +18,6 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var session = require('express-session');
 var flash = require('connect-flash');
-var busboy = require('connect-busboy'); //middleware for form/file upload
 
 var MongoStore = require('connect-mongo')(session);
 
@@ -60,7 +62,6 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 
 app.set('views', './views');
 app.set('view engine', 'jade');
-app.use(busboy()); // important for file uploads
 
 app.use(express.static(__dirname + '/public'));
 

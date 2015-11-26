@@ -1,3 +1,5 @@
+/* global console, module */
+
 "use strict";
 
 var colors = {};
