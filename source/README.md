@@ -21,8 +21,13 @@ Includes
 - IMGMAG - path to convert 
 
 ## Start
+In Directory source:
 
-npm install
+Install node packages:
+	npm install
 
-gulp
+Start MongoDB
+
+Start Gulp tast runner
+	gulp
 
