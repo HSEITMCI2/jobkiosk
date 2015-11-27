@@ -10,32 +10,25 @@
 
 "use strict";
 
-function InitJobs() {
+function InitJoboffer() {
 
 
-	var that = {};
-	that.setup = function() {
+    var that = {};
+    that.setup = function () {
 
-		var addButton = window.getElementById('addjob');
-		var saveButton = window.getElementById('savejob');
+        var input = dom('input', {
 
-		saveButton.addEventListener('click', function(){
-			
-		});
-		
-		console.log('Jobs');
-		http('get', '/api/profile');
+            name: jobTitle,
+            class: 'jobInput'
+        }, '');
+        // greife auf jade / html id jobcontent zu
+        var jobContent = document.getElementById("jobcontent");
+        jobContent.appendChild(input);
 
-		http('post', '/api/profile', {
-			'familyname': 'Mustermann',
-			'givenname': 'Anna',
-			'company': 'Test AG'
-		});
-	};
-
-	return that;
+    }
+    return that;
 }
 
-window.addEventListener('load', function() {
-	InitJobs().setup();
+window.addEventListener('load', function () {
+    InitJoboffer().setup();
 });
