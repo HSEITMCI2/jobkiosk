@@ -22,6 +22,7 @@ var insideLinks = {
 	'/logout': 'Logout',
 	'/profile': 'Profile',
 	'/jobs': 'Jobs',
+	'/companyoffer': 'Company Offer',
 	'/SpecRunner.html': 'Test'
 };
 
@@ -83,6 +84,13 @@ module.exports = function(app, passport) {
 		para.user = req.user;
 		res.render('jobs', para);
 	});
+
+    // JOBS SECTION =========================
+	app.get('/companyoffer', isLoggedIn, function (req, res) {
+	    para.user = req.user;
+	    res.render('companyoffer', para);
+	});
+
 
 	// LOGOUT ==============================
 	app.get('/logout', function(req, res) {
