@@ -26,11 +26,11 @@ In Directory source:
 Install node packages:
 
 ```
-	npm install
+npm install
 ```
 Start MongoDB
 
 Start Gulp tast runner
 ```
-	gulp
+gulp
 ```
