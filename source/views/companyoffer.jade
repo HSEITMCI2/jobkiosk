@@ -5,8 +5,15 @@ extends layout
 block content
 	div.column
 		article
-			article#joboffers
-				script(src='js/joboffer.js')
+			article.unternehmen
+			  h2 Passwort ändern
+			  p
+			    label.field(for='unternehmen') Passwort
+			    input#unternehmen(type='text', name='password', style='width: 160px;')
+			  p
+			    label.field(for='unternehmen') Pass. wiederholen
+			    input#unternehmen(type='text', name='department', style='width: 160px;')
+
 
 
 block scripts			

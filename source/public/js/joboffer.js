@@ -16,8 +16,6 @@ function InitJobs() {
 	var that = {};
 	that.setup = function() {
 
-		var jobcontrol = window.getElementById('jobcontrol');
-		var jobsviewer = window.getElementById('jobsviewer');
 		var addButton = window.getElementById('addjob');
 		var saveButton = window.getElementById('savejob');
 
