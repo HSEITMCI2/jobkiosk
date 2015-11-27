@@ -23,6 +23,7 @@ var insideLinks = {
 	'/profile': 'Profile',
 	'/jobs': 'Jobs',
 	'/companyoffer': 'Company Offer',
+	'/assistant': 'Assistant',
 	'/SpecRunner.html': 'Test'
 };
 
@@ -85,6 +86,7 @@ module.exports = function(app, passport) {
 		res.render('jobs', para);
 	});
 
+<<<<<<< c8c94becfa7095e1717a9312441e2c84b4e6592c
     // JOBS SECTION =========================
 	app.get('/companyoffer', isLoggedIn, function (req, res) {
 	    para.user = req.user;
@@ -92,6 +94,14 @@ module.exports = function(app, passport) {
 	});
 
 
+=======
+	// Assistant SECTION =========================
+	app.get('/assistant', isLoggedIn, function(req, res) {
+		para.user = req.user;
+		res.render('adminassist', para);
+	});
+
+>>>>>>> first version of admin assist view
 	// LOGOUT ==============================
 	app.get('/logout', function(req, res) {
 		para.links = outsideLinks;
