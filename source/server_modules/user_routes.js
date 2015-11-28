@@ -23,6 +23,7 @@ var insideLinks = {
 	'/profile': 'Profile',
 	'/jobs': 'Jobs',
 	'/companyoffer': 'Company Offer',
+	'/assistant': 'Assistant',
 	'/SpecRunner.html': 'Test'
 };
 
@@ -91,6 +92,11 @@ module.exports = function(app, passport) {
 	    res.render('companyoffer', para);
 	});
 
+	// Assistant SECTION
+	app.get('/assistant', isLoggedIn, function (req, res) {
+    para.user = req.user;
+    res.render('adminassist', para);
+	});
 
 	// LOGOUT ==============================
 	app.get('/logout', function(req, res) {
