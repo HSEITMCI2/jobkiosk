@@ -118,7 +118,6 @@ describe("Can we get the main directory?", function() {
 
 });
 
-
 ///////////////////////////////////////////////////////////////////////////////
 ///	Try to send a job offer
 ///
@@ -128,7 +127,7 @@ describe("send a job ", function() {
 
 		var filename = 'test.pdf';
 
-		testjobs.createPDF(filename);
+		testjobs.createPDF(filename, "Entwickler", "Wir suchen Entwickler.");
 
 		var stats = fs.statSync(filename);
 

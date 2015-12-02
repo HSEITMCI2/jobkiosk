@@ -8,8 +8,6 @@ var path = require('path');
 var PDFDocument = require('pdfkit');
 var os = require('os');
 var fs = require('fs');
-var childProcess = require('child_process');
-var spawn = childProcess.spawn;
 
 
 GLOBAL.searchpaths(module);
@@ -30,55 +28,15 @@ if (env === 'development') {
 	console.log('env', env);
 }
 
-function d2s(type, data) {
-	var str = data.toString();
-	var lines = str.split(/(\r?\n)/g);
-	for (var i = 0; i < lines.length; ++i) {
-		var trimmed = lines[i].trim();
-		if (trimmed.length > 0) {
-			infoLog(type, trimmed);
-		}
-	}
-}
-
-
-function PDF2PNG(filename, density) {
-	var proc;
-	density = density || 300;
-	// we use ImageMagick "convert"-command for conversion from PDF to PNG
-	if (process.env.IMGMAG) {
-		infoLog('ImageMagic Converter', process.env.IMGMAG);
-		var target = filename + '.' + density + '.png'
-		proc = spawn(process.env.IMGMAG, ['-density', density, '-quality', '100', '-flatten', filename, target]);
-		proc.stdout.setEncoding('utf8');
-		proc.stderr.setEncoding('utf8');
-		proc.stdin.setEncoding('utf-8');
-
-		proc.stdout.on('data', function(data) {
-			d2s("PDF2PNG", data);
-		});
-
-		proc.stderr.on('data', function(data) {
-			d2s("PDF2PNG err:", data);
-		});
-
-		return target;
-	} else {
-		infoLog('env IMGMAG is not defined');
-	}
-	return '';
-};
-
 
 function Implementation() {
 	var that = {};
 
-	that.sp2 = function(filename, header, text) {
+	that.create = function(filename, header, text) {
 		var doc = new PDFDocument();
 
 		doc.pipe(fs.createWriteStream(filename));
-		doc.font('fonts/BOD_R.TTF')
-			.fontSize(25)
+		doc.fontSize(25)
 			.text(header, 100, 100)
 			.fontSize(8)
 			.text(text, 100, 150, {width: 410, align: 'left'});
@@ -89,8 +47,6 @@ function Implementation() {
 
 		doc.end();
 
-		PDF2PNG(filename, 72);
-		PDF2PNG(filename, 300);
 	};
 
 	return that;
