@@ -1,0 +1,203 @@
+.cont_header{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	font-size: 26px;
+	font-weight: bold;
+	background-color: #666;
+	height: 100px;
+}
+
+.cont_unsignedJobs{
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	background-color: #AAF;
+	padding: 20px;
+	padding-left: 10px;
+	overflow: auto;
+}
+.cont_acceptedJobs{
+	display: flex;
+	flex-direction: column;
+	background-color: #AFA;
+	padding: 20px;
+	padding-left: 10px;
+	overflow: auto;
+}
+.cont_declinedJobs{
+	display: flex;
+	flex-direction: column;
+	background-color: #D99;
+	padding: 20px;
+	padding-left: 10px;
+	overflow: auto;
+}
+
+.tab_cell{
+	margin: 0px;
+}
+.tab_row{
+	display: flex;
+	flex-direction: row;
+	font-size: 16px;
+	min-height: 33px;
+
+}
+.row_cont{
+	background-color: #777;
+}
+.row_cont:hover{
+	background-color: #88B;
+}
+
+
+.cell_cont_col0{
+	border: 2px solid #111;
+	border-right: 1px solid #111;
+	border-left:1px solid #111;
+	width: 250px;
+}
+
+.cell_cont_col1{
+	border: 2px solid #111;
+	border-right: 1px solid #111;
+	border-left:1px solid #111;
+	width: 125px;
+}
+
+.cell_cont_col2{
+	border: 2px solid #111;
+	border-right: 1px solid #111;
+	border-left:1px solid #111;
+	width: 125px;
+}
+
+.cell_cont_col3{
+	border: 2px solid #111;
+	border-right: 1px solid #111;
+	border-left:1px solid #111;
+	width: 200px;
+}
+
+.cell_cont_col4{
+	border: 2px solid #111;
+	border-right: 1px solid #111;
+	border-left:1px solid #111;
+	width: 115px;
+}
+
+.cell_cont_col5{
+	border: 2px solid #111;
+	border-right: 1px solid #111;
+	border-left:1px solid #111;
+	width: 80px;
+}
+
+.cell_cont_col6{
+	border: 2px solid #111;
+	border-right: 1px solid #111;
+	border-left:1px solid #111;
+	width: 100px;
+}
+
+.cell_cont_col7{
+	border: 2px solid #111;
+	border-right: 1px solid #111;
+	border-left:1px solid #111;
+	width: 100px;
+}
+
+.tablebody{
+	background-color: #111;
+	border: 1px solid #111;
+}
+.tbody{
+	margin: 0px;
+	border: 1px solid #111;
+}
+
+.row_cont_header{
+	border-bottom: 2px solid #111;
+	background-color: #555;
+	font-weight: bold;
+}
+
+.cell_cont_btnAccept{
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: 4px solid #111;
+	border-right: 25px solid #111;
+	border-left: 25px solid #111;
+	width: 52px;
+	background-color: #AFA;
+	font-weight: bold;
+	padding: 0px;
+}
+
+.cell_cont_btnDecline{
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: 4px solid #111;
+	border-right: 25px solid #111;
+	border-left: 25px solid #111;
+	width: 52px;
+	background-color: #D99;
+	font-weight: bold;
+	padding: 0px;
+}
+
+.cell_cont_btnStornieren{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: 4px solid #111;
+	border-right: 25px solid #111;
+	border-left: 25px solid #111;
+	width: 52px;
+	background-color: #AAF;
+	font-weight: bold;
+	padding: 0px;
+}
+
+.cell_cont_btnDelete{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: 4px solid #111;
+	border-right: 25px solid #111;
+	border-left: 25px solid #111;
+	width: 52px;
+	background-color: #F33;
+	font-weight: bold;
+	padding: 0px;
+}
+
+.cell_cont_btnAccept:hover{
+	background-color: green;
+	color: white;
+}
+
+.cell_cont_btnDecline:hover{
+	background-color: red;
+	color: white;
+}
+
+.cell_cont_btnStornieren:hover{
+	background-color: blue;
+	color: white;
+}
+
+.cell_cont_btnDelete:hover{
+	background-color: darkred;
+	color: white;
+}
