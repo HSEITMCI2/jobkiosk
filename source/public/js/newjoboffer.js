@@ -40,7 +40,7 @@ window.addEventListener('load', function() {
 	// mocking setup for testing purposes
 	// InitNewJobOffer().setup(mockData);
 
-	var re = new RegExp("\?id=([a-zA-Z0-9]+)&*");
+	var re = new RegExp("\\?id=([a-zA-Z0-9]+)&*");
 	var currentId = re.exec(window.location.href)[1];
 
 	getJobsFromDB(function(arraydata) {
