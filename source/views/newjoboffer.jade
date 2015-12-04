@@ -6,7 +6,7 @@ block content
 	div.column
 		if (user.email)
 			p(title='user') You are logged in as
-			user.email
+			p= user.email
 		article#jobcontrol
 			button#addjob Add Job
 		article#jobsviewer
