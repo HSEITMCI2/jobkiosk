@@ -3,6 +3,7 @@
 var mockData = {
 	jobtitle:'Entwickler',
 	jobdescription: 'Entwickler entwickeln Entwicklungen',
+	file: '',
 	company: 'Deutschland GmbH',
 	startdate: new Date("2015-12-01"),
 	validdate: new Date("2015-12-31"),
@@ -24,7 +25,6 @@ function InitNewJobOffer() {
 		// mocking setup function
 		document.getElementById('jobtitle').value = inputData.jobtitle;
 		document.getElementById('jobdescription').value = inputData.jobdescription;
-		document.getElementById('file').value = inputData.file;
 		document.getElementById('company').value = inputData.company;
 		document.getElementById('startdate').value = inputData.startdate;
 		document.getElementById('validdate').value = inputData.validdate;
