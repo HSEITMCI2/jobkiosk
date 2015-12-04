@@ -28,10 +28,18 @@ function Jobs() {
 		tags: [{
 			tag: String,
 		}],
-		date: {
+		creationdate: {
 			type: Date,
 			default: Date.now
 		},
+		validdate: {
+			type: Date,
+			default: Date.now
+		},
+		pdffilename: String,
+		jobtype: String,
+		company: String,
+		status: String,
 		fullimage: String,
 		smallimage: String
 	});
@@ -41,14 +49,23 @@ function Jobs() {
 
 	that.clearDB = function() {
 		that.jobModel.remove({}, function() {
-			console.log('collection removed');
+			dbgLog('collection removed');
 		});
 	};
 
 
-	that.addJob = function(user, file, jobtitle, cb) {
+	that.addJob = function(user, file, body, cb) {
 		var job = {};
-		job.jobtitle = jobtitle;
+		job.jobtitle = body.jobtitle || "no job title";
+		job.tags = body.tags || [];
+		var plus3 = new Date();
+		plus3.setMonth(plus3.getMonth() + 3);
+		job.validdate = body.validdate || plus3;
+		job.jobtype = body.jobtype || "Vollzeit";
+		job.company = body.company || user.company;
+		job.status = body.status || "new";
+		job.pdffilename = file.originalname;
+
 		job.creator = user._id;
 		var targetfilepath = fileInterface.addFile(user.email, file.originalname);
 		job.fullimage = fileInterface.PDF2PNGname(targetfilepath, 300);
@@ -63,7 +80,7 @@ function Jobs() {
 			}
 		});
 
-		dbgLog('Add user  ', user.email);
+		dbgLog('Add Job  ', job.jobtitle);
 		fileInterface.addUserDir(user.email, function(err) {
 			if (!err) {
 				dbgLog('Copy to ', targetfilepath);
