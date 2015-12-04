@@ -37,7 +37,7 @@ function InitJoboffer() {
 			changeBtn.jobId = job._id;
 			changeBtn.addEventListener('click', function(e) {
 				console.log(e.target.jobId);
-				window.location = '/newjoboffer/?id=' + e.target.jobId;
+				window.location.href = 'newjoboffer/?id=' + e.target.jobId;
 			});
 
 			// delete job function
