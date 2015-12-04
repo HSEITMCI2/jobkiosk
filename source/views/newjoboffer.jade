@@ -4,11 +4,11 @@ extends layout
 // The local content
 block content
 	article#jobcontrol
-	div.column
+	div
 		h2 Create New Job Offer
 		article#jobeditor
 			form(action='/api/job', method='POST', role='form', enctype="multipart/form-data")
-			div.row
+			div.jobcreator
 				div
 					p.required
 						label(class='field' for='jobtitle') Job Title
