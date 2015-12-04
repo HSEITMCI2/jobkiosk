@@ -138,6 +138,10 @@ label.field {
 	justify-content: center;
 }
 
+.jobcreator {
+	display: flex;
+	flex-direction: row;
+}
 
 section {
 	display: flex;
