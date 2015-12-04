@@ -1,3 +1,10 @@
+const TAB_COL_JOBTITLE = 0;
+const TAB_COL_STELLENART = 1;
+const TAB_COL_FIRMA = 2;
+const TAB_COL_EMAIL = 3;
+const TAB_COL_EINSTELLDATUM = 4;
+const TAB_COL_GUELTIGBIS = 5;
+
 function LOG(msg) {
 	console.log("LOG: " + msg);
 }
@@ -83,19 +90,19 @@ function App() {
 			var obj = arraydata[i];
 			if(obj.status === "new"){
 
-				addRowToTable(1, obj, arraydata);
+				newAddRowToTable(1, obj, arraydata);
 				obj.status === "unassigned";
 			}else if(obj.status === "unassigned"){
 
-				addRowToTable(1, obj, arraydata);
+				newAddRowToTable(1, obj, arraydata);
 
 			}else if(obj.status === "accepted"){
 				
-				addRowToTable(2, obj, arraydata);
+				newAddRowToTable(2, obj, arraydata);
 
 			}else if(obj.status === "declined"){
 				
-				addRowToTable(3, obj, arraydata);
+				newAddRowToTable(3, obj, arraydata);
 
 			}
 		}
@@ -141,317 +148,147 @@ window.onload = function () {
 	App();
 };
 
-
-function addRowToTable(tabID, obj, arraydata){
-
+function newAddRowToTable(tabID, obj, arraydata){
 	var table = document.getElementById(tabID);
-	
-	//unsigned Table
-	if (tabID === 1){
-		var colCount = table.firstChild.firstChild.firstChild.firstChild.childElementCount
+	var colCount = table.firstChild.firstChild.firstChild.firstChild.childElementCount
+	mycurrent_row = document.createElement("tr");
+    var row_cont = dom('div',{});
+    row_cont.setAttribute('class', 'row_cont');
 
-			mycurrent_row = document.createElement("tr");
-	        var row_cont = dom('div',{});
+    for(var i = 0; i < colCount; i++) {
+    		var cell_cont = dom('div',{});
+    	if(i <= TAB_COL_GUELTIGBIS){
+    		cell_cont.setAttribute('class', ('cell_cont_col' + String(i)));
+            mycurrent_cell = document.createElement("td");
+            
+            if(i === TAB_COL_JOBTITLE){
+            	currenttext = dom('href',{},obj.pdffilename.substring(0,(obj.pdffilename.length - 4)));
+            	currenttext.setAttribute('class', 'jobLink');
+        	}else if(i === TAB_COL_STELLENART){
+        		currenttext = dom('href',{},obj.jobtype);
+            	currenttext.setAttribute('class', 'cellEntry');
+        	}else if(i === TAB_COL_FIRMA){
+        		currenttext = dom('label',{},obj.company);
+            	currenttext.setAttribute('class', 'cellEntry');
+        	}else if(i === TAB_COL_EMAIL){
+        		currenttext = dom('label',{},'email');
+            	currenttext.setAttribute('class', 'cellEntry');
+        	}else if(i === TAB_COL_EINSTELLDATUM){
+        		var cDate = new Date(obj.creationdate);
+        		var cTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
+        		currenttext = dom('label',{}, cTimeString);
+            	currenttext.setAttribute('class', 'cellEntry');
+        	}else if(i === TAB_COL_GUELTIGBIS){
+        		vDate = new Date(obj.validdate);
+            	var vTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
+            	currenttext = dom('label',{},vTimeString);
+            	currenttext.setAttribute('class', 'cellEntry');
+        	}
 
-	        row_cont.setAttribute('class', 'row_cont');
+			mycurrent_cell.appendChild(currenttext);
+            mycurrent_cell.setAttribute('class', 'tab_cell');
+            cell_cont.appendChild(mycurrent_cell);
+            mycurrent_row.appendChild(cell_cont);
+    	}
+   		//unsigned Table
+		if (tabID === 1){
 
-	        for(var i = 0; i < colCount; i++) {
-	        		var cell_cont = dom('div',{});
-	        	if(i < colCount -2){
-	        		cell_cont.setAttribute('class', ('cell_cont_col' + String(i)));
-		            mycurrent_cell = document.createElement("td");
-		            
-		            if(i === 0){
-		            	currenttext = document.createTextNode(obj.pdffilename.substring(0,(obj.pdffilename.length - 4)));
-		        	}else if(i === 1){
-		            	currenttext = document.createTextNode(obj.jobtype);
-		        	}else if(i === 2){
-		            	currenttext = document.createTextNode(obj.company);
-		        	}else if(i === 3){
-		            	currenttext = document.createTextNode("email");
-		        	}else if(i === 4){
-		        		var cDate = new Date(obj.creationdate);
-		        		var cTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
-		            	currenttext = document.createTextNode(cTimeString);
-		        	}else if(i === 5){
-		        		vDate = new Date(obj.validdate);
-		            	var vTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
-		            	currenttext = document.createTextNode(vTimeString);
-		        	}
-
-        			mycurrent_cell.appendChild(currenttext);
-		            mycurrent_cell.setAttribute('class', 'tab_cell');
-		            cell_cont.appendChild(mycurrent_cell);
-		            mycurrent_row.appendChild(cell_cont);
-	        	}
-	        	//accept button
-	        	else if(i === colCount -2){
-	        		cell_cont.setAttribute('class', 'cell_cont_btnAccept');
-	        		cell_cont.addEventListener('click', function(ev){
-	        			LOG("clicked accept");
-	        			obj.status = "accepted";
-	        			saveJobToDB(obj);
-	        			addRowToTable(2, obj);
-	        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
-	        		});
-		            mycurrent_cell = document.createElement("td");
-	        		currenttext = document.createTextNode("+");
-        			mycurrent_cell.appendChild(currenttext);
-		            mycurrent_cell.setAttribute('class', 'tab_cell');
-		            cell_cont.appendChild(mycurrent_cell);
-		            mycurrent_row.appendChild(cell_cont);
-	        	}
-	        	//decline button
-	        	else if(i === colCount -1){
-	        		cell_cont.setAttribute('class', 'cell_cont_btnDecline');
-	        		cell_cont.addEventListener('click', function(ev){
-	        			LOG("clicked decline");
-	        			obj.status = "declined";
-	        			saveJobToDB(obj);
-	        			addRowToTable(3, obj);
-	        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
-	        		});
-		            mycurrent_cell = document.createElement("td");
-	        		currenttext = document.createTextNode("-");
-        			mycurrent_cell.appendChild(currenttext);
-		            mycurrent_cell.setAttribute('class', 'tab_cell');
-		            cell_cont.appendChild(mycurrent_cell);
-		            mycurrent_row.appendChild(cell_cont);
-	        	}
-	        }
-	        mycurrent_row.setAttribute('class', 'tab_row');
-	        row_cont.appendChild(mycurrent_row);
-	        table.firstChild.firstChild.appendChild(row_cont);
-
-	}
-
-	//accepted Table
-	else if(tabID === 2){
-		var colCount = table.firstChild.firstChild.firstChild.firstChild.childElementCount
-
-			mycurrent_row = document.createElement("tr");
-	        var row_cont = dom('div',{});
-
-	        row_cont.setAttribute('class', 'row_cont');
-
-	        for(var i = 0; i < colCount; i++) {
-	        		var cell_cont = dom('div',{});
-	        	if(i < colCount -1){
-	        		cell_cont.setAttribute('class', ('cell_cont_col' + String(i)));
-		            mycurrent_cell = document.createElement("td");
-		            
-		            if(i === 0){
-		            	currenttext = document.createTextNode(obj.pdffilename);
-		        	}else if(i === 1){
-		            	currenttext = document.createTextNode(obj.jobtype);
-		        	}else if(i === 2){
-		            	currenttext = document.createTextNode(obj.company);
-		        	}else if(i === 3){
-		            	currenttext = document.createTextNode("email");
-		        	}else if(i === 4){
-		        		var cDate = new Date(obj.creationdate);
-		        		var cTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
-		            	currenttext = document.createTextNode(cTimeString);
-		        	}else if(i === 5){
-		        		vDate = new Date(obj.validdate);
-		            	var vTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
-		            	currenttext = document.createTextNode(vTimeString);
-		        	}
-
-        			mycurrent_cell.appendChild(currenttext);
-		            mycurrent_cell.setAttribute('class', 'tab_cell');
-		            cell_cont.appendChild(mycurrent_cell);
-		            mycurrent_row.appendChild(cell_cont);
-
-
-	        	}
-	        	//stornieren button
-	        	else if(i === colCount -1){
-	        		cell_cont.setAttribute('class', 'cell_cont_btnStornieren');
-	        		cell_cont.addEventListener('click', function(ev){
-	        			LOG("clicked stornieren");
-	        			obj.status = "unassigned";
-	        			saveJobToDB(obj);
-	        			addRowToTable(1, obj);
-	        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
-	        		});
-		            mycurrent_cell = document.createElement("td");
-	        		currenttext = document.createTextNode("s");
-        			mycurrent_cell.appendChild(currenttext);
-		            mycurrent_cell.setAttribute('class', 'tab_cell');
-		            cell_cont.appendChild(mycurrent_cell);
-		            mycurrent_row.appendChild(cell_cont);
-	        	}
-	        }
-	        mycurrent_row.setAttribute('class', 'tab_row');
-	        row_cont.appendChild(mycurrent_row);
-	        table.firstChild.firstChild.appendChild(row_cont);
-
-	}
-
-	//declined Table
-	else if(tabID === 3){
-		var colCount = table.firstChild.firstChild.firstChild.firstChild.childElementCount
-
-			mycurrent_row = document.createElement("tr");
-	        var row_cont = dom('div',{});
-
-	        row_cont.setAttribute('class', 'row_cont');
-
-	        for(var i = 0; i < colCount; i++) {
-	        		var cell_cont = dom('div',{});
-	        	if(i < colCount -2){
-	        		cell_cont.setAttribute('class', ('cell_cont_col' + String(i)));
-		            mycurrent_cell = document.createElement("td");
-		            
-		            if(i === 0){
-		            	currenttext = document.createTextNode(obj.pdffilename);
-		        	}else if(i === 1){
-		            	currenttext = document.createTextNode(obj.jobtype);
-		        	}else if(i === 2){
-		            	currenttext = document.createTextNode(obj.company);
-		        	}else if(i === 3){
-		            	currenttext = document.createTextNode("email");
-		        	}else if(i === 4){
-		        		var cDate = new Date(obj.creationdate);
-		        		var cTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
-		            	currenttext = document.createTextNode(cTimeString);
-		        	}else if(i === 5){
-		        		vDate = new Date(obj.validdate);
-		            	var vTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
-		            	currenttext = document.createTextNode(vTimeString);
-		        	}
-
-        			mycurrent_cell.appendChild(currenttext);
-		            mycurrent_cell.setAttribute('class', 'tab_cell');
-		            cell_cont.appendChild(mycurrent_cell);
-		            mycurrent_row.appendChild(cell_cont);
-	        	}
-	        	//accept button
-	        	else if(i === colCount -2){
-	        		cell_cont.setAttribute('class', 'cell_cont_btnStornieren');
-	        		cell_cont.addEventListener('click', function(ev){
-	        			LOG("clicked stornieren");
-	        			obj.status = "unassigned";
-	        			saveJobToDB(obj);
-	        			addRowToTable(1, obj);
-	        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
-	        		});
-		            mycurrent_cell = document.createElement("td");
-	        		currenttext = document.createTextNode("s");
-        			mycurrent_cell.appendChild(currenttext);
-		            mycurrent_cell.setAttribute('class', 'tab_cell');
-		            cell_cont.appendChild(mycurrent_cell);
-		            mycurrent_row.appendChild(cell_cont);;
-	        	}
-	        	//decline button
-	        	else if(i === colCount -1){
-	        		cell_cont.setAttribute('class', 'cell_cont_btnDelete');
-	        		cell_cont.addEventListener('click', function(ev){
-	        			LOG("clicked löschen");
-	        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
-	        		});
-		            mycurrent_cell = document.createElement("td");
-	        		currenttext = document.createTextNode("-");
-        			mycurrent_cell.appendChild(currenttext);
-		            mycurrent_cell.setAttribute('class', 'tab_cell');
-		            cell_cont.appendChild(mycurrent_cell);
-		            mycurrent_row.appendChild(cell_cont);
-	        	}
-	        }
-	        mycurrent_row.setAttribute('class', 'tab_row');
-	        row_cont.appendChild(mycurrent_row);
-	        table.firstChild.firstChild.appendChild(row_cont);
-	}
-}
-
-/*
-function newAddRowToTable(){
-		var table = document.getElementById(tabID);
-	
-		var colCount = table.firstChild.firstChild.firstChild.firstChild.childElementCount
-
-		mycurrent_row = document.createElement("tr");
-        var row_cont = dom('div',{});
-
-        row_cont.setAttribute('class', 'row_cont');
-
-        for(var i = 0; i < colCount; i++) {
-        		var cell_cont = dom('div',{});
-        	if(i < colCount -2){
-        		cell_cont.setAttribute('class', ('cell_cont_col' + String(i)));
+        	//accept button
+        	if(i === colCount -2){
+        		cell_cont.setAttribute('class', 'cell_cont_btnAccept');
+        		cell_cont.addEventListener('click', function(ev){
+        			LOG("clicked accept");
+        			obj.status = "accepted";
+        			saveJobToDB(obj);
+        			newAddRowToTable(2, obj);
+        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
+        		});
 	            mycurrent_cell = document.createElement("td");
-	            
-	            if(i === 0){
-	            	currenttext = document.createTextNode(obj.pdffilename.substring(0,(obj.pdffilename.length - 4)));
-	        	}else if(i === 1){
-	            	currenttext = document.createTextNode(obj.jobtype);
-	        	}else if(i === 2){
-	            	currenttext = document.createTextNode(obj.company);
-	        	}else if(i === 3){
-	            	currenttext = document.createTextNode("email");
-	        	}else if(i === 4){
-	        		var cDate = new Date(obj.creationdate);
-	        		var cTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
-	            	currenttext = document.createTextNode(cTimeString);
-	        	}else if(i === 5){
-	        		vDate = new Date(obj.validdate);
-	            	var vTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
-	            	currenttext = document.createTextNode(vTimeString);
-	        	}
-
+        		currenttext = document.createTextNode("+");
+    			mycurrent_cell.appendChild(currenttext);
+	            mycurrent_cell.setAttribute('class', 'tab_cell');
+	            cell_cont.appendChild(mycurrent_cell);
+	            mycurrent_row.appendChild(cell_cont);
+        	}
+        	//decline button
+        	else if(i === colCount -1){
+        		cell_cont.setAttribute('class', 'cell_cont_btnDecline');
+        		cell_cont.addEventListener('click', function(ev){
+        			LOG("clicked decline");
+        			obj.status = "declined";
+        			saveJobToDB(obj);
+        			newAddRowToTable(3, obj);
+        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
+        		});
+	            mycurrent_cell = document.createElement("td");
+        		currenttext = document.createTextNode("-");
     			mycurrent_cell.appendChild(currenttext);
 	            mycurrent_cell.setAttribute('class', 'tab_cell');
 	            cell_cont.appendChild(mycurrent_cell);
 	            mycurrent_row.appendChild(cell_cont);
         	}
         }
+        //accepted Table
+		else if(tabID === 2){
 
-	//unsigned Table
-	if (tabID === 1){
+        	//stornieren button
+        	if(i === colCount -1){
+        		cell_cont.setAttribute('class', 'cell_cont_btnStornieren');
+        		cell_cont.addEventListener('click', function(ev){
+        			LOG("clicked stornieren");
+        			obj.status = "unassigned";
+        			saveJobToDB(obj);
+        			newAddRowToTable(1, obj);
+        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
+        		});
+	            mycurrent_cell = document.createElement("td");
+        		currenttext = document.createTextNode("s");
+    			mycurrent_cell.appendChild(currenttext);
+	            mycurrent_cell.setAttribute('class', 'tab_cell');
+	            cell_cont.appendChild(mycurrent_cell);
+	            mycurrent_row.appendChild(cell_cont);   	
+        	}
+		}
+		//declined Table
+		else if(tabID === 3){
 
-	        	//accept button
-	        	else if(i === colCount -2){
-	        		cell_cont.setAttribute('class', 'cell_cont_btnAccept');
-	        		cell_cont.addEventListener('click', function(ev){
-	        			LOG("clicked accept");
-	        			obj.status = "accepted";
-	        			saveJobToDB(obj);
-	        			addRowToTable(2, obj);
-	        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
-	        		});
-		            mycurrent_cell = document.createElement("td");
-	        		currenttext = document.createTextNode("+");
-        			mycurrent_cell.appendChild(currenttext);
-		            mycurrent_cell.setAttribute('class', 'tab_cell');
-		            cell_cont.appendChild(mycurrent_cell);
-		            mycurrent_row.appendChild(cell_cont);
-	        	}
-	        	//decline button
-	        	else if(i === colCount -1){
-	        		cell_cont.setAttribute('class', 'cell_cont_btnDecline');
-	        		cell_cont.addEventListener('click', function(ev){
-	        			LOG("clicked decline");
-	        			obj.status = "declined";
-	        			saveJobToDB(obj);
-	        			addRowToTable(3, obj);
-	        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
-	        		});
-		            mycurrent_cell = document.createElement("td");
-	        		currenttext = document.createTextNode("-");
-        			mycurrent_cell.appendChild(currenttext);
-		            mycurrent_cell.setAttribute('class', 'tab_cell');
-		            cell_cont.appendChild(mycurrent_cell);
-		            mycurrent_row.appendChild(cell_cont);
-	        	}
-	        }
-	        mycurrent_row.setAttribute('class', 'tab_row');
-	        row_cont.appendChild(mycurrent_row);
-	        table.firstChild.firstChild.appendChild(row_cont);
-
+			//accept button
+        	if(i === colCount -2){
+        		cell_cont.setAttribute('class', 'cell_cont_btnStornieren');
+        		cell_cont.addEventListener('click', function(ev){
+        			LOG("clicked stornieren");
+        			obj.status = "unassigned";
+        			saveJobToDB(obj);
+        			newAddRowToTable(1, obj);
+        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
+        		});
+	            mycurrent_cell = document.createElement("td");
+        		currenttext = document.createTextNode("s");
+    			mycurrent_cell.appendChild(currenttext);
+	            mycurrent_cell.setAttribute('class', 'tab_cell');
+	            cell_cont.appendChild(mycurrent_cell);
+	            mycurrent_row.appendChild(cell_cont);;
+        	}
+        	//decline button
+        	else if(i === colCount -1){
+        		cell_cont.setAttribute('class', 'cell_cont_btnDelete');
+        		cell_cont.addEventListener('click', function(ev){
+        			LOG("clicked löschen");
+        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
+        		});
+	            mycurrent_cell = document.createElement("td");
+        		currenttext = document.createTextNode("-");
+    			mycurrent_cell.appendChild(currenttext);
+	            mycurrent_cell.setAttribute('class', 'tab_cell');
+	            cell_cont.appendChild(mycurrent_cell);
+	            mycurrent_row.appendChild(cell_cont);
+        	}
+		}
+        mycurrent_row.setAttribute('class', 'tab_row');
+        row_cont.appendChild(mycurrent_row);
+        table.firstChild.firstChild.appendChild(row_cont);
 	}
 }
-*/
 
 function cutString(string, length){
 	if (string.length > length){
@@ -475,7 +312,7 @@ function getJobsFromDB(done){
 
 function saveJobToDB(job){
 
-	http('put', '/api/job/' + job.id, job, function(responseText) {
+	http('put', '/api/job/' + job._id, job, function(responseText) {
 		response = JSON.parse(responseText);
 		console.log(response.message);
 	});

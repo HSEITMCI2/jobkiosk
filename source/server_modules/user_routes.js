@@ -24,7 +24,7 @@ var insideLinks = {
 	'/jobs': 'Jobs',
 	'/companyoffer': 'Company Offer',
 	'/assistant': 'Assistant',
-	'/SpecRunner.html': 'Test'
+	'/SpecRunner.html': 'Test',
 	'/statistics' : 'Statistics'
 };
 

@@ -201,3 +201,18 @@
 	background-color: darkred;
 	color: white;
 }
+
+.jobLink{
+	text-decoration: underline;
+	color: blue;
+}
+
+.jobLink:hover{
+	background-color: blue;
+	color: white;
+	cursor: pointer;
+}
+
+.cellEntry{
+	cursor: default;
+}
