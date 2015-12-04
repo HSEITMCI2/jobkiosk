@@ -1,25 +1,41 @@
 "use strict";
 
+var mockData = {
+	jobtitle:'Entwickler',
+	jobdescription: 'Entwickler entwickeln Entwicklungen',
+	file: 'offer.pdf',
+	company: 'Deutschland GmbH',
+	startdate: new Date("2015-12-01"),
+	validdate: new Date("2015-12-31"),
+	duration: "6 Monate",
+	joblocation: 'Stuttgart',
+	jobtype: 'Vollzeit',
+	tags:[
+		'c++',
+		'c',
+		'python'
+	]
+};
+
 function InitNewJobOffer() {
 
 	var that = {};
 
-	that.setup = function () {
-		// create fields for job offers
-		var title = dom('input', {name: 'jobtitle', class: 'jobInput'}, '');
-		var description = dom('input', {name: 'jobDescription', class: 'jobInput'}, '');
-		var fileupload = dom('input', {name: 'fileUpload', class: 'jobInput'}, '');
-		var uploadButton = dom('button', {class: 'uploadButton'}, 'upload');
-		var begin = dom('input', {name: 'jobBegin', class: 'jobInput'}, '');
-		var duration = dom('input', {name: 'jobDuration', class: 'jobInput'});
-		var jobLocation = dom('input', {name: 'jobLocation', class: 'jobInput'});
-		var tags = dom('input', {name: 'tags', class: 'jobInput'});
-		var createButton = dom('button', {class: 'uploadButton'}, 'upload');
-
-		// store everything in div
-		var newJobContainer = dom('div', {}, title, description, fileupload, uploadButton, begin, duration, jobLocation, tags, createButton);
-
-		// create job
-		
+	that.setup = function (inputData) {
+		// mocking setup function
+		document.getElementById('jobtitle').value = inputData.jobtitle;
+		document.getElementById('tags').value = inputData.tags;
+		document.getElementById('startdate').value = inputData.startdate;
+		document.getElementById('duration').value = inputData.duration;
+		document.getElementById('validdate').value = inputData.validdate;
+		document.getElementById('jobtype').value = inputData.jobtype;
+		document.getElementById('company').value = inputData.company;
+		document.getElementById('joblocation').value = inputData.joblocation;
+		document.getElementById('file').value = inputData.file;
 	}
 }
+
+window.addEventListener('load', function() {
+	// mocking setup for testing purposes
+	InitNewJobOffer().setup(mockData);
+});
