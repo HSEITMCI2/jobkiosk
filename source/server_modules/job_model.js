@@ -67,6 +67,7 @@ function Jobs() {
 		job.pdffilename = file.originalname;
 		job.startdate = body.startdate || new Date();
 		job.duration = body.duration || "6 Monate";
+		job.joblocation = body.joblocation || "Stuttgart";
 
 		job.creator = user._id;
 		var targetfilepath = fileInterface.addFile(user.email, file.originalname);
