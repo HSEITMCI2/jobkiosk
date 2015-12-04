@@ -3,15 +3,13 @@ extends layout
 
 // The local content
 block content
-	if (user.email)
-		p(title='user') You are logged in as
-		p= user.email
 	article#jobcontrol
 	div.column
 	h2 Create New Job Offer
 		article#jobeditor
 		div.column
 			form(action='/api/job', method='POST', role='form', enctype="multipart/form-data")
+			div.row
 				div.column
 					div
 						p.required
