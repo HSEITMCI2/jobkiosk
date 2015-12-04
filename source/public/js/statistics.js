@@ -5,10 +5,22 @@ var that = {};
 
 that.setup = function() {
   var fill = d3.scale.category20();
+  var tags = '{ "Tags" : [' +
+'{ "Tag":"Java"},' +
+'{ "Tag":"JavaScript"},' +
+'{ "Tag":"Praktikum"},' +
+'{ "Tag":"Abschlussarbeit"},' +
+'{ "Tag":"SQL"},' +
+'{ "Tag":"CSS3"},' +
+'{ "Tag":"C#"},' +
+'{ "Tag":"Automotive"},' +
+'{ "Tag":"Python"},' +
+'{ "Tag":"C++"} ]}';
+  var tagobject = JSON.parse(tags);
 
   d3.layout.cloud().size([300, 300])
       .words([
-        ".NET", "Silverlight", "jQuery", "CSS3", "HTML5", "JavaScript", "SQL","C#"].map(function(d) {
+  	  tagobject.Tags[0].Tag,  tagobject.Tags[1].Tag,  tagobject.Tags[2].Tag,  tagobject.Tags[3].Tag,  tagobject.Tags[4].Tag,  tagobject.Tags[5].Tag,  tagobject.Tags[5].Tag, tagobject.Tags[6].Tag,  tagobject.Tags[7].Tag,  tagobject.Tags[8].Tag].map(function(d) {
         return {text: d, size: 10 + Math.random() * 50};
       }))
       .rotate(function() { return ~~(Math.random() * 2) * 90; })
@@ -18,7 +30,7 @@ that.setup = function() {
       .start();
 
   function draw(words) {
-    d3.select("section").append("svg")
+    d3.select("article#tagcloud").append("svg")
         .attr("width", 300)
         .attr("height", 300)
       .append("g")

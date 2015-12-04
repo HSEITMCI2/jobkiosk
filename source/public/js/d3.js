@@ -1,4 +1,4 @@
-// !function() {
+!function() {
   var d3 = {
     version: "3.5.10"
   };
@@ -9546,5 +9546,7 @@
   d3.xml = d3_xhrType(function(request) {
     return request.responseXML;
   });
-  if (typeof define === "function" && define.amd) this.d3 = d3, define(d3); else if (typeof module === "object" && module.exports) module.exports = d3; else this.d3 = d3;
-// }();
+  if (typeof define === "function" && define.amd) this.d3 = d3, define(d3); 
+  else if (typeof module === "object" && module.exports) module.exports = d3; 
+  else this.d3 = d3;
+}();
