@@ -43,7 +43,7 @@ window.addEventListener('load', function() {
 	var re = new RegExp("\?id=([a-zA-Z0-9]+)&*")
 	var currentId = re.exec(window.location.href)[1];
 
-	getJobsFromDB(function(arraydata)) {
+	getJobsFromDB(function(arraydata) {
 		for (var i = 0; i < arraydata.length; i++) {
 			var obj = arraydata[i];
 			if( obj._id != currentId ) {
