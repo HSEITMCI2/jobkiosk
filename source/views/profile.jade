@@ -5,49 +5,45 @@ extends layout
 block content
 	div.colborder
 		div.rowborder
-
-
-			div.colborder
+			div.colborder(style='border: 1px solid grey;')
 				div(style='text-align: center;')
 					| Personal Data
 				div
 					p
-						| Name: 
-						span=user.givenname
-				div
+						label(class='field' for='givenname') First Name: 
+						input#givenname(type='text', name='jobtitle', value=user.givenname)
 					p
-						| Nachname: 
-						span=user.familyname
-				div
+						label(class='field' for='familyname') Last Name: 
+						input#familyname(type='text', name='jobtitle', value=user.familyname)
 					p
-						| E-Mail: 
+						label(class='field' for='email') E-Mail:
 						if (user.email)
-						span=user.email
-				div
+						input#email(type='text', name='jobtitle', value=user.email)
 					p
-						| Telephone: 
-						span=user.telephone
-				div
+						label(class='field' for='telephone') Telephone:
+						input#email(type='text', name='jobtitle', value=user.telephone)
 					p
-						| Department: 
-						span=user.department
-				div
+						label(class='field' for='department') Department:
+						input#email(type='text', name='jobtitle', value=user.department)
+				div(style='text-align: center;')
 					p
 						| Adress:
-						p
-							span=user.postcode
-							span  : 
-							span=user.city
-							p=user.street
+					p
+						input#email(type='text', name='jobtitle', value=user.city)
+					p
+						input#email(type='text', name='jobtitle', value=user.postcode)
+					p
+						input#email(type='text', name='jobtitle', value=user.street)
 
 
-			div.colborder
+
+			div.colborder(style='border: 1px solid grey;')
 				div(style='text-align: center;')
 					| Company Data
-				div
+				div(style='text-align: center;')
 					p
-						| Name: 
-						span=user.company
+						label(class='cfield' for='company') Name:
+						input#email(type='text', name='jobtitle', value=user.company)
 				div(style='text-align: center;')
 					p
 						| here goes the logo
@@ -56,22 +52,26 @@ block content
 					span.changepicupload
 
 
-			div.colborder
+			div.colborder(style='border: 1px solid grey;')
 				div(style='text-align: center;')
 					| Profile Picture
 				div(style='text-align: center;')
 					p
 						| here goes the logo
 
-		div.colborder
-			div
-				p
-					| Old Password
-					span.oldpw
-			div
-				p
-					| New Password
-					span.newpw
+		div.colborder(style='flex: 0 0 auto;')
+			div.rowborder
+				div.rowborder(style='border: 1px solid grey;')
+					div.colborder
+						| Change Password
+						p
+							label(class='field' for='oldpw') Old Password:
+							input#email(type='password', name='jobtitle', value=user.oldpw)
+						p
+							label(class='field' for='oldpw') New Password:
+							input#email(type='password', name='jobtitle', value=user.newpw)
+		div.rowborder#submitthis
+
 block scripts			
 	script(src='js/profile.js')
 
