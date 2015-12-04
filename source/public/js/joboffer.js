@@ -30,17 +30,15 @@ function InitJoboffer() {
 
 			// create fields with dom
 			var input = dom('input', { name: 'jobtitle', class: 'jobInput' }, '');
-			var changeBtn = dom('a', { class: 'jobchangebtn', href: '/newjoboffer/?id='+job._id }, 'change');
+			var changeBtn = dom('button', { class: 'jobchangebtn' }, 'change');
 			var deleteBtn = dom('button', { class: 'jobdeletebtn' }, 'delete');
 
 			// change functionality
-			/**
 			changeBtn.jobId = job._id;
 			changeBtn.addEventListener('click', function(e) {
 				console.log(e.target.jobId);
-				self.location = 'newjoboffer/?id=' + e.target.jobId;
+				self.location = 'newjoboffer?id=' + e.target.jobId;
 			});
-			*/
 
 			// delete job function
 			deleteBtn.jobIndex = i;
