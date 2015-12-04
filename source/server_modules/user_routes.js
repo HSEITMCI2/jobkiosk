@@ -23,7 +23,8 @@ var insideLinks = {
 	'/profile': 'Profile',
 	'/jobs': 'Jobs',
 	'/companyoffer': 'Company Offer',
-	'/SpecRunner.html': 'Test'
+	'/SpecRunner.html': 'Test',
+	'/statistics' : 'Statistics'
 };
 
 var outsideLinks = {
@@ -97,6 +98,12 @@ module.exports = function(app, passport) {
 		para.links = outsideLinks;
 		req.logout();
 		res.redirect('/');
+	});
+	
+	// STATISTICS ==============================
+	app.get('/statistics', function(req, res) {
+		para.user = req.user;
+		res.render('statistics', para);
 	});
 
 	// =============================================================================
