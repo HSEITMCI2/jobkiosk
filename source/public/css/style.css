@@ -143,6 +143,11 @@ label.field {
 	margin: 5px;
 }
 
+.jobcreator {
+	display: flex;
+	flex-direction: row;
+}
+
 section {
 	display: flex;
 	background: #fff;
