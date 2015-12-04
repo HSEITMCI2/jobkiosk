@@ -33,12 +33,12 @@ function App() {
 	cont_header.appendChild(header_label);
 
 	//Tables
-	var tab_unsignedJobs_header = new Array(["PDF Name", "Stellenart", "Firma", "Email des Recruiters", 
-											 "Einstelldatum", "gültig bis", "akzeptieren", "nicht akzeptieren"]);
-	var tab_acceptedJobs_header = new Array(["PDF Name", "Stellenart", "Firma", "Email des Recruiters", 
-											 "Einstelldatum", "gültig bis", "stornieren"]);	
-	var tab_declinedJobs_header = new Array(["PDF Name", "Stellenart", "Firma", "Email des Recruiters", 
-											 "Einstelldatum", "gültig bis", "stornieren", "löschen"]);	
+	var tab_unsignedJobs_header = new Array(["Job Titel", "Stellenart", "Firma", "Email des Recruiters", 
+											 "Einstell- datum", "gültig bis", "akzeptieren", "nicht akzeptieren"]);
+	var tab_acceptedJobs_header = new Array(["Job Titel", "Stellenart", "Firma", "Email des Recruiters", 
+											 "Einstell- datum", "gültig bis", "stornieren"]);	
+	var tab_declinedJobs_header = new Array(["Job Titel", "Stellenart", "Firma", "Email des Recruiters", 
+											 "Einstell- datum", "gültig bis", "stornieren", "löschen"]);	
 
 
 	//testdata
@@ -77,51 +77,29 @@ function App() {
 	cont_acceptedJobs.appendChild(tab_acceptedJobs);
 	cont_declinedJobs.appendChild(tab_declinedJobs);
 
+
 	getJobsFromDB(function(arraydata){
 		for(var i = 0; i<arraydata.length; i++){
 			var obj = arraydata[i];
 			if(obj.status === "new"){
 
-				var newData = new Array([obj.pdffilename, obj.jobtype, obj.company, "obj.email", obj.creationdate, obj.validdate]);
-				addRowToTable(1, newData);
+				addRowToTable(1, obj, arraydata);
 
 			}else if(obj.status === "unassigned"){
 
-				var unsData = new Array([obj.pdffilename, obj.jobtype, obj.company, "obj.email", obj.creationdate, obj.validdate]);
-				addRowToTable(1, unsData);
+				addRowToTable(1, obj, arraydata);
 
 			}else if(obj.status === "accepted"){
 				
-				var accData = new Array([obj.pdffilename, obj.jobtype, obj.company, "obj.email", obj.creationdate, obj.validdate]);
-				addRowToTable(2, accData);
+				addRowToTable(2, obj, arraydata);
 
 			}else if(obj.status === "declined"){
 				
-				var unsData = new Array([obj.pdffilename, obj.jobtype, obj.company, "obj.email", obj.creationdate, obj.validdate]);
-				addRowToTable(3, decData);
+				addRowToTable(3, obj, arraydata);
 
 			}
 		}
 	});
-
-	//TEST
-	/*
-	var bspData1 = new Array(["Audi_Technische_Informatik_Stelle2.pdf", "Praktikum", "Audi", "debora.heinz@audi.de", "15.10.15", "14.03.16"]);
-	addRowToTable(1, bspData1);
-	addRowToTable(2, bspData1);
-	addRowToTable(3, bspData1);
-
-	var bspData2 = new Array(["Daimler_Bachelor021313997.pdf", "Bachelor-Arbeit", "Daimler AG", "friedrich.blubb@daimler.de", "22.11.15", "17.05.16"]);
-	addRowToTable(1, bspData2);
-	addRowToTable(2, bspData2);
-	addRowToTable(3, bspData2);
-
-	var bspData3 = new Array(["Festo_Werkstudent_2121212.pdf", "Werkstudent", "Festo", "Anne-Sophie.Scharlatan@festo_werk1.de", "05.10.15", "12.02.16"]);
-	addRowToTable(1, bspData3);
-	addRowToTable(2, bspData3);
-	addRowToTable(3, bspData3);
-	*/
-	//~TEST
 
 }
 
@@ -159,43 +137,18 @@ function createTable(col, id, header) {
     return myTable;
 } 
 
-function matrix( rows, cols, defaultValue){
-
-  var arr = [];
-
-  // Creates all lines:
-  for(var i=0; i < rows; i++){
-
-      // Creates an empty line
-      arr.push([]);
-
-      // Adds cols to the empty line:
-      arr[i].push( new Array(cols));
-
-      for(var j=0; j < cols; j++){
-        // Initializes:
-        arr[i][j] = defaultValue;
-      }
-  }
-
-return arr;
-}
-
 window.onload = function () {
 	App();
 };
 
 
-function addRowToTable(tabID, rowData){
+function addRowToTable(tabID, obj, arraydata){
 
 	var table = document.getElementById(tabID);
 	
 	//unsigned Table
 	if (tabID === 1){
 		var colCount = table.firstChild.firstChild.firstChild.firstChild.childElementCount
-
-
-		if((colCount -2) === rowData[0].length){
 
 			mycurrent_row = document.createElement("tr");
 	        var row_cont = dom('div',{});
@@ -209,17 +162,21 @@ function addRowToTable(tabID, rowData){
 		            mycurrent_cell = document.createElement("td");
 		            
 		            if(i === 0){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 32));
+		            	currenttext = document.createTextNode(obj.pdffilename.substring(0,(obj.pdffilename.length - 4)));
 		        	}else if(i === 1){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 15));
+		            	currenttext = document.createTextNode(obj.jobtype);
 		        	}else if(i === 2){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 15));
+		            	currenttext = document.createTextNode(obj.company);
 		        	}else if(i === 3){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 25));
+		            	currenttext = document.createTextNode("email");
 		        	}else if(i === 4){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 10));
+		        		var cDate = new Date(obj.creationdate);
+		        		var cTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
+		            	currenttext = document.createTextNode(cTimeString);
 		        	}else if(i === 5){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 10));
+		        		vDate = new Date(obj.validdate);
+		            	var vTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
+		            	currenttext = document.createTextNode(vTimeString);
 		        	}
 
         			mycurrent_cell.appendChild(currenttext);
@@ -232,7 +189,9 @@ function addRowToTable(tabID, rowData){
 	        		cell_cont.setAttribute('class', 'cell_cont_btnAccept');
 	        		cell_cont.addEventListener('click', function(ev){
 	        			LOG("clicked accept");
-	        			addRowToTable(2, rowData);
+	        			obj.status = "accepted";
+	        			saveJobToDB(obj);
+	        			addRowToTable(2, obj);
 	        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
 	        		});
 		            mycurrent_cell = document.createElement("td");
@@ -247,7 +206,9 @@ function addRowToTable(tabID, rowData){
 	        		cell_cont.setAttribute('class', 'cell_cont_btnDecline');
 	        		cell_cont.addEventListener('click', function(ev){
 	        			LOG("clicked decline");
-	        			addRowToTable(3, rowData);
+	        			obj.status = "declined";
+	        			saveJobToDB(obj);
+	        			addRowToTable(3, obj);
 	        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
 	        		});
 		            mycurrent_cell = document.createElement("td");
@@ -262,17 +223,11 @@ function addRowToTable(tabID, rowData){
 	        row_cont.appendChild(mycurrent_row);
 	        table.firstChild.firstChild.appendChild(row_cont);
 
-		}else{
-			LOG("Wrong RowData dimension in function <addRowToTable>");
-		}
 	}
 
 	//accepted Table
 	else if(tabID === 2){
 		var colCount = table.firstChild.firstChild.firstChild.firstChild.childElementCount
-
-
-		if((colCount -1) === rowData[0].length){
 
 			mycurrent_row = document.createElement("tr");
 	        var row_cont = dom('div',{});
@@ -286,17 +241,21 @@ function addRowToTable(tabID, rowData){
 		            mycurrent_cell = document.createElement("td");
 		            
 		            if(i === 0){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 32));
+		            	currenttext = document.createTextNode(obj.pdffilename);
 		        	}else if(i === 1){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 15));
+		            	currenttext = document.createTextNode(obj.jobtype);
 		        	}else if(i === 2){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 15));
+		            	currenttext = document.createTextNode(obj.company);
 		        	}else if(i === 3){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 25));
+		            	currenttext = document.createTextNode("email");
 		        	}else if(i === 4){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 10));
+		        		var cDate = new Date(obj.creationdate);
+		        		var cTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
+		            	currenttext = document.createTextNode(cTimeString);
 		        	}else if(i === 5){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 10));
+		        		vDate = new Date(obj.validdate);
+		            	var vTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
+		            	currenttext = document.createTextNode(vTimeString);
 		        	}
 
         			mycurrent_cell.appendChild(currenttext);
@@ -311,7 +270,9 @@ function addRowToTable(tabID, rowData){
 	        		cell_cont.setAttribute('class', 'cell_cont_btnStornieren');
 	        		cell_cont.addEventListener('click', function(ev){
 	        			LOG("clicked stornieren");
-	        			addRowToTable(1, rowData);
+	        			obj.status = "unassigned";
+	        			saveJobToDB(obj);
+	        			addRowToTable(1, obj);
 	        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
 	        		});
 		            mycurrent_cell = document.createElement("td");
@@ -326,17 +287,11 @@ function addRowToTable(tabID, rowData){
 	        row_cont.appendChild(mycurrent_row);
 	        table.firstChild.firstChild.appendChild(row_cont);
 
-		}else{
-			LOG("Wrong RowData dimension in function <addRowToTable>");
-		}
 	}
 
 	//declined Table
 	else if(tabID === 3){
 		var colCount = table.firstChild.firstChild.firstChild.firstChild.childElementCount
-
-
-		if((colCount -2) === rowData[0].length){
 
 			mycurrent_row = document.createElement("tr");
 	        var row_cont = dom('div',{});
@@ -350,17 +305,21 @@ function addRowToTable(tabID, rowData){
 		            mycurrent_cell = document.createElement("td");
 		            
 		            if(i === 0){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 32));
+		            	currenttext = document.createTextNode(obj.pdffilename);
 		        	}else if(i === 1){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 15));
+		            	currenttext = document.createTextNode(obj.jobtype);
 		        	}else if(i === 2){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 15));
+		            	currenttext = document.createTextNode(obj.company);
 		        	}else if(i === 3){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 25));
+		            	currenttext = document.createTextNode("email");
 		        	}else if(i === 4){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 10));
+		        		var cDate = new Date(obj.creationdate);
+		        		var cTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
+		            	currenttext = document.createTextNode(cTimeString);
 		        	}else if(i === 5){
-		            	currenttext = document.createTextNode(cutString(rowData[0][i], 10));
+		        		vDate = new Date(obj.validdate);
+		            	var vTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
+		            	currenttext = document.createTextNode(vTimeString);
 		        	}
 
         			mycurrent_cell.appendChild(currenttext);
@@ -373,7 +332,9 @@ function addRowToTable(tabID, rowData){
 	        		cell_cont.setAttribute('class', 'cell_cont_btnStornieren');
 	        		cell_cont.addEventListener('click', function(ev){
 	        			LOG("clicked stornieren");
-	        			addRowToTable(1, rowData);
+	        			obj.status = "unassigned";
+	        			saveJobToDB(obj);
+	        			addRowToTable(1, obj);
 	        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
 	        		});
 		            mycurrent_cell = document.createElement("td");
@@ -401,12 +362,10 @@ function addRowToTable(tabID, rowData){
 	        mycurrent_row.setAttribute('class', 'tab_row');
 	        row_cont.appendChild(mycurrent_row);
 	        table.firstChild.firstChild.appendChild(row_cont);
-
-		}else{
-			LOG("Wrong RowData dimension in function <addRowToTable>");
-		}
 	}
 }
+
+
 
 function cutString(string, length){
 	if (string.length > length){
@@ -428,3 +387,12 @@ function getJobsFromDB(done){
 
 }
 
+function saveJobToDB(job){
+
+	http('put', '/api/job/' + job.id, job, function(responseText) {
+		response = JSON.parse(responseText);
+		console.log(response.message);
+
+	});
+
+}

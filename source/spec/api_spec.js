@@ -200,6 +200,7 @@ describe("get all jobs ", function() {
 
 	it("there  are 3 jobs saved", function() {
 		expect(response.length).toBe(3);
+		expect(response[0].company).not.toBe(undefined);
 	});
 
 
