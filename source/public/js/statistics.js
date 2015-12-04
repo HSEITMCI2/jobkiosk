@@ -18,12 +18,12 @@ that.setup = function() {
 '{ "Tag":"C++"} ]}';
   var tagobject = JSON.parse(tags);
 
-  d3.layout.cloud().size([300, 300])
+  d3.layout.cloud().size([500, 500])
       .words([
-  	  tagobject.Tags[0].Tag,  tagobject.Tags[1].Tag,  tagobject.Tags[2].Tag,  tagobject.Tags[3].Tag,  tagobject.Tags[4].Tag,  tagobject.Tags[5].Tag,  tagobject.Tags[5].Tag, tagobject.Tags[6].Tag,  tagobject.Tags[7].Tag,  tagobject.Tags[8].Tag].map(function(d) {
-        return {text: d, size: 10 + Math.random() * 50};
+  	  tagobject.Tags[0].Tag,  tagobject.Tags[1].Tag,  tagobject.Tags[2].Tag,  tagobject.Tags[3].Tag,  tagobject.Tags[4].Tag,  tagobject.Tags[5].Tag,  tagobject.Tags[5].Tag, tagobject.Tags[6].Tag,  tagobject.Tags[7].Tag,  tagobject.Tags[8].Tag,  tagobject.Tags[9].Tag].map(function(d) {
+        return {text: d, size: 15 + Math.random() * 100};
       }))
-      .rotate(function() { return ~~(Math.random() * 2) * 90; })
+      .rotate(function() { return ~~(Math.random() * 2) * 360; })
       .font("Impact")
       .fontSize(function(d) { return d.size; })
       .on("end", draw)
@@ -31,10 +31,10 @@ that.setup = function() {
 
   function draw(words) {
     d3.select("article#tagcloud").append("svg")
-        .attr("width", 300)
-        .attr("height", 300)
+        .attr("width", 1500)
+        .attr("height", 1000)
       .append("g")
-        .attr("transform", "translate(150,150)")
+        .attr("transform", "translate(600,300)")
       .selectAll("text")
         .data(words)
       .enter().append("text")
