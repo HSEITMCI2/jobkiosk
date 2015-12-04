@@ -7,6 +7,7 @@ var rest = require('restler');
 GLOBAL.searchpaths = (function(mod) {
 	var searchdirs = [
 		path.resolve(__dirname, "../server_modules"),
+		path.resolve(__dirname, "../spec"),
 	];
 	// module is not global!
 	return function(mod) {
@@ -18,6 +19,8 @@ GLOBAL.searchpaths = (function(mod) {
 
 GLOBAL.searchpaths(module);
 
+
+var testjobs = require('test_jobs')();
 var defaultuser = require('defaultuser');
 var logFuncs = require('log');
 
@@ -124,6 +127,9 @@ describe("send a job ", function() {
 	beforeEach(function(done) {
 
 		var filename = 'test.pdf';
+
+		testjobs.createPDF(filename);
+
 		var stats = fs.statSync(filename);
 
 
