@@ -22,7 +22,7 @@ var insideLinks = {
 	'/logout': 'Logout',
 	'/profile': 'Profile',
 	'/jobs': 'Jobs',
-	'/newJobOffer': 'new job offer',
+	'/newjoboffer': 'new job offer',
 	'/companyoffer': 'Company Offer',
 	'/SpecRunner.html': 'Test'
 };
@@ -93,7 +93,7 @@ module.exports = function(app, passport) {
 	});
 
 	// New Job offer section =================
-	app.get('/newJobOffer', isLoggedIn, function(req, res){
+	app.get('/newjoboffer', isLoggedIn, function(req, res){
 		para.user = req.user;
 		res.render('newjoboffer', para);
 	});
