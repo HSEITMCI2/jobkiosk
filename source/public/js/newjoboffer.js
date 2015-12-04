@@ -56,7 +56,7 @@ window.addEventListener('load', function() {
 
 function getJobsFromDB(done) {
 	http('get', '/api/jobs', {}, function(responseText) {
-		response = JSON.parse(responseText);
+		var response = JSON.parse(responseText);
 		done(response);
 	});
 }
