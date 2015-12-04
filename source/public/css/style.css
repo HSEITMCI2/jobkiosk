@@ -1,18 +1,18 @@
 html {
-    height: 100%;
-    overflow: hidden;
-    background: #fff;
+	height: 100%;
+	overflow: hidden;
+	background: #fff;
 }
 
 body {
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, Verdana, sans-serif;
-    font-size: 1em;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 1em;
 }
 .jumbotron {
 	background-image:url('http://www.scheisse-bewerten.eu/img/Poo.png');
@@ -26,27 +26,27 @@ body {
  }
 
 header, footer {
-    background: #aaa;
-    flex: 0 0 60px;
-    padding: 10px;
+	background: #aaa;
+	flex: 0 0 60px;
+	padding: 10px;
 }
 
 nav {
-    background: #aaa;
-    flex: 0 0 100px;
+	background: #aaa;
+	flex: 0 0 100px;
 }
 
 p.required:after {
-    content: " *";
+	content: " *";
 }
 
 
 /*  Desktop Mode    */
 label.field {
-    display: inline-block;
-    text-align: right;
-    width: 180px;
-    margin-right: 5px;
+	display: inline-block;
+	text-align: right;
+	width: 180px;
+	margin-right: 5px;
 }
 
 
@@ -56,38 +56,102 @@ label.field {
 	width: 80px;
 	height: 30px;
 	font-size: 1.0em;
-    background: #aaa;
+	background: #aaa;
 }
 
 .activebutton {
-    margin: 10px;
-    padding: 5px;
-    width: 80px;
-    height: 30px;
-    font-size: 1.0em;
-    background: #fff;
+	margin: 10px;
+	padding: 5px;
+	width: 80px;
+	height: 30px;
+	font-size: 1.0em;
+	background: #fff;
 }
 
+
+.jobdeletebtn {
+	border-radius: 4px;
+	background-color: #f4511e;
+	border: none;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 18px;
+	padding: 0px;
+	width: 80px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 5px;
+}
+
+.jobchangebtn {
+	border-radius: 4px;
+	border: none;
+	text-align: center;
+	font-size: 18px;
+	padding: 0px;
+	width: 80px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 5px;
+}
+
+.jobInput {
+	border-radius: 5px;
+	border-color: #000000;
+	text-align: center;
+	font-size: 18px;
+	padding: 0px;
+	width: 300px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 5px;
+}
+
+.jobdeletebtn span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+	.jobdeletebtn span:after {
+		content: '»';
+		position: absolute;
+		opacity: 0;
+		top: 0;
+		right: -20px;
+		transition: 0.5s;
+	}
+
+.jobdeletebtn:hover span {
+	padding-right: 25px;
+}
+
+	.jobdeletebtn:hover span:after {
+		opacity: 1;
+		right: 0;
+	}
+
+
 .centercontent {
-   display: flex;  
-   justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 
 section {
-    display: flex;
-    background: #fff;
-    flex: 1 0 auto;
-    flex-direction: row;
-    flex-wrap: wrap;
+	display: flex;
+	background: #fff;
+	flex: 1 0 auto;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
 
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    header, footer {
-        background: #bbb;
-        flex: 0 0 200px;
-        font-size: 3em;
-    }
+	header, footer {
+		background: #bbb;
+		flex: 0 0 200px;
+		font-size: 3em;
+	}
 }
-
