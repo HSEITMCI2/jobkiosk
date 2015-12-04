@@ -2,6 +2,11 @@ doctype html
 html
 	head
 		link(rel='stylesheet', href='css/style.css' )
+		link(rel='stylesheet', href='css/shift.css')
+		//link(rel='stylesheet', href='css/bootstrap.css')
+		//script(src='js/libs/jquery-2.1.4.js')
+		//script(src='js/libs/bootstrap.js')
+		
 		title= title
 		meta(charset="UTF-8")
 		meta(name="description", content="HTML Template")
@@ -9,27 +14,21 @@ html
 		meta(name="author", content="Andreas Roessler, HS Esslingen")
 	body
 		header
-			h2 Job Kiosk
+			h1 Job Kiosk	
 		section#content
-			nav
-				.navbar-header
-					button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
-						span.sr-only Toggle navigation
-						| &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-						span.icon-bar
-						| &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-						span.icon-bar
-						| &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-						span.icon-bar
-				
-				-each val, key in links
-					-if (id == key)
-						div.activebutton
-							a(href='#{key}') #{val}
-					-else            
-						div.button
-							a(href='#{key}') #{val}
-			block content
+			nav 
+				//.navbar.navbar-inverse
+				//.container
+				//	.navbar-header
+				u1							
+					-each val, key in links
+						-if (id == key)
+							li.activebutton
+								a(href='#{key}') #{val}
+						-else            
+							li.button
+								a(href='#{key}') #{val}
+		block content
 		footer
 			div.centercontent
 				a(href='/impressum') Impressum
