@@ -34,6 +34,8 @@ function InitNewJobOffer() {
 		document.getElementById('jobtype').value = inputData.jobtype;
 		document.getElementById('tags').value = inputData.tags.toString();
 	}
+
+	return that;
 }
 
 window.addEventListener('load', function() {
