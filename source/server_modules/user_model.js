@@ -23,7 +23,7 @@ function Users() {
 	var jobInterface = require('job_model')();
 	var defaultuser = require('defaultuser');
 
-	var fields = ['familyname', 'givenname', 'email', 'company', 'department', 'street', 'postcode', 'city', 'countrytxt', 'password'];
+	var fields = ['familyname', 'givenname', 'email', 'company', 'department', 'street', 'postcode', 'city', 'countrytxt', 'password', 'telephone'];
 	var schema = {};
 	for (var i = 0; i < fields.length; ++i) {
 		schema[fields[i]] = {

@@ -17,8 +17,6 @@ var mockdata = [{ jobTitle: 'myfirsttitle' }, { jobTitle: 'mysecondtitle' }, { j
 "use strict";
 
 
-
-
 function InitJoboffer() {
 
 	var that = {};
@@ -44,9 +42,23 @@ function InitJoboffer() {
 			deleteBtn.addEventListener('click', function (e) {
 				console.log(e.target.jobIndex);
 
-				jobData.splice(e.target.jobIndex, 1);
-				removeChildren(jobContent);
-				that.setup(jobData);
+				var r = confirm("Are you sure?!");
+				if (r == true) {
+					jobData.splice(e.target.jobIndex, 1);
+					removeChildren(jobContent);
+					that.setup(jobData);
+				} else {
+					// do nothing
+				}
+
+			});
+
+			// change job function
+			changeBtn.jobIndex = i;
+			changeBtn.addEventListener('click', function (e) {
+				console.log(e.target.jobIndex);
+				window.location = 'jobs';
+				
 			});
 
 			// access jade / html id jobcontent
@@ -58,7 +70,7 @@ function InitJoboffer() {
 	that.updateFromServer = function () {
 		http('get', '/api/jobs', {}, function (responseText) {
 			response = JSON.parse(responseText);
-			that.setup(response);
+			that.setup(mockdata);
 		});
 	};
 	return that;

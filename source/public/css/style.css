@@ -128,6 +128,20 @@ label.field {
 	justify-content: center;
 }
 
+.rowborder {
+	display: flex;
+	flex-direction: row;
+	flex: 2 0 auto;
+	margin: 5px;
+}
+
+.colborder {
+	display: flex;
+	flex-direction: column;
+	flex: 2 0 auto;
+	border: 1px solid grey;
+	margin: 5px;
+}
 
 section {
 	display: flex;

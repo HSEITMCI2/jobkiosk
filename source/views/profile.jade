@@ -3,11 +3,75 @@ extends layout
 
 // The local content
 block content
-	div.column
-		article
-			if (user.email)
-					p= user.email
+	div.colborder
+		div.rowborder
 
+
+			div.colborder
+				div(style='text-align: center;')
+					| Personal Data
+				div
+					p
+						| Name: 
+						span=user.givenname
+				div
+					p
+						| Nachname: 
+						span=user.familyname
+				div
+					p
+						| E-Mail: 
+						if (user.email)
+						span=user.email
+				div
+					p
+						| Telephone: 
+						span=user.telephone
+				div
+					p
+						| Department: 
+						span=user.department
+				div
+					p
+						| Adress:
+						p
+							span=user.postcode
+							span  : 
+							span=user.city
+							p=user.street
+
+
+			div.colborder
+				div(style='text-align: center;')
+					| Company Data
+				div
+					p
+						| Name: 
+						span=user.company
+				div(style='text-align: center;')
+					p
+						| here goes the logo
+				div
+					span.changepic
+					span.changepicupload
+
+
+			div.colborder
+				div(style='text-align: center;')
+					| Profile Picture
+				div(style='text-align: center;')
+					p
+						| here goes the logo
+
+		div.colborder
+			div
+				p
+					| Old Password
+					span.oldpw
+			div
+				p
+					| New Password
+					span.newpw
 block scripts			
 	script(src='js/profile.js')
 

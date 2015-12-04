@@ -19,8 +19,16 @@ function InitProfile() {
 
 		http('post', '/api/profile', {
 			'familyname': 'Mustermann',
-			'givenname': 'Anna',
-			'company': 'Test AG'
+			'givenname': 'Sexy Anna',
+			'company': 'KILL JAVASCRIPT AG',
+			'department': 'WC',
+			'telephone' : '0800123456',
+			'street': 'langestr',
+			'postcode': '666',
+			'city': 'hell',
+			'countrytxt' :'ka'
+
+
 		});
 	};
 
