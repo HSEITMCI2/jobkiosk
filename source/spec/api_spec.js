@@ -174,6 +174,7 @@ describe("send a job ", function() {
 });
 
 
+var job = {};
 
 describe("get all jobs ", function() {
 	var response;
@@ -198,10 +199,34 @@ describe("get all jobs ", function() {
 		expect(response.length).not.toBe(undefined);
 	});
 
-	it("there  are 3 jobs saved", function() {
+	it("there  are 3 jobs saved", function(done) {
 		expect(response.length).toBe(3);
 		expect(response[0].company).not.toBe(undefined);
+		job = response[0];
+		done();
 	});
 
+
+	describe("save a job ", function() {
+		beforeEach(function(done) {
+			job.email = defaultuser.email;
+			job.password = defaultuser.password;
+			job.api = true;
+			job.status = "accepted";
+			rest.put(baseurl + '/job/' + job._id, job).on('complete', function(resobj) {
+				if (resobj.message) {
+					errorLog('getting jobs', resobj.message);
+				}
+				response = resobj;
+				done();
+			});
+
+		});
+
+		it("the job is saved", function() {
+			expect(response.message).toBe('saved job');
+		});
+
+	});
 
 });
