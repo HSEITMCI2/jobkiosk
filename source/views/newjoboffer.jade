@@ -5,8 +5,7 @@ extends layout
 block content
 	article#jobcontrol
 	div.column
-	h2 Create New Job Offer
-	div.column
+		h2 Create New Job Offer
 		article#jobeditor
 			form(action='/api/job', method='POST', role='form', enctype="multipart/form-data")
 				div.column
