@@ -6,45 +6,43 @@ block content
 	article#jobcontrol
 	div.column
 	h2 Create New Job Offer
-		article#jobeditor
-		div.column
-			form(action='/api/job', method='POST', role='form', enctype="multipart/form-data")
-			div.row
-				div.column
-					div
-						p.required
-							label(class='field' for='jobtitle') Job Title
-							input#jobtitle(type='text', name='jobtitle', placeholder='Job Title')
-					div
-						p.required
-							label(class='field' for='jobdescription') Job Description
-							input#jobdescription(type='text', name='jobdescription', placeholder='Job Description')
-					div
-						p.required
-							label(class='field' for='filename') Your file:
-							input(type="hidden", name="MAX_FILE_SIZE", value="100000")
-							input(type="file" name="file" id="filename" size="40" maxlength="100000")
-				div.column
-					div
-						p.required
-							label(class='field' for='jobbegin') Job Begin
-							input#jobbegin(type='text', name='jobbegin', placeholder='begin')
-					div
-						p.required
-							label(class='field' for='jobduration') Job duration
-							input#jobduration(type='text', name='jobduration', placeholder='duration')
-					div
-						p.required
-							label(class='field' for='joblocation') Job location
-							input#joblocation(type='text', name='joblocation', placeholder='location')
-					div
-						p.required
-							label(class='field' for='jobtags') Job tags
-							input#jobtags(type='text', name='jobtags', placeholder='tags')
+	article#jobeditor
+		form(action='/api/job', method='POST', role='form', enctype="multipart/form-data")
+			div.column
+				div
+					p.required
+						label(class='field' for='jobtitle') Job Title
+						input#jobtitle(type='text', name='jobtitle', placeholder='Job Title')
+				div
+					p.required
+						label(class='field' for='jobdescription') Job Description
+						input#jobdescription(type='text', name='jobdescription', placeholder='Job Description')
+				div
+					p.required
+						label(class='field' for='filename') Your file:
+						input(type="hidden", name="MAX_FILE_SIZE", value="100000")
+						input(type="file" name="file" id="filename" size="40" maxlength="100000")
+			div.column
+				div
+					p.required
+						label(class='field' for='jobbegin') Job Begin
+						input#jobbegin(type='text', name='jobbegin', placeholder='begin')
+				div
+					p.required
+						label(class='field' for='jobduration') Job duration
+						input#jobduration(type='text', name='jobduration', placeholder='duration')
+				div
+					p.required
+						label(class='field' for='joblocation') Job location
+						input#joblocation(type='text', name='joblocation', placeholder='location')
+				div
+					p.required
+						label(class='field' for='jobtags') Job tags
+						input#jobtags(type='text', name='jobtags', placeholder='tags')
 
-					div
-						label(class='field')
-						button(type='submit', value='create') Submit 
+				div
+					label(class='field')
+					button(type='submit', value='create') Submit 
 
 block scripts			
 	script(src='js/jobs.js')
