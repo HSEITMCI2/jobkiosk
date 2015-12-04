@@ -51,7 +51,7 @@ window.addEventListener('load', function() {
 			}
 			InitNewJobOffer().setup(obj);
 		}
-	}
+	});
 });
 
 function getJobsFromDB(done) {
