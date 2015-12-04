@@ -121,42 +121,86 @@ describe("Can we get the main directory?", function() {
 ///////////////////////////////////////////////////////////////////////////////
 ///	Try to send a job offer
 ///
+///
+///
+///
+
+function postJob(jobtitle, filename, done) {
+	var stats = fs.statSync(filename);
+	rest.post(baseurl + '/job', {
+		multipart: true,
+		data: {
+			email: defaultuser.email,
+			jobtitle: jobtitle,
+			api: true,
+			file: rest.file(filename, null, stats.size, null, 'application/pdf')
+		}
+	}).on('complete', function(resobj) {
+		done(resobj);
+	});
+
+}
+
+
 describe("send a job ", function() {
 	var response;
 	beforeEach(function(done) {
 
 		var filename = 'test.pdf';
-
-		testjobs.createPDF(filename, "Entwickler", "Wir suchen Entwickler.");
-
 		var stats = fs.statSync(filename);
 
+		// 		testjobs.createPDF(filename, "Entwickler", "Wir suchen Entwickler.");
 
-		rest.post(baseurl + '/job', {
-			multipart: true,
+		if (stats.size > 0) {
+			postJob('Entwickler', filename, function() {
+				postJob('Supporter', filename, function() {
+					postJob('Berater', filename, function(resobj) {
+						response = resobj;
+						done();
+					});
+				});
+			});
+		} else {
+			errorLog('Error in file', filename);
+		}
+	});
+
+	it("the job has a title", function() {
+		expect(response.error).toBe(undefined);
+		expect(response._id).not.toBe(undefined);
+		expect(response.jobtitle).toBe("Berater");
+	});
+
+});
+
+
+
+describe("get all jobs ", function() {
+	var response;
+	beforeEach(function(done) {
+		rest.get(baseurl + '/jobs', {
 			data: {
 				email: defaultuser.email,
-				jobtitle: "Entwickler",
 				api: true,
-				file: rest.file(filename, null, stats.size, null, 'application/pdf')
+				password: defaultuser.password
 			}
 		}).on('complete', function(resobj) {
+			if (resobj.message) {
+				errorLog('getting jobs', resobj.message);
+			}
 			response = resobj;
 			done();
 		});
 
 	});
 
-	it("gets a response on posting a job", function() {
-		expect(response.error).toBe(undefined);
+	it("the jobs are saved in an array", function() {
+		expect(response.length).not.toBe(undefined);
 	});
 
-	it("the job has an id", function() {
-		expect(response._id).not.toBe(undefined);
+	it("there  are 3 jobs saved", function() {
+		expect(response.length).toBe(3);
 	});
 
-	it("the job has a title", function() {
-		expect(response.jobtitle).toBe("Entwickler");
-	});
 
 });

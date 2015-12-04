@@ -128,6 +128,35 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/api/jobs', isLoggedIn, function(req, res) {
+		dbgLog('multer', req.body.email);
+
+		if (req.body && req.body.api && req.body.email) {
+			dbgLog('Search user', req.body.email);
+			userInterface.findByEmail(req.body.email, function(err, user) {
+				if (err) {
+					res.send({
+						error: true
+					});
+					return
+				} else {
+					jobModel.find({
+						creator: user._id
+					}, function(err, jobs) {
+						if (err) {
+							errorLog('no jobs found!' + err);
+							res.json({
+								message: 'no jobs found!' + err
+							});
+						} else {
+							res.json(jobs);
+						}
+					});
+				}
+			});
+			return;
+		}
+
+
 		if (req && req.user && req.user._id) {
 			jobModel.find({
 				creator: req.user._id
@@ -162,7 +191,7 @@ module.exports = function(app, passport) {
 					});
 					return
 				} else {
-					jobInterface.addJob(user, req.file, req.body.jobtitle, function(saved) {
+					jobInterface.addJob(user, req.file, req.body, function(saved) {
 						res.send(saved);
 					});
 				}
@@ -171,7 +200,7 @@ module.exports = function(app, passport) {
 		}
 
 		if (req && req.user && req.user._id) {
-			jobInterface.addJob(req.user, req.file, req.body.jobtitle, function(){});
+			jobInterface.addJob(req.user, req.file, req.body, function() {});
 			res.redirect('back');
 			return;
 		}
