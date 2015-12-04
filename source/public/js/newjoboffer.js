@@ -24,14 +24,15 @@ function InitNewJobOffer() {
 	that.setup = function (inputData) {
 		// mocking setup function
 		document.getElementById('jobtitle').value = inputData.jobtitle;
-		document.getElementById('tags').value = inputData.tags;
-		document.getElementById('startdate').value = inputData.startdate;
-		document.getElementById('duration').value = inputData.duration;
-		document.getElementById('validdate').value = inputData.validdate;
-		document.getElementById('jobtype').value = inputData.jobtype;
-		document.getElementById('company').value = inputData.company;
-		document.getElementById('joblocation').value = inputData.joblocation;
+		document.getElementById('jobdescription').value = inputData.jobdescription;
 		document.getElementById('file').value = inputData.file;
+		document.getElementById('company').value = inputData.company;
+		document.getElementById('startdate').value = inputData.startdate;
+		document.getElementById('validdate').value = inputData.validdate;
+		document.getElementById('duration').value = inputData.duration;
+		document.getElementById('joblocation').value = inputData.joblocation;
+		document.getElementById('jobtype').value = inputData.jobtype;
+		document.getElementById('tags').value = inputData.tags.toString();
 	}
 }
 
