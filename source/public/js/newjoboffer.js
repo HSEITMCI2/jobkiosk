@@ -3,7 +3,7 @@
 var mockData = {
 	jobtitle:'Entwickler',
 	jobdescription: 'Entwickler entwickeln Entwicklungen',
-	file: 'offer.pdf',
+	file: '',
 	company: 'Deutschland GmbH',
 	startdate: new Date("2015-12-01"),
 	validdate: new Date("2015-12-31"),
