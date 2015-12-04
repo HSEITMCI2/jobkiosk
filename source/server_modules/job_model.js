@@ -65,6 +65,8 @@ function Jobs() {
 		job.company = body.company || user.company;
 		job.status = body.status || "new";
 		job.pdffilename = file.originalname;
+		job.startdate = body.startdate || new Date();
+		job.duration = body.duration || "6 Monate";
 
 		job.creator = user._id;
 		var targetfilepath = fileInterface.addFile(user.email, file.originalname);
