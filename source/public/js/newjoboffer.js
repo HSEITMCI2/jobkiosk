@@ -3,7 +3,6 @@
 var mockData = {
 	jobtitle:'Entwickler',
 	jobdescription: 'Entwickler entwickeln Entwicklungen',
-	file: '',
 	company: 'Deutschland GmbH',
 	startdate: new Date("2015-12-01"),
 	validdate: new Date("2015-12-31"),
@@ -21,8 +20,8 @@ function InitNewJobOffer() {
 
 	var that = {};
 
+
 	that.setup = function (inputData) {
-		// mocking setup function
 		document.getElementById('jobtitle').value = inputData.jobtitle;
 		document.getElementById('jobdescription').value = inputData.jobdescription;
 		document.getElementById('company').value = inputData.company;
@@ -39,5 +38,25 @@ function InitNewJobOffer() {
 
 window.addEventListener('load', function() {
 	// mocking setup for testing purposes
-	InitNewJobOffer().setup(mockData);
+	// InitNewJobOffer().setup(mockData);
+
+	var re = new RegExp("\?id=([a-zA-Z0-9]+)&*")
+	var currentId = re.exec(window.location.href)[1];
+
+	getJobsFromDB(function(arraydata)) {
+		for (var i = 0; i < arraydata.length; i++) {
+			var obj = arraydata[i];
+			if( obj._id != currentId ) {
+				continue;
+			}
+			InitNewJobOffer().setup(obj);
+		}
+	}
 });
+
+function getJobsFromDB(done) {
+	http('get', '/api/jobs', {}, function(responseText) {
+		response = JSON.parse(responseText);
+		done(response);
+	});
+}
