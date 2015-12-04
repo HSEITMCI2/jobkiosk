@@ -84,7 +84,7 @@ function App() {
 			if(obj.status === "new"){
 
 				addRowToTable(1, obj, arraydata);
-
+				obj.status === "unassigned";
 			}else if(obj.status === "unassigned"){
 
 				addRowToTable(1, obj, arraydata);
@@ -365,7 +365,93 @@ function addRowToTable(tabID, obj, arraydata){
 	}
 }
 
+/*
+function newAddRowToTable(){
+		var table = document.getElementById(tabID);
+	
+		var colCount = table.firstChild.firstChild.firstChild.firstChild.childElementCount
 
+		mycurrent_row = document.createElement("tr");
+        var row_cont = dom('div',{});
+
+        row_cont.setAttribute('class', 'row_cont');
+
+        for(var i = 0; i < colCount; i++) {
+        		var cell_cont = dom('div',{});
+        	if(i < colCount -2){
+        		cell_cont.setAttribute('class', ('cell_cont_col' + String(i)));
+	            mycurrent_cell = document.createElement("td");
+	            
+	            if(i === 0){
+	            	currenttext = document.createTextNode(obj.pdffilename.substring(0,(obj.pdffilename.length - 4)));
+	        	}else if(i === 1){
+	            	currenttext = document.createTextNode(obj.jobtype);
+	        	}else if(i === 2){
+	            	currenttext = document.createTextNode(obj.company);
+	        	}else if(i === 3){
+	            	currenttext = document.createTextNode("email");
+	        	}else if(i === 4){
+	        		var cDate = new Date(obj.creationdate);
+	        		var cTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
+	            	currenttext = document.createTextNode(cTimeString);
+	        	}else if(i === 5){
+	        		vDate = new Date(obj.validdate);
+	            	var vTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
+	            	currenttext = document.createTextNode(vTimeString);
+	        	}
+
+    			mycurrent_cell.appendChild(currenttext);
+	            mycurrent_cell.setAttribute('class', 'tab_cell');
+	            cell_cont.appendChild(mycurrent_cell);
+	            mycurrent_row.appendChild(cell_cont);
+        	}
+        }
+
+	//unsigned Table
+	if (tabID === 1){
+
+	        	//accept button
+	        	else if(i === colCount -2){
+	        		cell_cont.setAttribute('class', 'cell_cont_btnAccept');
+	        		cell_cont.addEventListener('click', function(ev){
+	        			LOG("clicked accept");
+	        			obj.status = "accepted";
+	        			saveJobToDB(obj);
+	        			addRowToTable(2, obj);
+	        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
+	        		});
+		            mycurrent_cell = document.createElement("td");
+	        		currenttext = document.createTextNode("+");
+        			mycurrent_cell.appendChild(currenttext);
+		            mycurrent_cell.setAttribute('class', 'tab_cell');
+		            cell_cont.appendChild(mycurrent_cell);
+		            mycurrent_row.appendChild(cell_cont);
+	        	}
+	        	//decline button
+	        	else if(i === colCount -1){
+	        		cell_cont.setAttribute('class', 'cell_cont_btnDecline');
+	        		cell_cont.addEventListener('click', function(ev){
+	        			LOG("clicked decline");
+	        			obj.status = "declined";
+	        			saveJobToDB(obj);
+	        			addRowToTable(3, obj);
+	        			cell_cont.parentNode.parentNode.parentNode.removeChild(cell_cont.parentNode.parentNode);
+	        		});
+		            mycurrent_cell = document.createElement("td");
+	        		currenttext = document.createTextNode("-");
+        			mycurrent_cell.appendChild(currenttext);
+		            mycurrent_cell.setAttribute('class', 'tab_cell');
+		            cell_cont.appendChild(mycurrent_cell);
+		            mycurrent_row.appendChild(cell_cont);
+	        	}
+	        }
+	        mycurrent_row.setAttribute('class', 'tab_row');
+	        row_cont.appendChild(mycurrent_row);
+	        table.firstChild.firstChild.appendChild(row_cont);
+
+	}
+}
+*/
 
 function cutString(string, length){
 	if (string.length > length){
@@ -392,7 +478,6 @@ function saveJobToDB(job){
 	http('put', '/api/job/' + job.id, job, function(responseText) {
 		response = JSON.parse(responseText);
 		console.log(response.message);
-
 	});
 
 }
