@@ -13,6 +13,16 @@ html
 			h2 Job Kiosk
 		section#content
 			nav
+				.navbar-header
+					button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+						span.sr-only Toggle navigation
+						| &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+						span.icon-bar
+						| &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+						span.icon-bar
+						| &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+						span.icon-bar
+				
 				-each val, key in links
 					-if (id == key)
 						div.activebutton
