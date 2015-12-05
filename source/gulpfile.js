@@ -53,6 +53,7 @@
 
 	gulp.task('jasmine', function() {
 		return gulp.src([specs])
+			.pipe(cache('specs'))
 			.pipe(debug({
 				title: 'jasmine:'
 			}))
