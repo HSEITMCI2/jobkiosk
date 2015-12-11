@@ -43,8 +43,9 @@ section {
  
 footer {
 	background: #2E2E2E;
-	flex: 0 0 50px;
-	padding: 10px;
+	flex: 0 0 36px;
+	height: 48px;
+	padding-top: 12px;
 }
 
 p.required:after {
@@ -171,6 +172,22 @@ li.button a:hover {
 .centercontent {
 	display: flex;
 	justify-content: center;
+}
+
+.centercontent a {
+	display: block;
+    color: #848484;
+    text-align: center;
+    text-decoration: none;
+}
+
+.centercontent a:hover {
+    color: white;
+	text-decoration: none;	
+}
+.centercontent span {
+	color: #848484;
+	padding: 0 2cm;
 }
 
 .jobcreator {
