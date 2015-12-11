@@ -4,28 +4,7 @@ extends layout
 // The local content
 block content
 	div.column
-		if (user.email)
-			p= user.email
-		article#jobcontrol
-			button#addjob Add Job
-		article#jobsviewer
-			h2 Jobs
-			div#jobslist
-		article#jobeditor
-			h2 Edit Job
-			form(action='/api/job', method='POST', role='form', enctype="multipart/form-data" )
-				div
-					label(class='field' for='jobtitle') Job Title
-					input#jobtitle(type='text', name="jobtitle", placeholder='Job Title')
-				div
-					p.required
-						label(class='field' for='filename') Your file:
-						input(type="hidden", name="MAX_FILE_SIZE", value="100000")
-						input(type="file" name="file" id="filename" size="40" maxlength="100000")
-				div
-					label(class='field')
-					button(type='submit', value='submit') Submit 
-
+		article#jobcontent
 
 block scripts			
 	script(src='js/jobs.js')

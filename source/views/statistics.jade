@@ -1,17 +1,15 @@
 // The main layout
 extends layout
 
-block prescripts			
-	script(src='js/d3.min.js')
-	script(src='js/d3.layout.js')
-
+block prescripts
+	script(src='js/d3.js')
+	script(src='js/d3.layout.cloud.js')
 // The local content
 block content
 	div.column
 		article#statistics
 		h2 Statistiken
 			article#tagcloud
-			h2 TagCloud
 		
 
 block scripts			

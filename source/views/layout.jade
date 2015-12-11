@@ -2,6 +2,7 @@ doctype html
 html
 	head
 		link(rel='stylesheet', href='css/style.css' )
+						
 		title= title
 		meta(charset="UTF-8")
 		meta(name="description", content="HTML Template")
@@ -9,18 +10,19 @@ html
 		meta(name="author", content="Andreas Roessler, HS Esslingen")
 		block prescripts
 	body
-		header
-			h2 Job Kiosk
+		//header
+			h1 Job Kiosk
 		section#content
-			nav
-				-each val, key in links
-					-if (id == key)
-						div.activebutton
-							a(href='#{key}') #{val}
-					-else            
-						div.button
-							a(href='#{key}') #{val}
-			block content
+			nav 
+				u1
+					-each val, key in links
+						-if (id == key)
+							li.activebutton
+								a(href='#{key}') #{val}
+						-else            
+							li.button
+								a(href='#{key}') #{val}
+		block content
 		footer
 			div.centercontent
 				a(href='/impressum') Impressum

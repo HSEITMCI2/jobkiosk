@@ -5,7 +5,7 @@
 
 'use strict';
 
-var fs = require('fs');
+// var fs = require('fs');
 var multer = require('multer');
 var upload = multer({
 	dest: 'userfiles/'
@@ -17,11 +17,10 @@ var logFuncs = require('log');
 var moduleName = "JobRoutes]:";
 var errorLog = logFuncs.xlog("[Error in " + moduleName, "FgWhite", "BgRed", 0);
 //var warningLog = logFuncs.xlog("[Warning " + moduleName, "FgRed", "BgWhite", 1);
-var infoLog = logFuncs.xlog("[Info in " + moduleName, "FgGreen", "BgBlack", 2);
+// var infoLog = logFuncs.xlog("[Info in " + moduleName, "FgGreen", "BgBlack", 2);
 var dbgLog = logFuncs.xlog("[Debug " + moduleName, "FgBlue", "BgYellow", 3);
 
 module.exports = function(app, passport) {
-
 	if (passport === undefined) {
 		throw "passport undefined";
 	}
@@ -33,7 +32,7 @@ module.exports = function(app, passport) {
 
 	// var fileInterface = require('filehandler')();
 
-	var authenticate = passport.authenticate('local-login');
+	// var authenticate = passport.authenticate('local-login');
 
 	function isLoggedIn(req, res, next) {
 		if (req.isAuthenticated() || env === 'development') {
@@ -140,7 +139,7 @@ module.exports = function(app, passport) {
 					res.send({
 						error: true
 					});
-					return
+					return;
 				} else {
 					jobModel.find({
 						creator: user._id
@@ -179,10 +178,7 @@ module.exports = function(app, passport) {
 		}
 	});
 
-	app.post('/api/job', isLoggedIn, upload.single('file'), function(req, res, next) {
-		dbgLog('multer', req.body.email);
-		dbgLog('multer', req.body.jobtitle);
-		dbgLog('multer', req.file);
+	app.post('/api/job', isLoggedIn, upload.single('file'), function(req, res) {
 
 		// no session - every post sends credentials 
 		if (req.body && req.body.api && req.body.email) {
@@ -192,7 +188,7 @@ module.exports = function(app, passport) {
 					res.send({
 						error: true
 					});
-					return
+					return;
 				} else {
 					jobInterface.addJob(user, req.file, req.body, function(saved) {
 						res.send(saved);
