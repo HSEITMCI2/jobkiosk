@@ -17,8 +17,8 @@ that.setup = function() {
 '{ "Tag":"Automotive", "Size":"0.3"},' +
 '{ "Tag":"Python", "Size":"0.2"},' +
 '{ "Tag":"C++", "Size":"0.1"} ]}';
+  var tagsfromapi = [];
   var tagobject = JSON.parse(tags);
-  var tags = tagobject.Tags.Tag;
 
   d3.layout.cloud().size([700, 650])
       .words([
@@ -56,6 +56,7 @@ that.setup = function() {
 			console.log(resp);
 			jobs = JSON.parse(resp);
 			console.log(resp.length);
+			console.log(jobs);
 			}}
 			
  that.updateTags = function () {

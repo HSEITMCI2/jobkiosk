@@ -90,7 +90,7 @@ module.exports = function(app, passport) {
 		jobModel.findById(req.params.jobid, function(err, job) {
 			var jobobj = req.body;
 			if (!err) {
-				for(var i=0; i<jobInterface.fields.length; ++i) {
+				for (var i = 0; i < jobInterface.fields.length; ++i) {
 					var field = jobInterface.fields[i];
 					job[field] = jobobj[field];
 					dbgLog('Set job', field, jobobj[field]);
@@ -137,13 +137,40 @@ module.exports = function(app, passport) {
 		}, function(err) {
 			var message = {};
 			if (!err) {
-				message.type = 'notification!';
+				message.type = 'job deleted!';
 			} else {
-				message.type = 'error';
+				message.type = 'error deleting job';
 			}
 			res.json(message);
 		});
 
+	});
+
+	function shorten(filepath) {
+		var idx = filepath.indexOf('public');
+		return filepath.substr(idx + 6);
+	}
+
+	function shortenJobImages(jobs) {
+		for (var i = 0; i < jobs.length; ++i) {
+			var j = jobs[i];
+			j.smallimage = shorten(j.smallimage);
+			j.fullimage = shorten(j.fullimage);
+			dbgLog("Fullimage:", j.fullimage);
+		}
+		return jobs;
+	}
+
+	app.get('/api/alljobs', isLoggedIn, function(req, res) {
+		jobModel.find({}, function(err, jobs) {
+			if (err) {
+				res.json({
+					message: "Error getting all jobs"
+				});
+			} else {
+				res.json(shortenJobImages(jobs));
+			}
+		});
 	});
 
 	app.get('/api/jobs', isLoggedIn, function(req, res) {
@@ -167,7 +194,7 @@ module.exports = function(app, passport) {
 								message: 'no jobs found!' + err
 							});
 						} else {
-							res.json(jobs);
+							res.json(shortenJobImages(jobs));
 						}
 					});
 				}
@@ -185,7 +212,7 @@ module.exports = function(app, passport) {
 						message: 'no jobs found!'
 					});
 				} else {
-					res.json(jobs);
+					res.json(shortenJobImages(jobs));
 				}
 			});
 		} else {
