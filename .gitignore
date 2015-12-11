@@ -2,4 +2,8 @@ node_modules
 data
 userfiles
 mongo_db
+
 *.swp
+
+*.pdf
+

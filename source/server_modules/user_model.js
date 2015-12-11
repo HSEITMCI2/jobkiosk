@@ -63,7 +63,9 @@ function Users() {
 			if (obj.error) {
 				errorLog('addDefaulUser error', err);
 			} else {
-				dbgLog('addDefaulUser, added default user')
+				dbgLog('addDefaulUser, added default user');
+				obj.user.company = "Jobkiosk AG";
+				obj.user.save();
 			}
 		});
 	};

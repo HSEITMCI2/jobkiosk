@@ -3,6 +3,7 @@ var fs = require('fs');
 
 GLOBAL.searchpaths(module);
 var log = require('log');
+var pdf = require('pdfcreator')();
 
 var moduleName = "testjobs]:";
 var errorLog = log.xlog("[Error in " + moduleName, "FgWhite", "BgRed", 0);
@@ -16,8 +17,8 @@ function CreateJobs() {
 	var that = {};
 
 
-	that.createPDF = function(filename) {
-
+	that.createPDF = function(filename, header, text) {
+		pdf.create(filename, header, text);
 	}
 
 	return that;

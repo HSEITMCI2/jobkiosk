@@ -153,7 +153,7 @@ label.field {
 .colborder {
 	display: flex;
 	flex-direction: column;
-	flex: 1 0 auto;
+	flex: 2 0 auto;
 	margin: 5px;
 }
 

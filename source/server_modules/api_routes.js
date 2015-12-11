@@ -5,7 +5,7 @@
 
 'use strict';
 
-var fs = require('fs');
+// var fs = require('fs');
 var multer = require('multer');
 var upload = multer({
 	dest: 'userfiles/'
@@ -14,14 +14,13 @@ var upload = multer({
 GLOBAL.searchpaths(module);
 
 var logFuncs = require('log');
-var moduleName = "Routes]:";
+var moduleName = "JobRoutes]:";
 var errorLog = logFuncs.xlog("[Error in " + moduleName, "FgWhite", "BgRed", 0);
 //var warningLog = logFuncs.xlog("[Warning " + moduleName, "FgRed", "BgWhite", 1);
-var infoLog = logFuncs.xlog("[Info in " + moduleName, "FgGreen", "BgBlack", 2);
+// var infoLog = logFuncs.xlog("[Info in " + moduleName, "FgGreen", "BgBlack", 2);
 var dbgLog = logFuncs.xlog("[Debug " + moduleName, "FgBlue", "BgYellow", 3);
 
 module.exports = function(app, passport) {
-
 	if (passport === undefined) {
 		throw "passport undefined";
 	}
@@ -33,7 +32,7 @@ module.exports = function(app, passport) {
 
 	// var fileInterface = require('filehandler')();
 
-	var authenticate = passport.authenticate('local-login');
+	// var authenticate = passport.authenticate('local-login');
 
 	function isLoggedIn(req, res, next) {
 		if (req.isAuthenticated() || env === 'development') {
@@ -91,9 +90,11 @@ module.exports = function(app, passport) {
 		jobModel.findById(req.params.jobid, function(err, job) {
 			var jobobj = req.body;
 			if (!err) {
-				job.jobtitle = jobobj.jobtitle || job.jobtitle;
-				job.tags = jobobj.tags;
-				job.date = new Date();
+				for(var i=0; i<jobInterface.fields.length; ++i) {
+					var field = jobInterface.fields[i];
+					job[field] = jobobj[field];
+				}
+
 				job.save(function(err) {
 					var message = {};
 					if (!err) {
@@ -104,6 +105,7 @@ module.exports = function(app, passport) {
 					res.json(message);
 				});
 			} else {
+				errorLog('Could not find job' + req.params.jobid);
 				res.json({
 					message: 'Could not find job.'
 				});
@@ -128,6 +130,35 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/api/jobs', isLoggedIn, function(req, res) {
+		dbgLog('multer', req.body.email);
+
+		if (req.body && req.body.api && req.body.email) {
+			dbgLog('Search user', req.body.email);
+			userInterface.findByEmail(req.body.email, function(err, user) {
+				if (err) {
+					res.send({
+						error: true
+					});
+					return;
+				} else {
+					jobModel.find({
+						creator: user._id
+					}, function(err, jobs) {
+						if (err) {
+							errorLog('no jobs found!' + err);
+							res.json({
+								message: 'no jobs found!' + err
+							});
+						} else {
+							res.json(jobs);
+						}
+					});
+				}
+			});
+			return;
+		}
+
+
 		if (req && req.user && req.user._id) {
 			jobModel.find({
 				creator: req.user._id
@@ -147,10 +178,7 @@ module.exports = function(app, passport) {
 		}
 	});
 
-	app.post('/api/job', isLoggedIn, upload.single('file'), function(req, res, next) {
-		dbgLog('multer', req.body.email);
-		dbgLog('multer', req.body.jobtitle);
-		dbgLog('multer', req.file);
+	app.post('/api/job', isLoggedIn, upload.single('file'), function(req, res) {
 
 		// no session - every post sends credentials 
 		if (req.body && req.body.api && req.body.email) {
@@ -160,9 +188,9 @@ module.exports = function(app, passport) {
 					res.send({
 						error: true
 					});
-					return
+					return;
 				} else {
-					jobInterface.addJob(user, req.file, req.body.jobtitle, function(saved) {
+					jobInterface.addJob(user, req.file, req.body, function(saved) {
 						res.send(saved);
 					});
 				}
@@ -171,7 +199,7 @@ module.exports = function(app, passport) {
 		}
 
 		if (req && req.user && req.user._id) {
-			jobInterface.addJob(req.user, req.file, req.body.jobtitle, function(){});
+			jobInterface.addJob(req.user, req.file, req.body, function() {});
 			res.redirect('back');
 			return;
 		}

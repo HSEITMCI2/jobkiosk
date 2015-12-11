@@ -1,5 +1,4 @@
-/* global process, require, GLOBAL, __dirname, module */
-
+/* global process, require, GLOBAL, module */
 
 "use strict";
 var path = require('path');
@@ -43,7 +42,7 @@ function FileHandler(maindir) {
 		wr.on("error", function(err) {
 			done(err);
 		});
-		wr.on("close", function(ex) {
+		wr.on("close", function() {
 			done();
 		});
 		rd.pipe(wr);
@@ -54,7 +53,7 @@ function FileHandler(maindir) {
 				cbCalled = true;
 			}
 		}
-	}
+	};
 
 
 
