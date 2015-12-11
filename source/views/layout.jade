@@ -2,11 +2,7 @@ doctype html
 html
 	head
 		link(rel='stylesheet', href='css/style.css' )
-		link(rel='stylesheet', href='css/shift.css')
-		//link(rel='stylesheet', href='css/bootstrap.css')
-		//script(src='js/libs/jquery-2.1.4.js')
-		//script(src='js/libs/bootstrap.js')
-		
+						
 		title= title
 		meta(charset="UTF-8")
 		meta(name="description", content="HTML Template")
@@ -14,13 +10,10 @@ html
 		meta(name="author", content="Andreas Roessler, HS Esslingen")
 		block prescripts
 	body
-		header
+		//header
 			h1 Job Kiosk	
 		section#content
 			nav 
-				//.navbar.navbar-inverse
-				//.container
-				//	.navbar-header
 				u1							
 					-each val, key in links
 						-if (id == key)

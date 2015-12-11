@@ -5,7 +5,9 @@ html {
 }
 
 body {
+	background: #FFF;
 	height: 100%;
+	flex: 1 0 auto;
 	padding: 0;
 	margin: 0;
 	overflow-y: scroll;
@@ -16,28 +18,33 @@ body {
 }
 
 header {
+	
+}
+
+nav {
 	background: #2E2E2E;
 	flex: 1 0 auto;
-	padding: 0px;
+	height: 48px;
 }
-footer {
-	background: #FFFFFF;
-	flex: 0 0 60px;
-	padding: 10px;
-}
+
 section {
 	display: flex;
-	background: #2E2E2E;
-	flex: 1 0 auto;
+	background: #2E2;
+	flex: 0 0 auto;
 	flex-direction: row;
 	flex-wrap: wrap;
 }
-nav {
-	color: #000000;
-	background: #2E2E2E;
-	position: fixed;
+
+.column {
 	display: flex;
-	flex: 1 0 auto; 
+	flex-direction: column;
+	flex: 1 0 auto;
+}
+
+footer {
+	background: #2E2E2E;
+	flex: 0 0 50px;
+	padding: 10px;
 }
 
 p.required:after {
