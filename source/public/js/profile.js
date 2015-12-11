@@ -30,4 +30,3 @@ function InitProfile() {
 window.addEventListener('load', function() {
 	InitProfile().setup();
 });
-

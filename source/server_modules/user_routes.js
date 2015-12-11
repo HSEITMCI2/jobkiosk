@@ -22,6 +22,7 @@ var insideLinks = {
 	'/logout': 'Logout',
 	'/profile': 'Profile',
 	'/jobs': 'Jobs',
+	'/newjoboffer': 'new job offer',
 	'/companyoffer': 'Company Offer',
 	'/SpecRunner.html': 'Test',
 	'/statistics' : 'Statistics'
@@ -90,6 +91,12 @@ module.exports = function(app, passport) {
 	app.get('/companyoffer', isLoggedIn, function (req, res) {
 	    para.user = req.user;
 	    res.render('companyoffer', para);
+	});
+
+	// New Job offer section =================
+	app.get('/newjoboffer', isLoggedIn, function(req, res){
+		para.user = req.user;
+		res.render('newjoboffer', para);
 	});
 
 
