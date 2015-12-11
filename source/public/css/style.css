@@ -5,7 +5,9 @@ html {
 }
 
 body {
+	background: #FFF;
 	height: 100%;
+	flex: 1 0 auto;
 	padding: 0;
 	margin: 0;
 	overflow-y: scroll;
@@ -15,21 +17,39 @@ body {
 	font-size: 1em;
 }
 
-header, footer {
-	background: #aaa;
-	flex: 0 0 60px;
-	padding: 10px;
+header {
+	
 }
 
 nav {
-	background: #aaa;
-	flex: 0 0 100px;
+	background: #2E2E2E;
+	flex: 1 0 auto;
+	height: 48px;
+}
+
+section {
+	display: flex;
+	background: #2E2;
+	flex: 0 0 auto;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+	flex: 1 0 auto;
+}
+ 
+footer {
+	background: #2E2E2E;
+	flex: 0 0 50px;
+	padding: 10px;
 }
 
 p.required:after {
 	content: " *";
 }
-
 
 /*  Desktop Mode    */
 label.field {
@@ -38,27 +58,52 @@ label.field {
 	width: 180px;
 	margin-right: 5px;
 }
-
-
+/* Layout style with navbar buttons */
 .button {
-	margin: 10px;
-	padding: 5px;
-	width: 80px;
-	height: 30px;
-	font-size: 1.0em;
-	background: #aaa;
+	overflow:hidden;
 }
 
-.activebutton {
-	margin: 10px;
-	padding: 5px;
-	width: 80px;
-	height: 30px;
-	font-size: 1.0em;
-	background: #fff;
+.activebutton { 
+	overflow:hidden;
+	background-color: #000;
+}
+/* */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
 }
 
+li {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+li.activebutton a {
+    display: block;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+li.button a {
+    display: block;
+    color: #848484;
+    text-align: center;
+    text-decoration: none;
+}
 
+/* Change the link color to #FFF (white) on hover */
+li.button a:hover {
+    color: white;
+	text-decoration: none;	
+}
+
+/* Funconality independent of the layout*/
 .jobdeletebtn {
 	border-radius: 4px;
 	background-color: #f4511e;
@@ -105,7 +150,7 @@ label.field {
 }
 
 	.jobdeletebtn span:after {
-		content: '»';
+		content: 'ï¿½';
 		position: absolute;
 		opacity: 0;
 		top: 0;
@@ -132,15 +177,6 @@ label.field {
 	display: flex;
 	flex-direction: row;
 }
-
-section {
-	display: flex;
-	background: #fff;
-	flex: 1 0 auto;
-	flex-direction: row;
-	flex-wrap: wrap;
-}
-
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
 	header, footer {
