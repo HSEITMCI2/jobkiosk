@@ -30,7 +30,7 @@ that.setup = function() {
       .start();
 
   function draw(words) {
-    d3.select("section").append("svg")
+    d3.select("article#tagcloud").append("svg")
         .attr("width", 1500)
         .attr("height", 1000)
       .append("g")
