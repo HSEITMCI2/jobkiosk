@@ -129,6 +129,7 @@ function postJob(jobtitle, filename, done) {
 		data: {
 			email: defaultuser.email,
 			jobtitle: jobtitle,
+			company: 'HS Esslingen',
 			api: true,
 			file: rest.file(filename, null, stats.size, null, 'application/pdf')
 		}
@@ -231,7 +232,7 @@ describe("get all jobs ", function() {
 				data: job
 			}).on('complete', function(resobj) {
 				if (resobj.message) {
-					errorLog('getting jobs', resobj.message);
+					dbgLog('getting jobs', resobj.message);
 				}
 				response = resobj;
 				done();

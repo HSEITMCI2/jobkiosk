@@ -137,9 +137,9 @@ module.exports = function(app, passport) {
 		}, function(err) {
 			var message = {};
 			if (!err) {
-				message.type = 'notification!';
+				message.type = 'job deleted!';
 			} else {
-				message.type = 'error';
+				message.type = 'error deleting job';
 			}
 			res.json(message);
 		});

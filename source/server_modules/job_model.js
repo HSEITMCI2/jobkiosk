@@ -21,6 +21,8 @@ function Jobs() {
 
 	var jobSchema = new mongoose.Schema({
 		jobtitle: String,
+		jobdescription: String,
+		duration: String,
 		creator: {
 			type: mongoose.Schema.Types.ObjectId,
 			required: true
@@ -32,6 +34,10 @@ function Jobs() {
 			type: Date,
 			default: Date.now
 		},
+		startdate: {
+			type: Date,
+			default: Date.now
+		},
 		validdate: {
 			type: Date,
 			default: Date.now
@@ -39,12 +45,13 @@ function Jobs() {
 		pdffilename: String,
 		jobtype: String,
 		company: String,
+		joblocation: String,
 		status: String,
 		fullimage: String,
 		smallimage: String
 	});
 
-	that.fields = ['jobtitle', 'tags', 'creationdate', 'validdate', 'pdffilename', ' jobtype', 'company', 'status'];
+	that.fields = ['jobtitle', 'jobdescription', 'joblocation', 'creationdate', 'validdate', 'startdate', 'duration', 'pdffilename', ' jobtype', 'company', 'status'];
 
 	var jobModel = mongooseDB.model('Jobs', jobSchema);
 	that.jobModel = jobModel;
@@ -55,21 +62,21 @@ function Jobs() {
 		});
 	};
 
-
 	that.addJob = function(user, file, body, cb) {
 		var job = {};
-		job.jobtitle = body.jobtitle || "no job title";
-		job.tags = body.tags || [];
+		for (var i = 0; i < that.fields.length; ++i) {
+			var key = that.fields[i];
+			job[key] = body[key];
+			dbgLog('update', key, 'to', body[key]);
+		}
+		body.tags = body.tags || "";
+		job.tags = body.tags.split(/,| /);
 		var plus3 = new Date();
 		plus3.setMonth(plus3.getMonth() + 3);
 		job.validdate = body.validdate || plus3;
-		job.jobtype = body.jobtype || "Vollzeit";
-		job.company = body.company || user.company;
 		job.status = body.status || "new";
 		job.pdffilename = file.originalname;
 		job.startdate = body.startdate || new Date();
-		job.duration = body.duration || "6 Monate";
-		job.joblocation = body.joblocation || "Stuttgart";
 
 		job.creator = user._id;
 		var targetfilepath = fileInterface.addFile(user.email, file.originalname);
@@ -79,13 +86,17 @@ function Jobs() {
 		var jobdoc = new jobModel(job);
 		jobdoc.save(function(err, job) {
 			if (err) {
-				cb({error: err});
+				errorLog('Add Job  ', err);
+				cb({
+					error: err
+				});
 			} else {
+				dbgLog('Add Job  ', job.jobtitle);
 				cb(job);
 			}
 		});
 
-		dbgLog('Add Job  ', job.jobtitle);
+		dbgLog('Add File  ', file.originalname);
 		fileInterface.addUserDir(user.email, function(err) {
 			if (!err) {
 				dbgLog('Copy to ', targetfilepath);
