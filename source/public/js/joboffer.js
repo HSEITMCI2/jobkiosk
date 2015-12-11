@@ -1,23 +1,4 @@
-/* global http */
-/* exported InitProfile */
-
-/**
- * set up realtime connection with server
- */
-
-
-// 	var fields = ['familyname', 'givenname', 'email', 'company', 'department', 'street', 'postcode', 'city', 'countrytxt', 'password', 'resetPasswordToken', 'resetPasswordExpires'];
-
-// pseudo database
-var mockdata = [{ jobTitle: 'myfirsttitle' }, { jobTitle: 'mysecondtitle' }, { jobTitle: 'mythirdtitle' }];
-
-
-
-
 "use strict";
-
-
-
 
 function InitJoboffer() {
 
