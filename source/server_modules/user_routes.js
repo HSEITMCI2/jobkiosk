@@ -22,8 +22,7 @@ var insideLinks = {
 	'/logout': 'Logout',
 	'/profile': 'Profile',
 	'/jobs': 'Jobs',
-	'/create': 'new job offer',
-	'/companyoffer': 'Company Offer',
+	'/create': 'Create New Job',
 	'/SpecRunner.html': 'Test',
 	'/statistics' : 'Statistics'
 };
