@@ -33,6 +33,7 @@ function Implementation() {
 	var that = {};
 
 	that.create = function(filename, header, text) {
+		dbgLog("creating PDF", filename);
 		var doc = new PDFDocument();
 
 		doc.pipe(fs.createWriteStream(filename));
@@ -46,7 +47,7 @@ function Implementation() {
 			.link(100, 400, 60, 8, 'http://www.hs-esslingen.de/');
 
 		doc.end();
-
+		dbgLog("created PDF", filename);
 	};
 
 	return that;

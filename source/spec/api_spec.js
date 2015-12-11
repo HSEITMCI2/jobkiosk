@@ -19,7 +19,6 @@ GLOBAL.searchpaths = (function(mod) {
 
 GLOBAL.searchpaths(module);
 
-
 var testjobs = require('test_jobs')();
 var defaultuser = require('defaultuser');
 var logFuncs = require('log');
@@ -56,7 +55,6 @@ describe("Can we reset the DB?", function() {
 	});
 });
 
-
 ///////////////////////////////////////////////////////////////////////////////
 ///	Access the API 
 ///
@@ -71,7 +69,6 @@ describe("Can we access the API?", function() {
 			dbgLog(baseurl, resobj.message);
 			done();
 		});
-
 	});
 	it("Should be reached", function(done) {
 		expect(true).toBe(true);
@@ -142,6 +139,24 @@ function postJob(jobtitle, filename, done) {
 }
 
 
+describe("creates a pdf ", function() {
+	var filename = 'test.pdf';
+	var stats;
+	beforeEach(function(done) {
+		testjobs.createPDF(filename, "Entwickler", "Wir suchen Entwickler.");
+		setTimeout(function () {
+			stats = fs.statSync(filename);
+			done();
+		}, 2000);
+	});
+
+	it("the PDF exists", function() {
+		expect(stats).not.toBe(undefined);
+		expect(stats.isFile()).toBe(true);
+	});
+
+});
+
 describe("send a job ", function() {
 	var response;
 	beforeEach(function(done) {
@@ -172,7 +187,6 @@ describe("send a job ", function() {
 	});
 
 });
-
 
 var job = {};
 
@@ -205,7 +219,6 @@ describe("get all jobs ", function() {
 		job = response[0];
 		done();
 	});
-
 
 	describe("save a job ", function() {
 		beforeEach(function(done) {
