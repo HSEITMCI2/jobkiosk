@@ -39,8 +39,7 @@ section {
 	display: flex;
 	flex-direction: column;
 	flex: 1 0 auto;
-}
-
+} 
 footer {
 	background: #2E2E2E;
 	flex: 0 0 50px;
