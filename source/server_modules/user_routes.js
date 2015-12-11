@@ -87,9 +87,9 @@ module.exports = function(app, passport) {
 	});
 
     // JOBS SECTION =========================
-	app.get('/companyoffer', isLoggedIn, function (req, res) {
+	app.get('/jobs', isLoggedIn, function (req, res) {
 	    para.user = req.user;
-	    res.render('companyoffer', para);
+	    res.render('jobs', para);
 	});
 
 	// New Job offer section =================
