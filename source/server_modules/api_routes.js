@@ -93,6 +93,7 @@ module.exports = function(app, passport) {
 				for(var i=0; i<jobInterface.fields.length; ++i) {
 					var field = jobInterface.fields[i];
 					job[field] = jobobj[field];
+					dbgLog('Set job', field, jobobj[field]);
 				}
 
 				job.save(function(err) {
@@ -112,6 +113,22 @@ module.exports = function(app, passport) {
 			}
 		});
 	});
+
+	// update a job (using put, because we know an ID)
+	app.get('/api/job/:jobid', isLoggedIn, function(req, res) {
+		jobModel.findById(req.params.jobid, function(err, job) {
+			if (!err) {
+				dbgLog('Found job', req.params.jobid, job.status);
+				res.json(job);
+			} else {
+				errorLog('Could not find job' + req.params.jobid);
+				res.json({
+					message: 'Could not find job.'
+				});
+			}
+		});
+	});
+
 
 	// update a job (using put, because we know an ID)
 	app.delete('/api/job/:jobid', isLoggedIn, function(req, res) {
