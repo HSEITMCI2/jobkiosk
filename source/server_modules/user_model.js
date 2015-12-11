@@ -23,7 +23,7 @@ function Users() {
 	var jobInterface = require('job_model')();
 	var defaultuser = require('defaultuser');
 
-	var fields = ['familyname', 'givenname', 'email', 'company', 'department', 'street', 'postcode', 'city', 'countrytxt', 'password'];
+	var fields = ['familyname', 'givenname', 'email', 'company', 'department', 'street', 'postcode', 'city', 'countrytxt'];
 	var schema = {};
 	for (var i = 0; i < fields.length; ++i) {
 		schema[fields[i]] = {
@@ -32,6 +32,8 @@ function Users() {
 			unique: false
 		};
 	}
+	schema.password = {};
+	schema.password.type = String;
 	schema.email.unique = true;
 	schema.email.required = true;
 	schema.password.required = true;
@@ -92,10 +94,13 @@ function Users() {
 			if (err) {
 				that.addUser(obj, cb);
 			} else {
+				if (obj.password) {
+					doc.password = doc.generateHash(obj.password);
+				}
 				for (var i = 0; i < fields.length; ++i) {
 					var key = fields[i];
 					doc[key] = obj[key] || doc[key];
-					// dbgLog('update', key, 'to', doc[key]);
+					dbgLog('update', key, 'to', doc[key]);
 				}
 				doc.save(function(err) {
 					if (err) {
