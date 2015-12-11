@@ -42,8 +42,14 @@ function InitJoboffer() {
 
 			// delete job function
 			deleteBtn.jobIndex = i;
+			deleteBtn.jobId = job._id;
 			deleteBtn.addEventListener('click', function (e) {
 				console.log(e.target.jobIndex);
+
+				http('delete', '/api/jobs/' + e.target.jobId, {}, function (responseText) {
+					response = JSON.parse(responseText);
+					console.log(response.type);
+				});
 
 				jobData.splice(e.target.jobIndex, 1);
 				removeChildren(jobContent);
