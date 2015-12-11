@@ -143,6 +143,7 @@ function Users() {
 						'user': null
 					});
 				} else {
+					user.password = "a_password";
 					cb({
 						'error': false,
 						'message': 'Correct password',

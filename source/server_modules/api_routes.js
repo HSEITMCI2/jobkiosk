@@ -155,7 +155,7 @@ module.exports = function(app, passport) {
 		for (var i = 0; i < jobs.length; ++i) {
 			var j = jobs[i];
 			j.smallimage = shorten(j.smallimage);
-			j.fullimage = shorten(j.smallimage);
+			j.fullimage = shorten(j.fullimage);
 		}
 		return jobs;
 	}
