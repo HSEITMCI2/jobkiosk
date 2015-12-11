@@ -23,6 +23,8 @@ var insideLinks = {
 	'/profile': 'Profile',
 	'/jobs': 'Jobs',
 	'/create': 'Create New Job',
+	'/companyoffer': 'Company Offer',
+	'/assistant': 'Assistant',
 	'/SpecRunner.html': 'Test',
 	'/statistics' : 'Statistics'
 };
@@ -98,6 +100,17 @@ module.exports = function(app, passport) {
 		res.render('create', para);
 	});
 
+	// Assistant SECTION
+	app.get('/assistant', isLoggedIn, function (req, res) {
+    para.user = req.user;
+    res.render('adminassist', para);
+	});
+
+	// Assistant SECTION
+	app.get('/jobviewer', isLoggedIn, function (req, res) {
+    para.user = req.user;
+    res.render('jobviewer', para);
+	});
 
 	// LOGOUT ==============================
 	app.get('/logout', function(req, res) {
