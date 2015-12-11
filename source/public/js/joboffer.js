@@ -33,8 +33,12 @@ function InitJoboffer() {
 			var changeBtn = dom('button', { class: 'jobchangebtn' }, 'change');
 			var deleteBtn = dom('button', { class: 'jobdeletebtn' }, 'delete');
 
-			// put everything into div
-			var jobContainer = dom('div', {}, input, changeBtn, deleteBtn);
+			// change functionality
+			changeBtn.jobId = job._id;
+			changeBtn.addEventListener('click', function(e) {
+				console.log(e.target.jobId);
+				self.location = 'newjoboffer?id=' + e.target.jobId;
+			});
 
 			// delete job function
 			deleteBtn.jobIndex = i;
@@ -45,6 +49,9 @@ function InitJoboffer() {
 				removeChildren(jobContent);
 				that.setup(jobData);
 			});
+
+			// put everything into div
+			var jobContainer = dom('div', {}, input, changeBtn, deleteBtn);
 
 			// access jade / html id jobcontent
 			input.value = job.jobtitle;

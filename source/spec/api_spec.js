@@ -7,6 +7,7 @@ var rest = require('restler');
 GLOBAL.searchpaths = (function(mod) {
 	var searchdirs = [
 		path.resolve(__dirname, "../server_modules"),
+		path.resolve(__dirname, "../spec"),
 	];
 	// module is not global!
 	return function(mod) {
@@ -18,6 +19,7 @@ GLOBAL.searchpaths = (function(mod) {
 
 GLOBAL.searchpaths(module);
 
+var testjobs = require('test_jobs')();
 var defaultuser = require('defaultuser');
 var logFuncs = require('log');
 
@@ -53,7 +55,6 @@ describe("Can we reset the DB?", function() {
 	});
 });
 
-
 ///////////////////////////////////////////////////////////////////////////////
 ///	Access the API 
 ///
@@ -68,7 +69,6 @@ describe("Can we access the API?", function() {
 			dbgLog(baseurl, resobj.message);
 			done();
 		});
-
 	});
 	it("Should be reached", function(done) {
 		expect(true).toBe(true);
@@ -115,10 +115,48 @@ describe("Can we get the main directory?", function() {
 
 });
 
-
 ///////////////////////////////////////////////////////////////////////////////
 ///	Try to send a job offer
 ///
+///
+///
+///
+
+function postJob(jobtitle, filename, done) {
+	var stats = fs.statSync(filename);
+	rest.post(baseurl + '/job', {
+		multipart: true,
+		data: {
+			email: defaultuser.email,
+			jobtitle: jobtitle,
+			api: true,
+			file: rest.file(filename, null, stats.size, null, 'application/pdf')
+		}
+	}).on('complete', function(resobj) {
+		done(resobj);
+	});
+
+}
+
+
+describe("creates a pdf ", function() {
+	var filename = 'test.pdf';
+	var stats;
+	beforeEach(function(done) {
+		testjobs.createPDF(filename, "Entwickler", "Wir suchen Entwickler.");
+		setTimeout(function () {
+			stats = fs.statSync(filename);
+			done();
+		}, 2000);
+	});
+
+	it("the PDF exists", function() {
+		expect(stats).not.toBe(undefined);
+		expect(stats.isFile()).toBe(true);
+	});
+
+});
+
 describe("send a job ", function() {
 	var response;
 	beforeEach(function(done) {
@@ -126,32 +164,82 @@ describe("send a job ", function() {
 		var filename = 'test.pdf';
 		var stats = fs.statSync(filename);
 
+		// 		testjobs.createPDF(filename, "Entwickler", "Wir suchen Entwickler.");
 
-		rest.post(baseurl + '/job', {
-			multipart: true,
+		if (stats.size > 0) {
+			postJob('Entwickler', filename, function() {
+				postJob('Supporter', filename, function() {
+					postJob('Berater', filename, function(resobj) {
+						response = resobj;
+						done();
+					});
+				});
+			});
+		} else {
+			errorLog('Error in file', filename);
+		}
+	});
+
+	it("the job has a title", function() {
+		expect(response.error).toBe(undefined);
+		expect(response._id).not.toBe(undefined);
+		expect(response.jobtitle).toBe("Berater");
+	});
+
+});
+
+var job = {};
+
+describe("get all jobs ", function() {
+	var response;
+	beforeEach(function(done) {
+		rest.get(baseurl + '/jobs', {
 			data: {
 				email: defaultuser.email,
-				jobtitle: "Entwickler",
 				api: true,
-				file: rest.file(filename, null, stats.size, null, 'application/pdf')
+				password: defaultuser.password
 			}
 		}).on('complete', function(resobj) {
+			if (resobj.message) {
+				errorLog('getting jobs', resobj.message);
+			}
 			response = resobj;
 			done();
 		});
 
 	});
 
-	it("gets a response on posting a job", function() {
-		expect(response.error).toBe(undefined);
+	it("the jobs are saved in an array", function() {
+		expect(response.length).not.toBe(undefined);
 	});
 
-	it("the job has an id", function() {
-		expect(response._id).not.toBe(undefined);
+	it("there  are 3 jobs saved", function(done) {
+		expect(response.length).toBe(3);
+		expect(response[0].company).not.toBe(undefined);
+		job = response[0];
+		done();
 	});
 
-	it("the job has a title", function() {
-		expect(response.jobtitle).toBe("Entwickler");
+	describe("save a job ", function() {
+		beforeEach(function(done) {
+			job.email = defaultuser.email;
+			job.password = defaultuser.password;
+			job.api = true;
+			job.status = "accepted";
+			rest.put(baseurl + '/job/' + job._id, job).on('complete', function(resobj) {
+				if (resobj.message) {
+					errorLog('getting jobs', resobj.message);
+				}
+				response = resobj;
+				done();
+			});
+
+		});
+
+		it("the job is saved", function() {
+			expect(response.message).toBe('saved job');
+		});
+
 	});
 
 });
