@@ -22,41 +22,52 @@ function InitNewJobOffer() {
 
 
 	that.setup = function (inputData) {
-		document.getElementById('jobtitle').value = inputData.jobtitle;
-		document.getElementById('jobdescription').value = inputData.jobdescription;
-		document.getElementById('company').value = inputData.company;
-		document.getElementById('startdate').value = inputData.startdate;
-		document.getElementById('validdate').value = inputData.validdate;
-		document.getElementById('duration').value = inputData.duration;
-		document.getElementById('joblocation').value = inputData.joblocation;
-		document.getElementById('jobtype').value = inputData.jobtype;
-		document.getElementById('tags').value = inputData.tags.toString();
-	}
-
-	return that;
-}
-
-window.addEventListener('load', function() {
-	// mocking setup for testing purposes
-	// InitNewJobOffer().setup(mockData);
-
-	var re = new RegExp("\\?id=([a-zA-Z0-9]+)&*");
-	var currentId = re.exec(window.location.href)[1];
-
-	getJobsFromDB(function(arraydata) {
-		for (var i = 0; i < arraydata.length; i++) {
-			var obj = arraydata[i];
-			if( obj._id != currentId ) {
-				continue;
-			}
-			InitNewJobOffer().setup(obj);
+		if(inputData) {
+			document.getElementById('jobtitle').value = inputData.jobtitle;
+			document.getElementById('jobdescription').value = inputData.jobdescription;
+			document.getElementById('company').value = inputData.company;
+			document.getElementById('startdate').value = inputData.startdate;
+			document.getElementById('validdate').value = inputData.validdate;
+			document.getElementById('duration').value = inputData.duration;
+			document.getElementById('joblocation').value = inputData.joblocation;
+			document.getElementById('jobtype').value = inputData.jobtype;
+			document.getElementById('tags').value = inputData.tags.toString();
 		}
-	});
-});
 
-function getJobsFromDB(done) {
-	http('get', '/api/jobs', {}, function(responseText) {
-		var response = JSON.parse(responseText);
-		done(response);
-	});
-}
+		var submitButton = window.getElementById('submit');
+		submitButton.addEventListener('click', function() {
+		});
+
+		return that;
+		}
+
+		function CreateJobOffer() {
+
+			var that = {};
+			return that;
+		}
+
+		window.addEventListener('load', function() {
+			// mocking setup for testing purposes
+			// InitNewJobOffer().setup(mockData);
+
+			var re = new RegExp("\\?id=([a-zA-Z0-9]+)&*");
+			var currentId = re.exec(window.location.href)[1];
+
+			getJobsFromDB(function(arraydata) {
+				for (var i = 0; i < arraydata.length; i++) {
+					var obj = arraydata[i];
+					if( obj._id != currentId ) {
+						continue;
+					}
+					InitNewJobOffer().setup(obj);
+				}
+			});
+		});
+
+		function getJobsFromDB(done) {
+			http('get', '/api/jobs', {}, function(responseText) {
+				var response = JSON.parse(responseText);
+				done(response);
+			});
+		}
