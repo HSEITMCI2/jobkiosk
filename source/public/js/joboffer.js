@@ -23,9 +23,6 @@ function InitJoboffer() {
 
 	var that = {};
 
-
-
-
 	that.setup = function (jobData) {
 		for (var i = 0; i < jobData.length; i++) {
 
@@ -55,12 +52,15 @@ function InitJoboffer() {
 			jobContent.appendChild(jobContainer);
 		}
 	};
+
 	that.updateFromServer = function () {
 		http('get', '/api/jobs', {}, function (responseText) {
 			response = JSON.parse(responseText);
 			that.setup(response);
 		});
 	};
+
+	return that;
 }
 
 window.addEventListener('load', function () {
