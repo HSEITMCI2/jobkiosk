@@ -26,22 +26,22 @@ function App() {
   var res2 = id_str.split("=");
   var id = res2[1];
 
-  var job = undefined;
+  var job_fullimage_url = undefined;
 
   //get job
   getJobsFromDB(function(arraydata){
     for(var i = 0; i<arraydata.length; i++){
       var obj = arraydata[i];
       if(obj._id === id){
-        job = obj;
+        job_fullimage_url = obj.fullimage;
         break;
       }
     }
   });
 
-  if(job === undefined){
+  /*if(job === undefined){
     alert("No Job found");
-  }
+  }*/
 
   var inner_content = document.getElementById("job"); // private
 
@@ -105,10 +105,10 @@ function App() {
   viewer_cont_foot.appendChild(newbutton2);
 
   /*TEST*/
-  var bildi = new Image ();
-  bildi.src = job.fullimage;      // object.quell
+  var picture = document.createElement('img');
+  picture.setAttribute('src', job_fullimage_url);
   
-  picture_section.appendChild(bildi);
+  picture_section.appendChild(picture);
 
 
 }
