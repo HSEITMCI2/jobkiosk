@@ -23,7 +23,6 @@ var insideLinks = {
 	'/profile': 'Profile',
 	'/jobs': 'Jobs',
 	'/create': 'Create New Job',
-	'/companyoffer': 'Company Offer',
 	'/assistant': 'Assistant',
 	'/SpecRunner.html': 'Test',
 	'/statistics' : 'Statistics'
