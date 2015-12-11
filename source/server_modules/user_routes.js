@@ -26,7 +26,6 @@ var insideLinks = {
 	'/assistant': 'Assistant',
 	'/SpecRunner.html': 'Test',
 	'/statistics' : 'Statistics',
-	'/impressum' : 'Impressum'
 };
 
 var outsideLinks = {
@@ -130,12 +129,6 @@ module.exports = function(app, passport) {
 	app.get('/viewer', function(req, res) {
 		res.render('viewer');
 	});
-
-	// Impressum ================================
-	app.get('/impressum', function(req, res) {
-		res.render('impressum');
-	});
-
 
 	// =============================================================================
 	// AUTHENTICATE (FIRST LOGIN) ==================================================
