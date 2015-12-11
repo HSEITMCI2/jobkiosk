@@ -156,6 +156,7 @@ module.exports = function(app, passport) {
 			var j = jobs[i];
 			j.smallimage = shorten(j.smallimage);
 			j.fullimage = shorten(j.fullimage);
+			dbgLog("Fullimage:", j.fullimage);
 		}
 		return jobs;
 	}
