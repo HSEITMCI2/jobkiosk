@@ -8,44 +8,44 @@ block content
 		h2 Create New Job Offer
 		article#jobeditor
 			form(action='/api/job', method='POST', role='form', enctype="multipart/form-data")
-			div.jobcreator
-				div
-					p.required
-						label(class='field' for='jobtitle') Job Title
-						input#jobtitle(type='text', name='jobtitle', placeholder='Job Title')
-					p.required
-						label(class='field' for='jobdescription') Job Description
-						textarea#jobdescription(type='textarea', rows='20', cols='80', name='jobdescription', placeholder='Job Description')
-					p.required
-						label(class='field' for='file') Your file:
-						input(type="hidden", name="MAX_FILE_SIZE", value="100000")
-						input(type="file" name="file" id="file" size="40" maxlength="100000")
-				div
-					p.required
-						label(class='field' for='company') Job company
-						input#company(type='text', name='company', placeholder='company')
-					p.required
-						label(class='field' for='startdate') Job Begin
-						input#startdate(type='text', name='startdate', placeholder='begin')
-					p.required
-						label(class='field' for='validdate') Job Begin
-						input#validdate(type='text', name='validdate', placeholder='begin')
-					p
-						label(class='field' for='duration') Job duration
-						input#duration(type='text', name='duration', placeholder='Job duration')
-					p.required
-						label(class='field' for='joblocation') Job location
-						input#joblocation(type='text', name='joblocation', placeholder='location')
-					p.required
-						label(class='field' for='jobtype') Job type
-						input#jobtype(type='text', name='jobtype', placeholder='type')
-					p
-						label(class='field' for='tags') Job tags
-						input#tags(type='text', name='tags', placeholder='tags')
-
-					p
-						label(class='field')
-						button(type='submit', value='create') Submit 
+				div.jobcreator
+					div
+						p.required
+							label(class='field' for='jobtitle') Job Title
+							input#jobtitle(type='text', name='jobtitle', placeholder='Job Title')
+						p.required
+							label(class='field' for='jobdescription') Job Description
+							textarea#jobdescription(type='textarea', rows='20', cols='80', name='jobdescription', placeholder='Job Description')
+						p.required
+							label(class='field' for='file') Your file:
+							input(type="hidden", name="MAX_FILE_SIZE", value="100000")
+							input(type="file" name="file" id="file" size="40" maxlength="100000")
+					div
+						p.required
+							label(class='field' for='company') Job company
+							input#company(type='text', name='company', placeholder='company')
+						p.required
+							label(class='field' for='startdate') Job Begin
+							input#startdate(type='text', name='startdate', placeholder='begin')
+						p.required
+							label(class='field' for='validdate') Job Begin
+							input#validdate(type='text', name='validdate', placeholder='begin')
+						p
+							label(class='field' for='duration') Job duration
+							input#duration(type='text', name='duration', placeholder='Job duration')
+						p.required
+							label(class='field' for='joblocation') Job location
+							input#joblocation(type='text', name='joblocation', placeholder='location')
+						p.required
+							label(class='field' for='jobtype') Job type
+							input#jobtype(type='text', name='jobtype', placeholder='type')
+						p
+							label(class='field' for='tags') Job tags
+							input#tags(type='text', name='tags', placeholder='tags')
+	
+						p
+							label(class='field')
+							button(type='submit', value='submit') Submit 
 
 block scripts			
 	script(src='js/newjoboffer.js')
