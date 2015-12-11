@@ -30,6 +30,7 @@ var insideLinks = {
 
 var outsideLinks = {
 	'/': 'Home',
+	'/viewer': 'View Jobs',
 	'/login': 'Login',
 	'/signup': 'Sign Up'
 };
@@ -112,6 +113,12 @@ module.exports = function(app, passport) {
 		para.user = req.user;
 		res.render('statistics', para);
 	});
+
+	// STATISTICS ==============================
+	app.get('/viewer', function(req, res) {
+		res.render('viewer');
+	});
+
 
 	// =============================================================================
 	// AUTHENTICATE (FIRST LOGIN) ==================================================

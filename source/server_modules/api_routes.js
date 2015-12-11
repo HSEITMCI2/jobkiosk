@@ -90,7 +90,7 @@ module.exports = function(app, passport) {
 		jobModel.findById(req.params.jobid, function(err, job) {
 			var jobobj = req.body;
 			if (!err) {
-				for(var i=0; i<jobInterface.fields.length; ++i) {
+				for (var i = 0; i < jobInterface.fields.length; ++i) {
 					var field = jobInterface.fields[i];
 					job[field] = jobobj[field];
 					dbgLog('Set job', field, jobobj[field]);
@@ -144,6 +144,28 @@ module.exports = function(app, passport) {
 			res.json(message);
 		});
 
+	});
+
+	function shorten(filepath) {
+		var idx = filepath.indexOf('public');
+		return filepath.substr(idx+6);
+	}
+
+	app.get('/api/alljobs', isLoggedIn, function(req, res) {
+		jobModel.find({}, function(err, jobs) {
+			if (err) {
+				res.json({
+					message: "Error getting all jobs"
+				});
+			} else {
+				for(var i=0; i<jobs.length; ++i) {
+					var j = jobs[i];
+					j.smallimage = shorten(j.smallimage); 
+					j.fullimage = shorten(j.smallimage); 
+				}
+				res.json(jobs);
+			}
+		});
 	});
 
 	app.get('/api/jobs', isLoggedIn, function(req, res) {
