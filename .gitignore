@@ -3,4 +3,4 @@ data
 userfiles
 mongo_db
 *.pdf
-
+*.swp
