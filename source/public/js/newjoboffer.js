@@ -35,39 +35,36 @@ function InitNewJobOffer() {
 		}
 
 		var submitButton = window.getElementById('submit');
+		/*
 		submitButton.addEventListener('click', function() {
 		});
+		*/
 
 		return that;
+	}
+}
+
+window.addEventListener('load', function() {
+	// mocking setup for testing purposes
+	// InitNewJobOffer().setup(mockData);
+
+	var re = new RegExp("\\?id=([a-zA-Z0-9]+)&*");
+	var currentId = re.exec(window.location.href)[1];
+
+	getJobsFromDB(function(arraydata) {
+		for (var i = 0; i < arraydata.length; i++) {
+			var obj = arraydata[i];
+			if( obj._id != currentId ) {
+				continue;
+			}
+			InitNewJobOffer().setup(obj);
 		}
+	});
+});
 
-		function CreateJobOffer() {
-
-			var that = {};
-			return that;
-		}
-
-		window.addEventListener('load', function() {
-			// mocking setup for testing purposes
-			// InitNewJobOffer().setup(mockData);
-
-			var re = new RegExp("\\?id=([a-zA-Z0-9]+)&*");
-			var currentId = re.exec(window.location.href)[1];
-
-			getJobsFromDB(function(arraydata) {
-				for (var i = 0; i < arraydata.length; i++) {
-					var obj = arraydata[i];
-					if( obj._id != currentId ) {
-						continue;
-					}
-					InitNewJobOffer().setup(obj);
-				}
-			});
-		});
-
-		function getJobsFromDB(done) {
-			http('get', '/api/jobs', {}, function(responseText) {
-				var response = JSON.parse(responseText);
-				done(response);
-			});
-		}
+function getJobsFromDB(done) {
+	http('get', '/api/jobs', {}, function(responseText) {
+		var response = JSON.parse(responseText);
+		done(response);
+	});
+}
