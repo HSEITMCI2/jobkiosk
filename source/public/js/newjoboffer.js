@@ -1,5 +1,6 @@
 "use strict";
 
+/*
 var mockData = {
 	jobtitle:'Entwickler',
 	jobdescription: 'Entwickler entwickeln Entwicklungen',
@@ -15,6 +16,7 @@ var mockData = {
 		'python'
 	]
 };
+*/
 
 function InitNewJobOffer() {
 
@@ -34,8 +36,8 @@ function InitNewJobOffer() {
 			document.getElementById('tags').value = inputData.tags.toString();
 		}
 
-		var submitButton = window.getElementById('submit');
 		/*
+		var submitButton = window.getElementById('submit');
 		submitButton.addEventListener('click', function() {
 		});
 		*/
@@ -49,7 +51,9 @@ window.addEventListener('load', function() {
 	// InitNewJobOffer().setup(mockData);
 
 	var re = new RegExp("\\?id=([a-zA-Z0-9]+)&*");
-	var currentId = re.exec(window.location.href)[1];
+	if(window.location.href !== null) {
+		var currentId = re.exec(window.location.href)[1];
+	}
 
 	getJobsFromDB(function(arraydata) {
 		for (var i = 0; i < arraydata.length; i++) {
