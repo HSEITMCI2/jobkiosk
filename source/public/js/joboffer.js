@@ -46,7 +46,7 @@ function InitJoboffer() {
 			deleteBtn.addEventListener('click', function (e) {
 				console.log(e.target.jobIndex);
 
-				http('delete', '/api/jobs/' + e.target.jobId, {}, function (responseText) {
+				http('delete', '/api/job/' + e.target.jobId, {}, function (responseText) {
 					response = JSON.parse(responseText);
 					console.log(response.type);
 				});
