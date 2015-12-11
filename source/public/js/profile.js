@@ -13,7 +13,7 @@
 function changeFunction() {
 	var familyname, givenname, company, department, telephone, street, postcode, city, countrytxt;
 	var result = {};
-	// Get the value of the input field with id="numb"
+
 	result.givenname = document.getElementById("givenname").value;
 	result.familyname = document.getElementById("familyname").value;
 	result.email = document.getElementById("email").value;
@@ -24,93 +24,38 @@ function changeFunction() {
 	result.street = document.getElementById("street").value;
 	result.company = document.getElementById("company").value;
 
-	// If x is Not a Number or less than one or greater than 10
+	var pass2 = document.getElementById('field_pwd2');
+	result.password = pass2.value;
+
 	return result;
 }
 
 function passCheck() {
 
+	//Store the password field objects into variables ...
+	var pass1 = document.getElementById('field_pwd1');
+	var pass2 = document.getElementById('field_pwd2');
 
-		// JavaScript form validation
-
-		var checkPassword = function (str) {
-			var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-			return re.test(str);
-		};
-
-		var checkForm = function (e) {
-			if (this.oldpw.value == "") {
-				alert("Error: oldpw cannot be blank!");
-				this.oldpw.focus();
-				e.preventDefault(); // equivalent to return false
-				return;
-			}
-			re = /^\w+$/;
-			if (!re.test(this.oldpw.value)) {
-				alert("Error: oldpw must contain only letters, numbers and underscores!");
-				this.oldpw.focus();
-				e.preventDefault();
-				return;
-			}
-			if (this.pwd1.value != "" && this.pwd1.value == this.pwd2.value) {
-				if (!checkPassword(this.pwd1.value)) {
-					alert("The password you have entered is not valid!");
-					this.pwd1.focus();
-					e.preventDefault();
-					return;
-				}
-			} else {
-				alert("Error: Please check that you've entered and confirmed your password!");
-				this.pwd1.focus();
-				e.preventDefault();
-				return;
-			}
-			alert("Both oldpw and password are VALID!");
-		};
-
-		var myForm = document.getElementById("myForm");
-		myForm.addEventListener("submit", checkForm, true);
-
-		// HTML5 form validation
-
-		var supports_input_validity = function () {
-			var i = document.createElement("input");
-			return "setCustomValidity" in i;
-		}
-
-		if (supports_input_validity()) {
-			var oldpwInput = document.getElementById("field_oldpw");
-			oldpwInput.setCustomValidity(oldpwInput.title);
-
-			var pwd1Input = document.getElementById("field_pwd1");
-			pwd1Input.setCustomValidity(pwd1Input.title);
-
-			var pwd2Input = document.getElementById("field_pwd2");
-
-			// input key handlers
-
-			oldpwInput.addEventListener("keyup", function () {
-				oldpwInput.setCustomValidity(this.validity.patternMismatch ? oldpwInput.title : "");
-			}, false);
-
-			pwd1Input.addEventListener("keyup", function () {
-				this.setCustomValidity(this.validity.patternMismatch ? pwd1Input.title : "");
-				if (this.checkValidity()) {
-					pwd2Input.pattern = this.value;
-					pwd2Input.setCustomValidity(pwd2Input.title);
-				} else {
-					pwd2Input.pattern = this.pattern;
-					pwd2Input.setCustomValidity("");
-				}
-			}, false);
-
-			pwd2Input.addEventListener("keyup", function () {
-				this.setCustomValidity(this.validity.patternMismatch ? pwd2Input.title : "");
-			}, false);
-
-		}
-
-
+	//Set the colors we will be using ...
+	var goodColor = "#66cc66";
+	var badColor = "#ff6666";
+	//Compare the values in the password field and the confirmation field
+	if (pass1.value != "" && pass1.value == pass2.value) {
+		//The passwords match.
+		//Set the color to the good color
+		// true
+		pass2.style.borderColor = goodColor;
+		return true;
+	}
+	if (pass1.value != "" && pass1.value != pass2.value) {
+		//The passwords match.
+		//Set the color to the good color
+		// false
+		pass2.style.borderColor = badColor;
+		return false;
+	}
+	//Password not changed
+	return true;
 }
 
 function InitProfile() {
@@ -139,12 +84,21 @@ function InitProfile() {
 		// change profile function
 		changeBtn.addEventListener('click', function (e) {
 			console.log(e.target.jobIndex);
+			passCheck();
+
+			var secondpw = document.getElementById('field_pwd2');
+			var badColor = "#ff6666";
+
+
+
 
 
 
 			var r = confirm("Are you sure?!");
 			if (r == true) {
-				http("post", "/api/profile", changeFunction());
+				if (passCheck()) {
+					http("post", "/api/profile", changeFunction());
+				}
 			} else {
 				// do nothing
 			}
@@ -164,5 +118,5 @@ function InitProfile() {
 
 window.addEventListener('load', function () {
 	InitProfile().setup();
-	passCheck();
+
 });
