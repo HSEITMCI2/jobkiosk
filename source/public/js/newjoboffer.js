@@ -42,7 +42,7 @@ function InitNewJobOffer() {
 		});
 		*/
 
-	}
+	};
 
 	return that;
 }
