@@ -3,83 +3,84 @@ extends layout
 
 // The local content
 block content
-	div.colborder
-		div.rowborder
-			div.colborder(style='border: 1px solid grey;')
-				div(style='text-align: center;')
-					| Personal Data
-				div
-					p
-						label(class='field' for='givenname') First Name: 
-						input#givenname(type='text', name='givenname', value=user.givenname)
-					p
-						label(class='field' for='familyname') Last Name: 
-						input#familyname(type='text', name='familyname', value=user.familyname)
-					p
-						label(class='field' for='email') E-Mail:
-						if (user.email)
-						input#email(type='text', name='email', value=user.email)
-					p
-						label(class='field' for='telephone') Telephone:
-						input#telephone(type='text', name='telephone', value=user.telephone)
-					p
-						label(class='field' for='department') Department:
-						input#department(type='text', name='department', value=user.department)
-				div(style='text-align: center;')
-					p
-						| Adress:
-					p
-						input#city(type='text', name='city', value=user.city)
-					p
-						input#postcode(type='text', name='postcode', value=user.postcode)
-					p
-						input#street(type='text', name='street', value=user.street)
-
-
-
-			div.colborder(style='border: 1px solid grey;')
-				div(style='text-align: center;')
-					| Company Data
-				div(style='text-align: center;')
-					p
-						label(class='cfield' for='company') Name:
-						input#company(type='text', name='company', value=user.company)
-				div(style='text-align: center;')
-					p
-						| here goes the logo
-				div
-						label(class='field' for='filename') Your file:
-						input(type="hidden", name="MAX_FILE_SIZE", value="100000")
-						input(type="file" name="file" id="companyfilename" size="40" maxlength="100000")
-
-
-			div.colborder(style='border: 1px solid grey;')
-				div(style='text-align: center;')
-					| Profile Picture
-				div(style='text-align: center;')
-					p
-						| here goes the logo
-				div
-						label(class='field' for='filename') Your file:
-						input(type="hidden", name="MAX_FILE_SIZE", value="100000")
-						input(type="file" name="file" id="userpicfilename" size="40" maxlength="100000")
-
-		div.colborder(style='flex: 0 0 auto;')
-			form#myForm
-				div.rowborder
-					div.rowborder(style='border: 1px solid grey;')
-						div.colborder
-							| Change Password			
-							P
-								label(class='field' for='oldpw') Old Password:
-								input#field_oldpw(title='Please enter the Old Password.',type='password', name='oldpw', value='')
-							p
-							
-								label(class='field' for='oldpw') New Password:
-								input#field_pwd1(title='Password must contain at least 6 characters, including UPPER/lowercase and numbers..', type='password', required='', pattern='.{6,}', name='pwd1')
-								label(class='field' for='oldpw') Confirm Password:
-								input#field_pwd2(title='Please enter the same Password.', type='password', required='', pattern='.{6,}', name='pwd2')
-				div.rowborder#submitthis
+	div.column
+		div.colborder
+			div.rowborder
+				div.colborder(style='border: 1px solid grey;')
+					div(style='text-align: center;')
+						| Personal Data
+					div
+						p
+							label(class='field' for='givenname') First Name: 
+							input#givenname(type='text', name='givenname', value=user.givenname)
+						p
+							label(class='field' for='familyname') Last Name: 
+							input#familyname(type='text', name='familyname', value=user.familyname)
+						p
+							label(class='field' for='email') E-Mail:
+							if (user.email)
+							input#email(type='text', name='email', value=user.email)
+						p
+							label(class='field' for='telephone') Telephone:
+							input#telephone(type='text', name='telephone', value=user.telephone)
+						p
+							label(class='field' for='department') Department:
+							input#department(type='text', name='department', value=user.department)
+					div(style='text-align: center;')
+						p
+							| Adress:
+						p
+							input#city(type='text', name='city', value=user.city)
+						p
+							input#postcode(type='text', name='postcode', value=user.postcode)
+						p
+							input#street(type='text', name='street', value=user.street)
+	
+	
+	
+				div.colborder(style='border: 1px solid grey;')
+					div(style='text-align: center;')
+						| Company Data
+					div(style='text-align: center;')
+						p
+							label(class='cfield' for='company') Name:
+							input#company(type='text', name='company', value=user.company)
+					div(style='text-align: center;')
+						p
+							| here goes the logo
+					div
+							label(class='field' for='filename') Your file:
+							input(type="hidden", name="MAX_FILE_SIZE", value="100000")
+							input(type="file" name="file" id="companyfilename" size="40" maxlength="100000")
+	
+	
+				div.colborder(style='border: 1px solid grey;')
+					div(style='text-align: center;')
+						| Profile Picture
+					div(style='text-align: center;')
+						p
+							| here goes the logo
+					div
+							label(class='field' for='filename') Your file:
+							input(type="hidden", name="MAX_FILE_SIZE", value="100000")
+							input(type="file" name="file" id="userpicfilename" size="40" maxlength="100000")
+	
+			div.colborder(style='flex: 0 0 auto;')
+				form#myForm
+					div.rowborder
+						div.rowborder(style='border: 1px solid grey;')
+							div.colborder
+								| Change Password			
+								P
+									label(class='field' for='oldpw') Old Password:
+									input#field_oldpw(title='Please enter the Old Password.',type='password', name='oldpw', value='')
+								p
+								
+									label(class='field' for='oldpw') New Password:
+									input#field_pwd1(title='Password must contain at least 6 characters, including UPPER/lowercase and numbers..', type='password', required='', pattern='.{6,}', name='pwd1')
+									label(class='field' for='oldpw') Confirm Password:
+									input#field_pwd2(title='Please enter the same Password.', type='password', required='', pattern='.{6,}', name='pwd2')
+					div.rowborder#submitthis
 
 block scripts			
 	script(src='js/profile.js')

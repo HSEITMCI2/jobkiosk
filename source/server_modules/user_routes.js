@@ -25,7 +25,7 @@ var insideLinks = {
 	'/create': 'Create New Job',
 	'/assistant': 'Assistant',
 	'/SpecRunner.html': 'Test',
-	'/statistics' : 'Statistics'
+	'/statistics' : 'Statistics',
 };
 
 var outsideLinks = {
@@ -88,10 +88,10 @@ module.exports = function(app, passport) {
 		res.render('jobs', para);
 	});
 
-    // JOBS SECTION =========================
+	// JOBS SECTION =========================
 	app.get('/jobs', isLoggedIn, function (req, res) {
-	    para.user = req.user;
-	    res.render('jobs', para);
+		para.user = req.user;
+		res.render('jobs', para);
 	});
 
 	// New Job offer section =================
@@ -102,14 +102,14 @@ module.exports = function(app, passport) {
 
 	// Assistant SECTION
 	app.get('/assistant', isLoggedIn, function (req, res) {
-    para.user = req.user;
-    res.render('adminassist', para);
+		para.user = req.user;
+		res.render('adminassist', para);
 	});
 
 	// Assistant SECTION
 	app.get('/jobviewer', isLoggedIn, function (req, res) {
-    para.user = req.user;
-    res.render('jobviewer', para);
+		para.user = req.user;
+		res.render('jobviewer', para);
 	});
 
 	// LOGOUT ==============================
@@ -118,7 +118,7 @@ module.exports = function(app, passport) {
 		req.logout();
 		res.redirect('/');
 	});
-	
+
 	// STATISTICS ==============================
 	app.get('/statistics', function(req, res) {
 		para.user = req.user;
@@ -130,6 +130,10 @@ module.exports = function(app, passport) {
 		res.render('viewer');
 	});
 
+	// Impressum ================================
+	app.get('/impressum', function(req, res) {
+		res.render('impressum');
+	});
 
 	// =============================================================================
 	// AUTHENTICATE (FIRST LOGIN) ==================================================
