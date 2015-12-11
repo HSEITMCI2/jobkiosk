@@ -42,8 +42,9 @@ function InitNewJobOffer() {
 		});
 		*/
 
-		return that;
 	}
+
+	return that;
 }
 
 window.addEventListener('load', function() {
