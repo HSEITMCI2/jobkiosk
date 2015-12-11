@@ -99,6 +99,12 @@ module.exports = function(app, passport) {
     res.render('adminassist', para);
 	});
 
+	// Assistant SECTION
+	app.get('/jobviewer', isLoggedIn, function (req, res) {
+    para.user = req.user;
+    res.render('jobviewer', para);
+	});
+
 	// LOGOUT ==============================
 	app.get('/logout', function(req, res) {
 		para.links = outsideLinks;

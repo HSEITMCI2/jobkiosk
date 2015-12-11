@@ -185,21 +185,25 @@
 .cell_cont_btnAccept:hover{
 	background-color: green;
 	color: white;
+	cursor: pointer;
 }
 
 .cell_cont_btnDecline:hover{
 	background-color: red;
 	color: white;
+	cursor: pointer;
 }
 
 .cell_cont_btnStornieren:hover{
 	background-color: blue;
 	color: white;
+	cursor: pointer;
 }
 
 .cell_cont_btnDelete:hover{
 	background-color: darkred;
 	color: white;
+	cursor: pointer;
 }
 
 .jobLink{
@@ -215,4 +219,92 @@
 
 .cellEntry{
 	cursor: default;
+}
+
+
+/*viewer & decline*/
+
+.viewer_inner_cont{
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;	
+}
+
+
+.viewer_cont_header{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	font-size: 26px;
+	font-weight: bold;
+	background-color: #666;
+	height: 100px;
+
+}
+
+.viewer_cont_body{
+	background-color: #ffB;
+}
+
+.viewer_cont_foot{
+	display: flex;
+	flex-direction: row;
+	background-color: #666;;
+}
+
+.viewer_picture_section{
+	display: flex;
+	flex: 1 1 auto;
+	justify-content: center;
+	margin :30px;
+	height: 300px;
+	background-color: white;
+}
+
+.viewer_header_label{
+	font-size: 30px;
+	font-weight: bold;
+	margin: 20px;
+}
+
+.column{
+	display: flex;
+	flex: 1 0 auto;
+	flex-direction: column;
+}
+
+.viewer_btnCancel{
+	font-size: 18px;
+	margin: 10px;
+	margin-left: 200px;
+}
+
+.viewer_btnAccept{
+	font-size: 18px;
+	margin: 10px;
+	margin-left: 80px;
+}
+
+.viewer_btnDecline{
+	font-size: 18px;
+	margin: 10px;
+	margin-left: 30px;
+}
+
+.viewer_btnCancel:hover{
+
+	background-color: #AAA
+}
+
+.viewer_btnAccept:hover{
+
+	background-color: #AAA
+
+}
+
+.viewer_btnDecline:hover{
+
+	background-color: #AAA
+
 }

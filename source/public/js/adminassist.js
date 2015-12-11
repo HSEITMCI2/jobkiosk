@@ -16,7 +16,7 @@ function App() {
 	var inner_content = document.getElementById("jobs"); // private
 
 	//Container
-	inner_content.setAttribute('class', 'inner_content')
+	inner_content.setAttribute('class', 'inner_content');
 	var cont_header = dom('div',{});
 	var cont_unsignedJobs = dom('div',{});
 	var cont_acceptedJobs = dom('div',{});
@@ -162,8 +162,11 @@ function newAddRowToTable(tabID, obj, arraydata){
             mycurrent_cell = document.createElement("td");
             
             if(i === TAB_COL_JOBTITLE){
-            	currenttext = dom('href',{},obj.pdffilename.substring(0,(obj.pdffilename.length - 4)));
+            	currenttext = dom('href',{},obj.pdffilename.substring(0,(obj.pdffilename.length - 4)));            	
             	currenttext.setAttribute('class', 'jobLink');
+            	currenttext.addEventListener('click', function(ev){
+        			openViewer(obj._id);
+        		});
         	}else if(i === TAB_COL_STELLENART){
         		currenttext = dom('href',{},obj.jobtype);
             	currenttext.setAttribute('class', 'cellEntry');
@@ -317,4 +320,8 @@ function saveJobToDB(job){
 		console.log(response.message);
 	});
 
+}
+
+function openViewer(jobid){
+	var window_jobViewer = window.open("/jobviewer?id="+ jobid)
 }
