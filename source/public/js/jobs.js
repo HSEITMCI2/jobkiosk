@@ -49,7 +49,7 @@ function InitJoboffer() {
 
 	that.updateFromServer = function () {
 		http('get', '/api/jobs', {}, function (responseText) {
-			response = JSON.parse(responseText);
+			var response = JSON.parse(responseText);
 			that.setup(response);
 		});
 	};
