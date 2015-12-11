@@ -55,15 +55,19 @@ window.addEventListener('load', function() {
 		var currentId = re.exec(window.location.href)[1];
 	}
 
-	getJobsFromDB(function(arraydata) {
-		for (var i = 0; i < arraydata.length; i++) {
-			var obj = arraydata[i];
-			if( obj._id != currentId ) {
-				continue;
+	if(currentId){
+		getJobsFromDB(function(arraydata) {
+			for (var i = 0; i < arraydata.length; i++) {
+				var obj = arraydata[i];
+				if( obj._id != currentId ) {
+					continue;
+				}
+				InitNewJobOffer().setup(obj);
 			}
-			InitNewJobOffer().setup(obj);
-		}
-	});
+		});
+	} else {
+		InitNewJobOffer().setup();
+	}
 });
 
 function getJobsFromDB(done) {
