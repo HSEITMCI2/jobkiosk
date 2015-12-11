@@ -51,7 +51,6 @@ p.required:after {
 	content: " *";
 }
 
-
 /*  Desktop Mode    */
 label.field {
 	display: inline-block;
