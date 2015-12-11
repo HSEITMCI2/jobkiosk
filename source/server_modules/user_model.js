@@ -95,7 +95,7 @@ function Users() {
 				for (var i = 0; i < fields.length; ++i) {
 					var key = fields[i];
 					doc[key] = obj[key] || doc[key];
-					// dbgLog('update', key, 'to', doc[key]);
+					dbgLog('update', key, 'to', doc[key]);
 				}
 				doc.save(function(err) {
 					if (err) {
