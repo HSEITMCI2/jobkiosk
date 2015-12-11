@@ -22,8 +22,8 @@ var insideLinks = {
 	'/logout': 'Logout',
 	'/profile': 'Profile',
 	'/jobs': 'Jobs',
-	'/newjoboffer': 'new job offer',
-	'/companyoffer': 'Company Offer',
+	'/create': 'Create New Job',
+	'/assistant': 'Assistant',
 	'/SpecRunner.html': 'Test',
 	'/statistics' : 'Statistics'
 };
@@ -89,17 +89,28 @@ module.exports = function(app, passport) {
 	});
 
     // JOBS SECTION =========================
-	app.get('/companyoffer', isLoggedIn, function (req, res) {
+	app.get('/jobs', isLoggedIn, function (req, res) {
 	    para.user = req.user;
-	    res.render('companyoffer', para);
+	    res.render('jobs', para);
 	});
 
 	// New Job offer section =================
-	app.get('/newjoboffer', isLoggedIn, function(req, res){
+	app.get('/create', isLoggedIn, function(req, res){
 		para.user = req.user;
-		res.render('newjoboffer', para);
+		res.render('create', para);
 	});
 
+	// Assistant SECTION
+	app.get('/assistant', isLoggedIn, function (req, res) {
+    para.user = req.user;
+    res.render('adminassist', para);
+	});
+
+	// Assistant SECTION
+	app.get('/jobviewer', isLoggedIn, function (req, res) {
+    para.user = req.user;
+    res.render('jobviewer', para);
+	});
 
 	// LOGOUT ==============================
 	app.get('/logout', function(req, res) {
