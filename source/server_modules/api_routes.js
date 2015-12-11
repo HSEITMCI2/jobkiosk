@@ -148,7 +148,16 @@ module.exports = function(app, passport) {
 
 	function shorten(filepath) {
 		var idx = filepath.indexOf('public');
-		return filepath.substr(idx+6);
+		return filepath.substr(idx + 6);
+	}
+
+	function shortenJobImages(jobs) {
+		for (var i = 0; i < jobs.length; ++i) {
+			var j = jobs[i];
+			j.smallimage = shorten(j.smallimage);
+			j.fullimage = shorten(j.smallimage);
+		}
+		return jobs;
 	}
 
 	app.get('/api/alljobs', isLoggedIn, function(req, res) {
@@ -158,12 +167,7 @@ module.exports = function(app, passport) {
 					message: "Error getting all jobs"
 				});
 			} else {
-				for(var i=0; i<jobs.length; ++i) {
-					var j = jobs[i];
-					j.smallimage = shorten(j.smallimage); 
-					j.fullimage = shorten(j.smallimage); 
-				}
-				res.json(jobs);
+				res.json(shortenJobImages(jobs));
 			}
 		});
 	});
@@ -189,7 +193,7 @@ module.exports = function(app, passport) {
 								message: 'no jobs found!' + err
 							});
 						} else {
-							res.json(jobs);
+							res.json(shortenJobImages(jobs));
 						}
 					});
 				}
@@ -207,7 +211,7 @@ module.exports = function(app, passport) {
 						message: 'no jobs found!'
 					});
 				} else {
-					res.json(jobs);
+					res.json(shortenJobImages(jobs));
 				}
 			});
 		} else {
