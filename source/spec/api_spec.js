@@ -129,6 +129,7 @@ function postJob(jobtitle, filename, done) {
 		data: {
 			email: defaultuser.email,
 			jobtitle: jobtitle,
+			company: 'HS Esslingen',
 			api: true,
 			file: rest.file(filename, null, stats.size, null, 'application/pdf')
 		}
@@ -138,13 +139,12 @@ function postJob(jobtitle, filename, done) {
 
 }
 
-
 describe("creates a pdf ", function() {
 	var filename = 'test.pdf';
 	var stats;
 	beforeEach(function(done) {
 		testjobs.createPDF(filename, "Entwickler", "Wir suchen Entwickler.");
-		setTimeout(function () {
+		setTimeout(function() {
 			stats = fs.statSync(filename);
 			done();
 		}, 2000);
@@ -226,9 +226,12 @@ describe("get all jobs ", function() {
 			job.password = defaultuser.password;
 			job.api = true;
 			job.status = "accepted";
-			rest.put(baseurl + '/job/' + job._id, job).on('complete', function(resobj) {
+			rest.put(baseurl + '/job/' + job._id, {
+				multipart: false,
+				data: job
+			}).on('complete', function(resobj) {
 				if (resobj.message) {
-					errorLog('getting jobs', resobj.message);
+					dbgLog('getting jobs', resobj.message);
 				}
 				response = resobj;
 				done();
@@ -236,9 +239,31 @@ describe("get all jobs ", function() {
 
 		});
 
-		it("the job is saved", function() {
+		it("the job is saved", function(done) {
 			expect(response.message).toBe('saved job');
+			done();
 		});
+
+
+		describe("get a single job ", function() {
+			beforeEach(function(done) {
+				rest.get(baseurl + '/job/' + job._id, job).on('complete', function(resobj) {
+					if (resobj.message) {
+						errorLog('getting jobs', resobj.message);
+					}
+					response = resobj;
+					done();
+				});
+
+			});
+
+			it("the job is is accepted", function(done) {
+				expect(response.status).toBe('accepted');
+				done();
+			});
+
+		});
+
 
 	});
 
