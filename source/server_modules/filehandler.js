@@ -18,9 +18,11 @@ var infoLog = log.xlog("[Info in " + moduleName, "FgGreen", "BgBlack", 2);
 
 function FileHandler(maindir) {
 	var that = {};
-	// infoLog('FileHandler:', maindir);
+	infoLog('FileHandler:', maindir);
 
-	var dir = path.join(maindir, 'userfiles');
+	var publicdir = path.join(maindir, 'public');
+
+	var dir = path.join(publicdir, 'userfiles');
 	fs.stat(dir, function(err) { // err, stats
 		if (err) {
 			fs.mkdir(dir, function(err) {
@@ -56,21 +58,15 @@ function FileHandler(maindir) {
 	};
 
 
-
-
-	that.getMainDir = function() {
-		return maindir;
-	};
-
 	that.addFile = function(userid, filename) {
-		var dir = path.join(maindir, 'userfiles', userid);
+		var dir = path.join(publicdir, 'userfiles', userid);
 		var full = path.join(dir, filename);
 		// dbgLog("FileHandler:addFile ", full);
 		return full;
 	};
 
 	that.addUserDir = function(userid, cb) {
-		var dir = path.join(maindir, 'userfiles', userid);
+		var dir = path.join(publicdir, 'userfiles', userid);
 		fs.stat(dir, function(err) {
 			if (err) {
 				fs.mkdir(dir, function(err) {

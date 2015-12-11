@@ -139,7 +139,6 @@ function postJob(jobtitle, filename, done) {
 
 }
 
-
 describe("creates a pdf ", function() {
 	var filename = 'test.pdf';
 	var stats;
