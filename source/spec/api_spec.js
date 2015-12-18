@@ -54,7 +54,6 @@ describe("Can we reset the DB?", function() {
 		done();
 	});
 });
-
 ///////////////////////////////////////////////////////////////////////////////
 ///	Access the API 
 ///
@@ -115,7 +114,6 @@ describe("Can we get the main directory?", function() {
 
 });
 
-
 ///////////////////////////////////////////////////////////////////////////////
 ///	Try to send a job offer
 ///
@@ -123,13 +121,14 @@ describe("Can we get the main directory?", function() {
 ///
 ///
 
-function postJob(jobtitle, filename, done) {
+function postJob(jobtitle, tags, filename, done) {
 	var stats = fs.statSync(filename);
 	rest.post(baseurl + '/job', {
 		multipart: true,
 		data: {
 			email: defaultuser.email,
 			jobtitle: jobtitle,
+			tags: tags,
 			company: 'HS Esslingen',
 			api: true,
 			file: rest.file(filename, null, stats.size, null, 'application/pdf')
@@ -166,11 +165,10 @@ describe("send a job ", function() {
 		var stats = fs.statSync(filename);
 
 		// 		testjobs.createPDF(filename, "Entwickler", "Wir suchen Entwickler.");
-
 		if (stats.size > 0) {
-			postJob('Entwickler', filename, function() {
-				postJob('Supporter', filename, function() {
-					postJob('Berater', filename, function(resobj) {
+			postJob('Entwickler', 'C++ Java Web-Services Software Engineering Support Praktikum', filename, function() {
+				postJob('Supporter', 'Web-Services Software Engineering Support Vollzeit', filename, function() {
+					postJob('Berater', 'Java Web-Services Software Engineering Support Vollzeit', filename, function(resobj) {
 						response = resobj;
 						done();
 					});

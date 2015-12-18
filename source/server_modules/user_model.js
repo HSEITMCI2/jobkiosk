@@ -94,7 +94,7 @@ function Users() {
 			if (err) {
 				that.addUser(obj, cb);
 			} else {
-				if (obj.password) {
+				if (obj.password !== undefined && obj.password !== "") {
 					doc.password = doc.generateHash(obj.password);
 				}
 				for (var i = 0; i < fields.length; ++i) {
