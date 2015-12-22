@@ -6,47 +6,39 @@ var fs = require('fs');
 GLOBAL.searchpaths(module);
 var log = require('log');
 
-var moduleName = "jobs]:";
+var moduleName = "Model]:";
 var errorLog = log.xlog("[Error in " + moduleName, "FgWhite", "BgRed", 0);
 // var warningLog = log.xlog("[Warning " + moduleName, "FgRed", "BgWhite", 1);
 // var infoLog = log.xlog("[Info in " + moduleName, "FgGreen", "BgBlack", 2);
 var dbgLog = log.xlog("[Debug " + moduleName, "FgBlue", "BgWhite", 3);
 
 
-function Model(modelname, fields) {
+function Model() {
 	"use strict";
 	var that = {};
 	var mongooseDB = require('db_connection')();
-	var fields = fields || {
-		title: String,
-	}
+	var modelbase = {};
+	var fieldbase = {};
 
-	var schema = new mongoose.Schema(fields);
-	var model = mongooseDB.model(modelname, schema);
-	that.model = model;
+	that.addModel = function(modelname, fields) {
+		if (typeof modelname === 'string' && modelname.length > 3) {
+			modelname = modelname.toLowerCase();
 
-	that.clear = function() {
-		model.remove({}, function() {
-			dbgLog('collection removed');
-		});
-	};
-
-	that.add = function(obj, cb) {
-		var doc = new model(obj);
-		doc.save(function(err, job) {
-			if (err) {
-				errorLog('Add  ', err);
-				cb({
-					error: err
-				});
-			} else {
-				dbgLog('Add ', job.jobtitle);
-				cb(job);
+			var fields = fields || {
+				title: String,
 			}
-		});
+
+			var schema = new mongoose.Schema(fields);
+			var model = mongooseDB.model(modelname, schema);
+			modelbase[modelname] = model;
+			fieldbase[modelname] = fields;
+
+			return model;
+		} else {
+			errorLog('Error creating model 2', modelname, typeof modelname, modelname.length);
+			return undefined;
+		}
 	}
-
-
 	return that;
 }
 
