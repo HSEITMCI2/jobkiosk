@@ -1,10 +1,3 @@
-const TAB_COL_JOBTITLE = 0;
-const TAB_COL_STELLENART = 1;
-const TAB_COL_FIRMA = 2;
-const TAB_COL_EMAIL = 3;
-const TAB_COL_EINSTELLDATUM = 4;
-const TAB_COL_GUELTIGBIS = 5;
-
 function LOG(msg) {
 	console.log("LOG: " + msg);
 }
@@ -161,27 +154,27 @@ function newAddRowToTable(tabID, obj, arraydata){
     		cell_cont.setAttribute('class', ('cell_cont_col' + String(i)));
             mycurrent_cell = document.createElement("td");
             
-            if(i === TAB_COL_JOBTITLE){
+            if(i === 0){
             	currenttext = dom('href',{},obj.pdffilename.substring(0,(obj.pdffilename.length - 4)));            	
             	currenttext.setAttribute('class', 'jobLink');
             	currenttext.addEventListener('click', function(ev){
         			openViewer(obj._id);
         		});
-        	}else if(i === TAB_COL_STELLENART){
+        	}else if(i === 1){
         		currenttext = dom('href',{},obj.jobtype);
             	currenttext.setAttribute('class', 'cellEntry');
-        	}else if(i === TAB_COL_FIRMA){
+        	}else if(i === 2){
         		currenttext = dom('label',{},obj.company);
             	currenttext.setAttribute('class', 'cellEntry');
-        	}else if(i === TAB_COL_EMAIL){
+        	}else if(i === 3){
         		currenttext = dom('label',{},'email');
             	currenttext.setAttribute('class', 'cellEntry');
-        	}else if(i === TAB_COL_EINSTELLDATUM){
+        	}else if(i === 4){
         		var cDate = new Date(obj.creationdate);
         		var cTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
         		currenttext = dom('label',{}, cTimeString);
             	currenttext.setAttribute('class', 'cellEntry');
-        	}else if(i === TAB_COL_GUELTIGBIS){
+        	}else if(i === 5){
         		vDate = new Date(obj.validdate);
             	var vTimeString = cDate.getFullYear() + "-" + (cDate.getMonth() +1) + "-" + (cDate.getDay() +1);
             	currenttext = dom('label',{},vTimeString);
@@ -323,5 +316,8 @@ function saveJobToDB(job){
 }
 
 function openViewer(jobid){
-	var window_jobViewer = window.open("/jobviewer?id="+ jobid)
+	var window_jobViewer = window.open("/jobviewer?id="+ jobid);
+	window_jobViewer.addEventListener('onclose', function(){
+		that.location.reload();
+	});
 }

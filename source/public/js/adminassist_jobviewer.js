@@ -4,8 +4,13 @@
 
  }
 
- function schliessen() {
-	window.close();
+ function schliessen(job) {
+  job.status = "accepted";
+  saveJobToDB(job);
+  setTimeout(function continueExecution(){
+    window.close();
+  },
+  100);
 
  }
 
@@ -61,48 +66,16 @@
 	viewer_cont_body.appendChild(picture_section);
 
 
-	var newbutton, newbutton1, newbutton2; //    AB HIER DIE BUTTONS
-
-	newbutton1 = document.createElement('input'); //        AKZEPTIEREN
-	newbutton1.type = 'button';
-	newbutton1.value = 'Akzeptieren';
-	newbutton1.id = 'Akzeptieren';
-	newbutton1.onclick = function() {
-		schliessen();
-	}
-	newbutton1.setAttribute('class', 'viewer_btnAccept');
-
-	newbutton = document.createElement('input'); //        ABLEHNEN
-	newbutton.type = 'button';
-	newbutton.value = 'Ablehnen';
-	newbutton.id = 'Ablehnen';
-	newbutton.onclick = function() {
-		ablehni(obil);
-	}
-	newbutton.setAttribute('class', 'viewer_btnDecline');
-
-	newbutton2 = document.createElement('input'); //        ABBRECHEN
-	newbutton2.type = 'button';
-	newbutton2.value = 'Abbrechen';
-	newbutton2.id = 'Abbrechen';
-	newbutton2.onclick = function() {
-		window.close();
-	}
-	newbutton2.setAttribute('class', 'viewer_btnCancel');
-
-	viewer_cont_foot.appendChild(newbutton1);
-	viewer_cont_foot.appendChild(newbutton);
-	viewer_cont_foot.appendChild(newbutton2);
-
 	/*TEST*/
 	var picture = document.createElement('img');
-
+  var job = undefined;
 	//get job
 	getJobsFromDB(function(arraydata) {
 		for (var i = 0; i < arraydata.length; i++) {
 			var obj = arraydata[i];
 			if (obj._id === id) {
 				picture.setAttribute('src', obj.fullimage);
+        job = obj;
 				break;
 			}
 		}
@@ -111,6 +84,39 @@
 
 	picture_section.appendChild(picture);
 
+
+  var newbutton, newbutton1, newbutton2; //    AB HIER DIE BUTTONS
+
+  newbutton1 = document.createElement('input'); //        AKZEPTIEREN
+  newbutton1.type = 'button';
+  newbutton1.value = 'Akzeptieren';
+  newbutton1.id = 'Akzeptieren';
+  newbutton1.onclick = function() {
+    schliessen(job);
+  }
+  newbutton1.setAttribute('class', 'viewer_btnAccept');
+
+  newbutton = document.createElement('input'); //        ABLEHNEN
+  newbutton.type = 'button';
+  newbutton.value = 'Ablehnen';
+  newbutton.id = 'Ablehnen';
+  newbutton.onclick = function() {
+    ablehni(obil);
+  }
+  newbutton.setAttribute('class', 'viewer_btnDecline');
+
+  newbutton2 = document.createElement('input'); //        ABBRECHEN
+  newbutton2.type = 'button';
+  newbutton2.value = 'Abbrechen';
+  newbutton2.id = 'Abbrechen';
+  newbutton2.onclick = function() {
+    window.close();
+  }
+  newbutton2.setAttribute('class', 'viewer_btnCancel');
+
+  viewer_cont_foot.appendChild(newbutton1);
+  viewer_cont_foot.appendChild(newbutton);
+  viewer_cont_foot.appendChild(newbutton2);
 
  }
 
