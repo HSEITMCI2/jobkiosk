@@ -43,6 +43,10 @@ var insideLinks = {
 		title: 'Create New Job',
 		view: 'create'
 	},
+	'/jobviewer': {
+		title: 'Job Viewer',
+		view: 'jobviewer'
+	},
 	'/assistant': {
 		title: 'Assistant',
 		view: 'adminassist'
