@@ -43,10 +43,16 @@ function Jobs() {
 			default: Date.now
 		},
 		pdffilename: String,
-		jobtype: String,
+		jobtype: {
+			type: String,
+			default: "Vollzeit"
+		},
 		company: String,
 		joblocation: String,
-		status: String,
+		status: {
+			type: String,
+			default: "unassigned"
+		},
 		fullimage: String,
 		smallimage: String
 	});

@@ -2,26 +2,28 @@
 
 function InitStatistics(){
 var that = {};
+var jobs = [];
 
 that.setup = function() {
   var fill = d3.scale.category20();
   var tags = '{ "Tags" : [' +
-'{ "Tag":"Java"},' +
-'{ "Tag":"JavaScript"},' +
-'{ "Tag":"Praktikum"},' +
-'{ "Tag":"Abschlussarbeit"},' +
-'{ "Tag":"SQL"},' +
-'{ "Tag":"CSS3"},' +
-'{ "Tag":"C#"},' +
-'{ "Tag":"Automotive"},' +
-'{ "Tag":"Python"},' +
-'{ "Tag":"C++"} ]}';
+'{ "Tag":"Java", "Size":"1"},' +
+'{ "Tag":"JavaScript", "Size":"0.9"},' +
+'{ "Tag":"Praktikum", "Size":"0.8"},' +
+'{ "Tag":"Abschlussarbeit", "Size":"0.7"},' +
+'{ "Tag":"SQL", "Size":"0.6"},' +
+'{ "Tag":"CSS3", "Size":"0.5"},' +
+'{ "Tag":"C#", "Size":"0.4"},' +
+'{ "Tag":"Automotive", "Size":"0.3"},' +
+'{ "Tag":"Python", "Size":"0.2"},' +
+'{ "Tag":"C++", "Size":"0.1"} ]}';
+  var tagsfromapi = [];
   var tagobject = JSON.parse(tags);
 
-  d3.layout.cloud().size([500, 500])
+  d3.layout.cloud().size([700, 650])
       .words([
-  	  tagobject.Tags[0].Tag,  tagobject.Tags[1].Tag,  tagobject.Tags[2].Tag,  tagobject.Tags[3].Tag,  tagobject.Tags[4].Tag,  tagobject.Tags[5].Tag,  tagobject.Tags[5].Tag, tagobject.Tags[6].Tag,  tagobject.Tags[7].Tag,  tagobject.Tags[8].Tag,  tagobject.Tags[9].Tag].map(function(d) {
-        return {text: d, size: 15 + Math.random() * 100};
+  	  tagobject.Tags[0].Tag,  tagobject.Tags[1].Tag,  tagobject.Tags[2].Tag,  tagobject.Tags[3].Tag,  tagobject.Tags[4].Tag, tagobject.Tags[5].Tag, tagobject.Tags[6].Tag,  tagobject.Tags[7].Tag,  tagobject.Tags[8].Tag,  tagobject.Tags[9].Tag].map(function(d, i) {
+        return {text: d, size: 15 + 100 * tagobject.Tags[i].Size};
       }))
       .rotate(function() { return ~~(Math.random() * 2) * 360; })
       .font("Impact")
@@ -32,7 +34,7 @@ that.setup = function() {
   function draw(words) {
     d3.select("article#tagcloud").append("svg")
         .attr("width", 1500)
-        .attr("height", 1000)
+        .attr("height", 1200)
       .append("g")
         .attr("transform", "translate(600,300)")
       .selectAll("text")
@@ -47,10 +49,24 @@ that.setup = function() {
         })
         .text(function(d) { return d.text; });
   }};
-  
+ 
+ function onJobs(resp){
+ 		if (resp.message === undefined) {
+			console.log(resp.message);
+			console.log(resp);
+			jobs = JSON.parse(resp);
+			console.log(resp.length);
+			console.log(jobs);
+			}}
+			
+ that.updateTags = function () {
+		http('get', '/api/alljobs', {}, onJobs);
+	};
+	
   return that;
 
 }
 window.addEventListener('load', function() {
 	InitStatistics().setup();
+	InitStatistics().updateTags();
 });
