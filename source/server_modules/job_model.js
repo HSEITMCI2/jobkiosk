@@ -76,7 +76,9 @@ function Jobs() {
 			dbgLog('update', key, 'to', body[key]);
 		}
 		body.tags = body.tags || "";
-		job.tags = body.tags.split(/,| /);
+		job.tags = body.tags.split(" ");
+
+
 		var plus3 = new Date();
 		plus3.setMonth(plus3.getMonth() + 3);
 		job.validdate = body.validdate || plus3;
