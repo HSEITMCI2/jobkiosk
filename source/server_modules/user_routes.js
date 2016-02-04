@@ -191,9 +191,8 @@ module.exports = function(app, passport) {
 
 	// Impressum ================================
 	app.get('/impressum', function(req, res) {
-		res.render('impressum');
+		res.render('impressum', para);
 	});
-
 
 	// =============================================================================
 	// AUTHENTICATE (FIRST LOGIN) ==================================================

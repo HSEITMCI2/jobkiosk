@@ -47,7 +47,7 @@ footer {
 	height: 48px;
 	padding-top: 12px;
 }
-
+/* */
 p.required:after {
 	content: " *";
 }
@@ -72,38 +72,58 @@ label.field {
 }
 /* */
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
 }
 
 li {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+	float: left;
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
 }
 li.activebutton a {
-    display: block;
-    color: white;
-    text-align: center;
-    text-decoration: none;
+	display: block;
+	color: white;
+	text-align: center;
+	text-decoration: none;
 }
 li.button a {
-    display: block;
-    color: #848484;
-    text-align: center;
-    text-decoration: none;
+	display: block;
+	color: #848484;
+	text-align: center;
+	text-decoration: none;
 }
 
-/* Change the link color to #FFF (white) on hover */
 li.button a:hover {
-    color: white;
+color: white;
 	text-decoration: none;	
+}
+
+.centercontent {
+	display: flex;
+	justify-content: center;
+}
+
+.centercontent a {
+	display: block;
+	color: #848484;
+	text-align: center;
+	text-decoration: none;
+}
+
+.centercontent a:hover {
+	color: white;
+	text-decoration: none;	
+}
+.centercontent span {
+	color: #848484;
+	padding: 0 2cm;
 }
 
 /* Funconality independent of the layout*/
@@ -182,43 +202,6 @@ li.button a:hover {
 		opacity: 1;
 		right: 0;
 	}
-
-
-.centercontent {
-	display: flex;
-	justify-content: center;
-}
-
-.rowborder {
-	display: flex;
-	flex-direction: row;
-	flex: 1 0 auto;
-	margin: 5px;
-	height
-}
-
-.colborder {
-	display: flex;
-	flex-direction: column;
-	flex: 2 0 auto;
-	margin: 5px;
-}
-
-.centercontent a {
-	display: block;
-    color: #848484;
-    text-align: center;
-    text-decoration: none;
-}
-
-.centercontent a:hover {
-    color: white;
-	text-decoration: none;	
-}
-.centercontent span {
-	color: #848484;
-	padding: 0 2cm;
-}
 
 .jobcreator {
 	display: flex;
