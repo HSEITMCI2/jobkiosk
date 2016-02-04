@@ -147,10 +147,10 @@ module.exports = function(app, passport) {
 		res.render('jobs', para);
 	});
 
-	// JOBS SECTION =========================
-	app.get('/jobs', isLoggedIn, function (req, res) {
-		para.user = req.user;
-		res.render('jobs', para);
+    // JOBS SECTION =========================
+	app.get('/companyoffer', isLoggedIn, function (req, res) {
+	    para.user = req.user;
+	    res.render('companyoffer', para);
 	});
 
 	// New Job offer section =================

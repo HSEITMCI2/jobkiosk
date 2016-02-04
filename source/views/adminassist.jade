@@ -1,15 +1,29 @@
+// The main layout
 extends layout
 
-
-
-block style
-	link(rel='stylesheet', href='css/adminstyle.css' )
-
-//the local content
+// The local content
 block content
 	div.column
-		div#jobs
-			article
+		article
+			h1 Neue Jobs
+			table
+				tr
+					th Berlin
+					th Hamburg
+					th Münche
+				
+				tr
+					td Miljöh
+					td Kiez
+					td Bierdampf
+					
+				tr
+					td Buletten
+					td Frikadellen
+					td Fleischpflanzer
+					
 
-block scripts
-	script(src="js/adminassist.js")			
+			
+
+block scripts			
+	script(src='js/profile.js')
