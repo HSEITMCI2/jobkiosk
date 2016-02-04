@@ -45,7 +45,7 @@ var insideLinks = {
 	},
 	'/assistant': {
 		title: 'Assistant',
-		view: 'assistant'
+		view: 'adminassist'
 	},
 	'/SpecRunner.html': {
 		title: 'Test',
@@ -135,75 +135,6 @@ module.exports = function(app, passport) {
 		}
 	});
 
-	// PROFILE SECTION =========================
-	app.get('/profile', isLoggedIn, function(req, res) {
-		para.user = req.user;
-		res.render('profile', para);
-	});
-
-	// JOBS SECTION =========================
-	app.get('/jobs', isLoggedIn, function(req, res) {
-		para.user = req.user;
-		res.render('jobs', para);
-	});
-
-    // JOBS SECTION =========================
-	app.get('/companyoffer', isLoggedIn, function (req, res) {
-	    para.user = req.user;
-	    res.render('companyoffer', para);
-	});
-
-	// New Job offer section =================
-	app.get('/create', isLoggedIn, function(req, res){
-		para.user = req.user;
-		res.render('create', para);
-	});
-
-	// Assistant SECTION
-	app.get('/assistant', isLoggedIn, function (req, res) {
-		para.user = req.user;
-		res.render('adminassist', para);
-	});
-
-	// Assistant SECTION
-	app.get('/jobviewer', isLoggedIn, function (req, res) {
-		para.user = req.user;
-		res.render('jobviewer', para);
-	});
-
-	// LOGOUT ==============================
-	app.get('/logout', function(req, res) {
-		para.links = outsideLinks;
-		req.logout();
-		res.redirect('/');
-	});
-
-	// STATISTICS ==============================
-	app.get('/statistics', function(req, res) {
-		para.user = req.user;
-		res.render('statistics', para);
-	});
-
-	// STATISTICS ==============================
-	app.get('/viewer', function(req, res) {
-		res.render('viewer');
-	});
-
-	// Impressum ================================
-	app.get('/impressum', function(req, res) {
-		res.render('impressum', para);
-	});
-
-	// =============================================================================
-	// AUTHENTICATE (FIRST LOGIN) ==================================================
-	// =============================================================================
-	// locally --------------------------------
-	// LOGIN ===============================
-	// show the login form
-	app.get('/login', function(req, res) {
-		para.message = req.flash('error')[0];
-		// infoLog(JSON.stringify(fls, null, ' '));
-		res.render('login', para);
 	setRoutes(outsideLinks, function(route, target) {
 		para.title = target.title;
 		dbgLog('Route outsideLinks', route, target.view);

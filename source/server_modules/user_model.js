@@ -24,7 +24,6 @@ function Users() {
 	var defaultuser = require('defaultuser');
 
 	var fields = ['familyname', 'givenname', 'email', 'company', 'department', 'street', 'postcode', 'city', 'countrytxt'];
-
 	var schema = {};
 	for (var i = 0; i < fields.length; ++i) {
 		schema[fields[i]] = {
