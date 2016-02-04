@@ -43,10 +43,11 @@ section {
  
 footer {
 	background: #2E2E2E;
-	flex: 0 0 50px;
-	padding: 10px;
+	flex: 0 0 36px;
+	height: 48px;
+	padding-top: 12px;
 }
-
+/* */
 p.required:after {
 	content: " *";
 }
@@ -58,7 +59,9 @@ label.field {
 	width: 180px;
 	margin-right: 5px;
 }
-/* Layout style with navbar buttons */
+
+
+
 .button {
 	overflow:hidden;
 }
@@ -69,38 +72,58 @@ label.field {
 }
 /* */
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
 }
 
 li {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+	float: left;
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
 }
 li.activebutton a {
-    display: block;
-    color: white;
-    text-align: center;
-    text-decoration: none;
+	display: block;
+	color: white;
+	text-align: center;
+	text-decoration: none;
 }
 li.button a {
-    display: block;
-    color: #848484;
-    text-align: center;
-    text-decoration: none;
+	display: block;
+	color: #848484;
+	text-align: center;
+	text-decoration: none;
 }
 
-/* Change the link color to #FFF (white) on hover */
 li.button a:hover {
-    color: white;
+color: white;
 	text-decoration: none;	
+}
+
+.centercontent {
+	display: flex;
+	justify-content: center;
+}
+
+.centercontent a {
+	display: block;
+	color: #848484;
+	text-align: center;
+	text-decoration: none;
+}
+
+.centercontent a:hover {
+	color: white;
+	text-decoration: none;	
+}
+.centercontent span {
+	color: #848484;
+	padding: 0 2cm;
 }
 
 /* Funconality independent of the layout*/
@@ -113,12 +136,25 @@ li.button a:hover {
 	font-size: 18px;
 	padding: 0px;
 	width: 80px;
+	height:30px;
 	transition: all 0.5s;
 	cursor: pointer;
 	margin: 5px;
 }
 
 .jobchangebtn {
+	border-radius: 4px;
+	border: none;
+	text-align: center;
+	font-size: 18px;
+	padding: 0px;
+	width: 80px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 5px;
+}
+
+.profilesubmitbtn{
 	border-radius: 4px;
 	border: none;
 	text-align: center;
@@ -166,12 +202,6 @@ li.button a:hover {
 		opacity: 1;
 		right: 0;
 	}
-
-
-.centercontent {
-	display: flex;
-	justify-content: center;
-}
 
 .jobcreator {
 	display: flex;

@@ -3,26 +3,25 @@ extends layout
 
 // The local content
 block content
-	div.column
-		p  #{message} 
-		article
-			form(action='/signup', method='POST', role='form')
-				div
-					label(class='field')
-					span Please sign up
-				div
-					p.required
-						label(class='field' for='email') Email
-						input(type='text', id='email', pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$", placeholder='anna@mustermann.de' required, name='email')
-					p.required
-						label(class='field' for='password') Password
-						input(type='password', id='password' , placeholder='your password', name='password')
-					p.required
-						label(class='field' for='password2') Repeat Password
-						input(type='password', id='password2' , placeholder='repeat your password', name='password2')
-				div
-					label(class='field')
-					button(type='submit', value='Log In') Submit 
+	p  #{message} 
+	article
+		form(action='/signup', method='POST', role='form')
+			div
+				label(class='field')
+				span Please sign up
+			div
+				p.required
+					label(class='field' for='email') Email
+					input(type='text', id='email', pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$", placeholder='anna@mustermann.de' required, name='email')
+				p.required
+					label(class='field' for='password') Password
+					input(type='password', id='password' , placeholder='your password', name='password')
+				p.required
+					label(class='field' for='password2') Repeat Password
+					input(type='password', id='password2' , placeholder='repeat your password', name='password2')
+			div
+				label(class='field')
+				button(type='submit', value='Log In') Submit 
 block scripts			
 
 	

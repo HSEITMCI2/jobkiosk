@@ -2,7 +2,7 @@ doctype html
 html
 	head
 		link(rel='stylesheet', href='css/style.css' )
-						
+
 		title= title
 		meta(charset="UTF-8")
 		meta(name="description", content="HTML Template")
@@ -12,19 +12,18 @@ html
 		block style			
 		block prescripts
 	body
-		//header
-			h1 Job Kiosk
 		section#content
 			nav 
 				u1
 					-each val, key in links
-						-if (id == key)
+						-if (url == key)
 							li.activebutton
-								a(href='#{key}') #{val}
+								a(href='#{key}') #{val.title}
 						-else            
 							li.button
-								a(href='#{key}') #{val}
-		block content
+								a(href='#{key}') #{val.title}
+		div.column
+			block content
 		footer
 			div.centercontent
 				a(href='/impressum') Impressum
