@@ -65,21 +65,16 @@ block content
 						input(type="file" name="file" id="userpicfilename" size="40" maxlength="100000")
 
 		div.colborder(style='flex: 0 0 auto;')
-			form#myForm
-				div.rowborder
-					div.rowborder(style='border: 1px solid grey;')
-						div.colborder
-							| Change Password			
-							P
-								label(class='field' for='oldpw') Old Password:
-								input#field_oldpw(title='Please enter the Old Password.',type='password', name='oldpw', value='')
-							p
-							
-								label(class='field' for='oldpw') New Password:
-								input#field_pwd1(title='Password must contain at least 6 characters, including UPPER/lowercase and numbers..', type='password', required='', pattern='.{6,}', name='pwd1')
-								label(class='field' for='oldpw') Confirm Password:
-								input#field_pwd2(title='Please enter the same Password.', type='password', required='', pattern='.{6,}', name='pwd2')
-				div.rowborder#submitthis
+			div.rowborder
+				div.rowborder(style='border: 1px solid grey;')
+					div.colborder
+						| Change Password			
+						p
+							label(class='field' for='oldpw') New Password:
+							input#field_pwd1(title='Password must contain at least 6 characters, including UPPER/lowercase and numbers..', type='password', required='', pattern='.{6,}', name='pwd1')
+							label(class='field' for='oldpw') Confirm Password:
+							input#field_pwd2(title='Please enter the same Password.', type='password', required='', pattern='.{6,}', name='pwd2')
+			div.rowborder#submitthis
 
 block scripts			
 	script(src='js/profile.js')
